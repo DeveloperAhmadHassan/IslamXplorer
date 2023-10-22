@@ -101,6 +101,9 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               'Hello World 4(Dummy)',
             ),
+            Text(
+              'Hello World 5(Git Dummy)',
+            ),
           ],
         ),
       ) // This trailing comma makes auto-formatting nicer for build methods.
