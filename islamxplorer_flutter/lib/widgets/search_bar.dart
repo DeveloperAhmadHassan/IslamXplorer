@@ -8,6 +8,7 @@ class CustomSearchBar extends StatelessWidget{
         height: 60,
         child: TextField (
           decoration: InputDecoration(
+              hintText: "Search",
               filled: true,
               fillColor: const Color.fromRGBO(255, 249, 197, 1),
               border: OutlineInputBorder(
@@ -44,8 +45,6 @@ class CustomSearchBar extends StatelessWidget{
                   fit: BoxFit.fill,
                 ),
               ),
-              //TODO: See how to put "Text Hint" in Text field
-              prefixText: "Search"
           ),
         ),
     );

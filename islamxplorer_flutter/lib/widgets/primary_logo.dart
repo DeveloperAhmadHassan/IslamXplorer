@@ -6,8 +6,8 @@ class PrimaryLogo extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return SizedBox(
-      height: 300,
+    return Container(
+      width: 290,
       child:Image.asset('assets/default.png'),
     );
   }

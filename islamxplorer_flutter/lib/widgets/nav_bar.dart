@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:islamxplorer_flutter/pages/HomePage.dart';
-import 'package:islamxplorer_flutter/pages/IntroPage.dart';
+import 'package:islamxplorer_flutter/pages/DuaPage.dart';
 import 'package:islamxplorer_flutter/pages/NewPage.dart';
 
 class BotNavBar extends StatefulWidget{
@@ -87,7 +87,7 @@ class BotNavBarState extends State<BotNavBar> with TickerProviderStateMixin{
   }
 
   final _pageOptions=[
-    IntroPage(),
+    DuaPage(),
     HomePage(),
     NewPage()
   ];

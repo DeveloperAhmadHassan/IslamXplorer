@@ -31,8 +31,8 @@ class _MyPageState extends State<MyPage>  {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: BotNavBar()
+    return const SizedBox(
+      child: BotNavBar()
     );
   }
 }

@@ -7,20 +7,20 @@ class HomePage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-
-    // TODO: implement build
     return Scaffold(
-      backgroundColor: Colors.green,
+      backgroundColor: const Color.fromRGBO(255, 200, 62, 1.0),
       
       body: Center(
+
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const PrimaryLogo(),
-            CustomSearchBar()
+            CustomSearchBar(),
           ],
         ),
       )
-      
     );
   }
   
