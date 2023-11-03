@@ -5,8 +5,6 @@ class DuaPage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    var dua_num = 0;
     return Scaffold(
       backgroundColor: Color.fromRGBO(255, 200, 62, 1.0),
       appBar: AppBar(
@@ -26,7 +24,7 @@ class DuaPage extends StatelessWidget{
         padding: const EdgeInsets.all(10.0),
         child: GridView.count(
           crossAxisCount: 2,
-          childAspectRatio: (190 / 260),
+          childAspectRatio: (190 / 300),
           children: [
             for(var i=0;i<7;i++)
               DuaCard(),

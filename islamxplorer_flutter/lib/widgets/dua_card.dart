@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:islamxplorer_flutter/widgets/new_tag.dart';
 
 class DuaCard extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     var dua_num=0;
+    var new_dua;
     return Card(
       elevation: 12,
       shadowColor: Colors.black,
@@ -33,40 +35,38 @@ class DuaCard extends StatelessWidget{
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      color: Colors.lightBlue,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Text(
-                      "New",
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  Icon(Icons.favorite_border, color: Colors.red,)
-                ],
-              ),
               Container(
-                height: 140,
-                width: 180,
-                child: Image.asset("assets/sleep.png"),
+                padding: const EdgeInsets.all(8.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.amberAccent,
+                ),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        new_dua ? const NewTag() : Container(),
+                        Icon(Icons.favorite_border, color: Colors.red,)
+                      ],
+                    ),
+                    SizedBox(
+                      height: 140,
+                      width: 180,
+                      child: Image.asset("assets/sleep.png"),
+                    ),
+                  ],
+                ),
               ),
               Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   "Supplication Title",
                   style: TextStyle(
-                      fontSize: 17,
+                      fontSize: 18,
                       color: Colors.deepPurple,
-                      fontWeight: FontWeight.bold
+                      fontWeight: FontWeight.bold,
+                    fontFamily: 'IBMPlexMono'
                   ),
                 ),
               ),
@@ -79,11 +79,12 @@ class DuaCard extends StatelessWidget{
                     Container(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Duas: $dua_num",
+                        "$dua_num Duas",
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 17,
                           color: Colors.indigo,
                           fontWeight: FontWeight.bold,
+                          fontFamily: 'IBMPlexMono'
                         ),
                       ),
                     ),
