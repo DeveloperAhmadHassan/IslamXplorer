@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:islamxplorer_flutter/pages/SignInPage.dart';
 import 'package:islamxplorer_flutter/widgets/nav_bar.dart';
 
 void main() {
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyPage(),
+      home: const SignInPage(),
     );
   }
 }
