@@ -5,7 +5,7 @@ class DuaCard extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     var dua_num=0;
-    var new_dua;
+    var new_dua=false;
     return Card(
       elevation: 12,
       shadowColor: Colors.black,

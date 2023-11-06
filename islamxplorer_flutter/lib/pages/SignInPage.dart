@@ -1,14 +1,46 @@
+// import 'dart:js';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:islamxplorer_flutter/main.dart';
+import 'package:islamxplorer_flutter/pages/HomePage.dart';
+import 'package:islamxplorer_flutter/pages/SignUpPage.dart';
 import 'package:islamxplorer_flutter/widgets/custom_button.dart';
 import 'package:islamxplorer_flutter/widgets/custom_text.dart';
 import 'package:islamxplorer_flutter/widgets/custom_textfield.dart';
 import 'package:islamxplorer_flutter/widgets/primary_logo.dart';
 
-class SignInPage extends StatelessWidget{
-  const SignInPage({super.key});
+class SignInPage extends StatefulWidget{
+  @override
+  State<SignInPage> createState() => _SignInPageState();
+}
 
-  onTap(String text){
-    print("$text PRESSED!");
+class _SignInPageState extends State<SignInPage> {
+  TextEditingController _emailEditingController = TextEditingController();
+
+  TextEditingController _passwordEditingController = TextEditingController();
+
+  // const SignInPage({super.key});
+
+  void login() async{
+    String email = _emailEditingController.text.trim();
+    String password = _passwordEditingController.text.trim();
+
+    try{
+      UserCredential userCredential = await FirebaseAuth.instance.
+      signInWithEmailAndPassword(email: email, password: password);
+
+      if(userCredential.user!=null){
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>MyPage()));
+      }
+    }on FirebaseAuthException catch(e){
+      print(e.code.toString());
+    }
+  }
+
+  onTap(){
+    print("BUTTON PRESSED!");
+    // Navigator.push(context, MaterialPageRoute(builder: (context) =>  SignUpPage()));
   }
 
   @override
@@ -36,16 +68,16 @@ class SignInPage extends StatelessWidget{
                   height: 40,
                 ),
                 CustomText("Username or Email",20, bold: true,),
-                CustomTextfield(const Icon(Icons.email_outlined, color: Colors.black,), "john@gmail.com", false),
+                CustomTextfield(const Icon(Icons.email_outlined, color: Colors.black,), "john@gmail.com", false, _emailEditingController),
                 Container(
                   height: 20,
                 ),
                 CustomText("Password",20, bold: true,),
-                CustomTextfield(const Icon(Icons.lock_outline, color: Colors.black,), "**********", true),
+                CustomTextfield(const Icon(Icons.lock_outline, color: Colors.black,), "**********", true, _passwordEditingController),
                 Container(
                   height: 20,
                 ),
-                CustomButton("LOG IN", onTap),
+                CustomButton("LOG IN", login),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -61,5 +93,4 @@ class SignInPage extends StatelessWidget{
       )
     );
   }
-
 }

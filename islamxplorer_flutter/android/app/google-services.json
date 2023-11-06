@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "89245412373",
+    "project_id": "islamxplorer",
+    "storage_bucket": "islamxplorer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:89245412373:android:99fd86b41364a3d519f21c",
+        "android_client_info": {
+          "package_name": "com.islamxplorer.islamxplorer_flutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBG3mjUJ9We-UqzPFsxm6ylCo3n28N-lXI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

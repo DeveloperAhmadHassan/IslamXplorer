@@ -7,12 +7,18 @@ class CustomText extends StatelessWidget{
   bool underline;
   Color color;
 
-  CustomText(String this.text, this.fontSize, {this.bold=false, this.underline=false, this.color=Colors.black, super.key});
+  Function? onTap;
+
+  CustomText(String this.text, this.fontSize, {this.bold=false, this.underline=false, this.color=Colors.black, this.onTap, super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40,
+      // height: 40,
+      constraints: BoxConstraints(
+        // maxHeight: 80,
+        minHeight: 40,
+      ),
       alignment: Alignment.topLeft,
       child: Text("$text", style: TextStyle(
         fontSize: fontSize,

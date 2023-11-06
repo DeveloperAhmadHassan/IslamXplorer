@@ -6,11 +6,15 @@ class CustomTextfield extends StatelessWidget{
   String? hintText;
   bool isPassword=false;
 
-  CustomTextfield(Icon this.icon, String this.hintText, this.isPassword, {super.key});
+  final TextEditingController? _textEditingController;
+
+  CustomTextfield(Icon this.icon, String this.hintText, this.isPassword, this._textEditingController, {super.key});
 
   @override
   Widget build(BuildContext context) {
+
     return TextField (
+      controller: _textEditingController,
       obscureText: isPassword,
       enableSuggestions: !isPassword,
       autocorrect: !isPassword,
