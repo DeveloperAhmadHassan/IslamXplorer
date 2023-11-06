@@ -38,9 +38,8 @@ class _SignInPageState extends State<SignInPage> {
     }
   }
 
-  onTap(){
-    print("BUTTON PRESSED!");
-    // Navigator.push(context, MaterialPageRoute(builder: (context) =>  SignUpPage()));
+  void openSignUp(){
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SignUpPage()));
   }
 
   @override
@@ -83,7 +82,7 @@ class _SignInPageState extends State<SignInPage> {
                   children: [
                     CustomText("Don't have an account?", 18, bold: true,color: Colors.black54),
                     Container(width: 10,),
-                    CustomText("Sign Up", 18, bold: true, underline: true,),
+                    CustomText("Sign Up", 18, bold: true, underline: true,onTap: openSignUp,),
                   ],
                 )
               ],

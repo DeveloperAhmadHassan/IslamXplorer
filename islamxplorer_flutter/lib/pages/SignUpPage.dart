@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:islamxplorer_flutter/pages/EmailVerificationPage.dart';
 import 'package:islamxplorer_flutter/pages/HomePage.dart';
+import 'package:islamxplorer_flutter/pages/SignInPage.dart';
 
 import '../widgets/custom_button.dart';
 import '../widgets/custom_text.dart';
@@ -20,27 +22,43 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController _passwordEditingController = new TextEditingController();
   TextEditingController _confirmPasswordEditingController = new TextEditingController();
 
-  void createAccount() async{
+  Future<void> createAccount() async {
     String email = _emailEditingController.text.trim();
+    String username = _usernameEditingController.text.trim();
     String password = _passwordEditingController.text.trim();
     String confirmPassword = _confirmPasswordEditingController.text.trim();
 
-    print("Email:$email\nPassword:$password");
+    print("Email: $email\nPassword: $password");
 
     try {
-      UserCredential userCredential = await FirebaseAuth.instance.
-      createUserWithEmailAndPassword(email: email, password: password);
-      if(userCredential.user != null){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>const EmailVerificationScreen()));
+      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
+      final user = userCredential.user;
+      if (user != null) {
+        await addInitialUserDetails(email, username, user.uid);
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const EmailVerificationScreen()));
       }
-    }on FirebaseAuthException catch(e){
-      print(e.code.toString());
+    } catch (e) {
+      print(e.toString());
     }
   }
 
-  onTap(String text, BuildContext context){
-    print("$text PRESSED!");
-    Navigator.push(context, MaterialPageRoute(builder: (context) =>  SignUpPage()));
+  Future<void> addInitialUserDetails(String email, String username, String? uid) async {
+    try {
+      var db = FirebaseFirestore.instance;
+      await db.collection('Users').doc(uid).set({
+        "id":uid,
+        "email": email,
+        "username": username,
+      });
+      print('User details added to Firestore');
+    } catch (e) {
+      print('Error adding user details: $e');
+    }
+  }
+
+
+  void openSignIn(){
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SignInPage()));
   }
 
   @override
@@ -93,7 +111,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       children: [
                         CustomText("Already have an account?", 18, bold: true,color: Colors.black54),
                         Container(width: 10,),
-                        CustomText("Login", 18, bold: true, underline: true,),
+                        CustomText("Login", 18, bold: true, underline: true,onTap: openSignIn,),
                       ],
                     )
                   ],
