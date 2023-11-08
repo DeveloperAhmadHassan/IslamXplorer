@@ -2,6 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:islamxplorer_flutter/main.dart';
 import 'package:islamxplorer_flutter/pages/HomePage.dart';
 import 'package:islamxplorer_flutter/pages/SignUpPage.dart';
@@ -9,6 +10,8 @@ import 'package:islamxplorer_flutter/widgets/custom_button.dart';
 import 'package:islamxplorer_flutter/widgets/custom_text.dart';
 import 'package:islamxplorer_flutter/widgets/custom_textfield.dart';
 import 'package:islamxplorer_flutter/widgets/primary_logo.dart';
+import 'package:islamxplorer_flutter/widgets/sign_in_provider_button.dart';
+import 'package:islamxplorer_flutter/widgets/sign_in_providers.dart';
 
 class SignInPage extends StatefulWidget{
   @override
@@ -77,6 +80,8 @@ class _SignInPageState extends State<SignInPage> {
                   height: 20,
                 ),
                 CustomButton("LOG IN", login),
+                SignInProviders(),
+                Container(height: 20,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -84,7 +89,8 @@ class _SignInPageState extends State<SignInPage> {
                     Container(width: 10,),
                     CustomText("Sign Up", 18, bold: true, underline: true,onTap: openSignUp,),
                   ],
-                )
+                ),
+
               ],
             ),
           ),

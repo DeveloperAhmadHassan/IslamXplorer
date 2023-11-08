@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:islamxplorer_flutter/pages/EmailVerificationPage.dart';
 import 'package:islamxplorer_flutter/pages/HomePage.dart';
 import 'package:islamxplorer_flutter/pages/SignInPage.dart';
+import 'package:islamxplorer_flutter/widgets/sign_in_providers.dart';
 
 import '../widgets/custom_button.dart';
 import '../widgets/custom_text.dart';
@@ -86,7 +87,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     CustomText("Welcome", 48, color: Colors.deepOrange,),
                     CustomText("Email or Phone",20, bold: true,),
-                    CustomTextfield(const Icon(Icons.email_outlined, color: Colors.black,), "john@gmail.com", false, _emailEditingController),
+                    CustomTextfield(const Icon(Icons.email_outlined, color: Colors.black,), "john@gmail.com", false, isEmail: true,_emailEditingController),
                     Container(
                       height: 20,
                     ),
@@ -105,7 +106,8 @@ class _SignUpPageState extends State<SignUpPage> {
                     Container(
                       height: 20,
                     ),
-                CustomButton("SIGN UP", createAccount),
+                    CustomButton("SIGN UP", createAccount),
+                    SignInProviders(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

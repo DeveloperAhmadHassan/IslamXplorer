@@ -7,12 +7,11 @@ import 'package:islamxplorer_flutter/widgets/search_bar.dart';
 class HomePage extends StatelessWidget{
   const HomePage({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     String? name;
     var user = FirebaseAuth.instance.currentUser;
-    name = user!.uid;
+    name = user!.displayName;
     return Scaffold(
       backgroundColor: const Color.fromRGBO(255, 200, 62, 1.0),
       
