@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:islamxplorer_flutter/pages/HomePage.dart';
 import 'package:islamxplorer_flutter/pages/DuaPage.dart';
-import 'package:islamxplorer_flutter/pages/NewPage.dart';
+import 'package:islamxplorer_flutter/pages/ProfilePage.dart';
+
 
 class BotNavBar extends StatefulWidget{
   const BotNavBar({super.key});
@@ -89,7 +90,7 @@ class BotNavBarState extends State<BotNavBar> with TickerProviderStateMixin{
   final _pageOptions=[
     DuaPage(),
     HomePage(),
-    NewPage()
+    ProfilePage()
   ];
 
   @override
