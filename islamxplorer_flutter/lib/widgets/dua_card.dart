@@ -5,7 +5,11 @@ class DuaCard extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     var dua_num=0;
+<<<<<<< HEAD
     var new_dua = false;
+=======
+    var new_dua=false;
+>>>>>>> auth_branch
     return Card(
       elevation: 12,
       shadowColor: Colors.black,
