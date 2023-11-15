@@ -1,8 +1,3 @@
-from flask import Flask, redirect, url_for, request, Response
-
-app = Flask(__name__)
-
-
 from neo4j import GraphDatabase
 import json
 
@@ -68,27 +63,3 @@ with GraphDatabase.driver(URI, auth=AUTH) as driver:
 
     # session.close()
     driver.close()
-
-
-@app.route('/')
-def root():
-    return Response(Y, mimetype="text/json",), 200
-
-
-@app.route('/success/<name>')
-def success(name):
-    return 'welcome %s' % name
-
-
-@app.route('/login', methods=['POST', 'GET'])
-def login():
-    if request.method == 'POST':
-        user = request.form['nm']
-        return redirect(url_for('success', name=user))
-    else:
-        user = request.args.get('nm')
-        return redirect(url_for('success', name=user))
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
