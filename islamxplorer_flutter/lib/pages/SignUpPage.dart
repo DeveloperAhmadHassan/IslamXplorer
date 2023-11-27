@@ -36,6 +36,25 @@ class _SignUpPageState extends State<SignUpPage> {
       final user = userCredential.user;
       if (user != null) {
         await addInitialUserDetails(email, username, user.uid);
+
+        for (final providerProfile in user.providerData) {
+          // ID of the provider (google.com, apple.com, etc.)
+          final provider = providerProfile.providerId;
+          print("Provider: $provider");
+
+          // UID specific to the provider
+          final uid = providerProfile.uid;
+          print("UID: $uid");
+
+          // Name, email address, and profile photo URL
+          final name = providerProfile.displayName;
+          print("Name: $name");
+          final emailAddress = providerProfile.email;
+          print("email: $emailAddress");
+          final profilePhoto = providerProfile.photoURL;
+          print("pp: $profilePhoto");
+        }
+
         Navigator.push(context, MaterialPageRoute(builder: (context) => const EmailVerificationScreen()));
       }
     } catch (e) {
@@ -50,6 +69,7 @@ class _SignUpPageState extends State<SignUpPage> {
         "id":uid,
         "email": email,
         "username": username,
+        // "profile_image":
       });
       print('User details added to Firestore');
     } catch (e) {

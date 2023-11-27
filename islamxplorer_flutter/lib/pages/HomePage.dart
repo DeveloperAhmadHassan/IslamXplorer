@@ -12,7 +12,7 @@ class HomePage extends StatelessWidget{
   Widget build(BuildContext context) {
     String? name;
     var user = FirebaseAuth.instance.currentUser;
-    name = user!.displayName;
+    name = user!.email;
 
     void onTap(){
       Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchingPage()));
