@@ -5,15 +5,12 @@ import 'package:get/get.dart';
 import 'package:islamxplorer_flutter/pages/UpdateProfilePage.dart';
 import 'package:islamxplorer_flutter/widgets/custom_button.dart';
 import 'package:islamxplorer_flutter/widgets/custom_text.dart';
+import 'package:islamxplorer_flutter/widgets/profile_photo.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 class ProfilePage extends StatelessWidget{
+  const ProfilePage({super.key});
 
-  // getProfileImage(){
-  //   if(FirebaseAuth.instance.currentUser?.photoURL != null){
-  //     return Image.network(FirebaseAuth.instance.currentUser?.photoURL)
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -53,18 +50,7 @@ class ProfilePage extends StatelessWidget{
             children: [
               Stack(
                 children: [
-                  Container(
-                    width: 140,
-                    height: 140,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      border: Border.all(width: 7, color: Colors.amberAccent)
-                    ),
-                    child: ClipRRect(
-                        borderRadius: BorderRadius.circular(100),
-                        child: profileImage
-                    )
-                  ),
+                  ProfilePhoto(profileImage: profileImage, size: 140,),
                   Positioned(
                     bottom: 4,
                     right: 10,

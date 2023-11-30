@@ -44,6 +44,10 @@ dependencies:
   google_sign_in: ^6.1.5
   get: ^4.6.6
   intl: ^0.18.1
+  flutter_qiblah: ^2.2.0
+  geolocator: ^9.0.2
+  flutter_svg: ^2.0.9
+  http: ^1.1.0
 
 dev_dependencies:
   flutter_test:

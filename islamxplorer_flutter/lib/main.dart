@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:islamxplorer_flutter/pages/HomePage.dart';
 import 'package:islamxplorer_flutter/pages/ProfilePage.dart';
+import 'package:islamxplorer_flutter/pages/SearchItemPage.dart';
 import 'package:islamxplorer_flutter/pages/SearchResultsPage.dart';
 import 'package:islamxplorer_flutter/pages/SearchingPage.dart';
 import 'package:islamxplorer_flutter/pages/SignInPage.dart';
 import 'package:islamxplorer_flutter/pages/SignUpPage.dart';
+import 'package:islamxplorer_flutter/qiblah/qiblah_main.dart';
 import 'package:islamxplorer_flutter/widgets/nav_bar.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -59,13 +61,14 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: SignInPage(),
+      home: SearchItemPage(),
     );
   }
 }
 
 class MyPage extends StatefulWidget {
-  const MyPage({super.key});
+  int state;
+  MyPage({this.state = 0,super.key});
 
   @override
   State<MyPage> createState() => _MyPageState();
@@ -75,8 +78,8 @@ class _MyPageState extends State<MyPage>  {
 
   @override
   Widget build(BuildContext context) {
-    return const SizedBox(
-      child: BotNavBar()
+    return SizedBox(
+      child: BotNavBar(state: widget.state)
     );
   }
 }

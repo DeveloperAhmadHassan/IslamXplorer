@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:islamxplorer_flutter/widgets/new_tag.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 class DuaCard extends StatelessWidget{
   @override
@@ -38,7 +39,7 @@ class DuaCard extends StatelessWidget{
               Container(
                 padding: const EdgeInsets.all(8.0),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(15),
                   color: Colors.amberAccent,
                 ),
                 child: Column(
@@ -47,7 +48,7 @@ class DuaCard extends StatelessWidget{
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         new_dua ? const NewTag() : Container(),
-                        Icon(Icons.favorite_border, color: Colors.red,)
+                        Icon(Icons.favorite_border_outlined, color: Colors.red,)
                       ],
                     ),
                     SizedBox(

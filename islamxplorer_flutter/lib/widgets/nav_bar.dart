@@ -5,7 +5,8 @@ import 'package:islamxplorer_flutter/pages/ProfilePage.dart';
 
 
 class BotNavBar extends StatefulWidget{
-  const BotNavBar({super.key});
+  int state;
+  BotNavBar({this.state=0, super.key});
 
   @override
   State<StatefulWidget> createState() {
@@ -43,6 +44,7 @@ class BotNavBarState extends State<BotNavBar> with TickerProviderStateMixin{
         vsync: this, duration: const Duration(milliseconds: 375));
 
     super.initState();
+    selected = widget.state;
   }
 
   @override
