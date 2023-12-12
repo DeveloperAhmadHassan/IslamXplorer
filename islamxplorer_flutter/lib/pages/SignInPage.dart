@@ -30,8 +30,7 @@ class _SignInPageState extends State<SignInPage> {
     String password = _passwordEditingController.text.trim();
 
     try{
-      UserCredential userCredential = await FirebaseAuth.instance.
-      signInWithEmailAndPassword(email: email, password: password);
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
 
       if(userCredential.user!=null){
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>MyPage()));

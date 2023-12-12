@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/dummy_search_bar.dart';
+
 class NewPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
@@ -11,12 +13,8 @@ class NewPage extends StatelessWidget{
         title: Text("New Page"),
         backgroundColor: Colors.deepPurple,
       ),
-      body: const Center(
-        child: Column(
-          children: [
-            Text("Hello from New Page")
-          ],
-        ),
+      body: Center(
+        child: DummySearchBar(),
       ),
     );
   }

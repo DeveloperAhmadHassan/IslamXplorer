@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:islamxplorer_flutter/pages/SearchingPage.dart';
 import 'package:islamxplorer_flutter/widgets/custom_text.dart';
+import 'package:islamxplorer_flutter/widgets/dummy_search_bar.dart';
 import 'package:islamxplorer_flutter/widgets/home_appbar.dart';
 import 'package:islamxplorer_flutter/widgets/primary_logo.dart';
 import 'package:islamxplorer_flutter/widgets/search_bar.dart';
@@ -30,9 +31,7 @@ class HomePage extends StatelessWidget{
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const PrimaryLogo(),
-            CustomSearchBar(
-              onTap: onTap
-            ),
+            DummySearchBar()
             // CustomText("$name",24),
           ],
         ),

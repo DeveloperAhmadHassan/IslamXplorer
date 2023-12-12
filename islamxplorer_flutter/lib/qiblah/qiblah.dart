@@ -15,10 +15,7 @@ class _MyAppState extends State<MyQiblah> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      color: Colors.amberAccent,
-      home: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.amberAccent,
           title: const Text('Qiblah Direction'),
@@ -40,7 +37,7 @@ class _MyAppState extends State<MyQiblah> {
               return Center(child: Text("Nothingg to show"));
           },
         ),
-      ),
+
     );
   }
 }

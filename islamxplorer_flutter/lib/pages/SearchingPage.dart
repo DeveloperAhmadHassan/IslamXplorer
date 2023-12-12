@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:islamxplorer_flutter/pages/SearchResultsPage.dart';
 import 'package:islamxplorer_flutter/widgets/custom_text.dart';
 import 'package:islamxplorer_flutter/widgets/search_bar.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
@@ -33,7 +34,7 @@ class _SearchingPageState extends State<SearchingPage> {
       body: Column(
         children: [
           SizedBox(height: 50,),
-          CustomSearchBar(focus: focus,onTap: (){},),
+          CustomSearchBar(focus: focus,onTap: (){Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SearchResultsPage()));},),
           Expanded(
             child: Container(
               margin: EdgeInsets.all(10),
@@ -46,10 +47,10 @@ class _SearchingPageState extends State<SearchingPage> {
                 child: ListView(
                   shrinkWrap: true,
                   children: List.generate(
-                    100, // Increase the number of items to 100
+                    20, // Increase the number of items to 100
                         (index) => ListTile(
                       leading: Icon(LineAwesomeIcons.history),
-                      title: Text("This is the Search History Item $index"),
+                      title: Text("This is the Search History Item ${index+1}. This is very long", overflow: TextOverflow.ellipsis,),
                       trailing: Icon(LineAwesomeIcons.arrow_right),
                     ),
                   ),

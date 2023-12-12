@@ -1,0 +1,132 @@
+<diagram program="umletino" version="15.1"><zoom_level>5</zoom_level><element><id>UMLClass</id><coordinates><x>365</x><y>85</y><w>105</w><h>95</h></coordinates><panel_attributes>Verse
+--
+-id: String
+-arabicText: String
+-englishText: String
+--
+Verse.fromJson(Map json): factory
+getID(): String
+setID(String)
+getArabicText(): String
+setArabicText(String) 
+getEnglishText(): String
+setEnglishText(String) </panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>480</x><y>85</y><w>105</w><h>110</h></coordinates><panel_attributes>Hadith
+--
+-id: String
+-arabicText: String
+-englishText: String
+-hadithNumber: int
+-source: String
+--
+Hadith.fromJson(Map json): factory
+getID(): String
+setID(String)
+getArabicText(): String
+setArabicText(String) 
+getEnglishText(): String
+setEnglishText(String) </panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>595</x><y>85</y><w>105</w><h>95</h></coordinates><panel_attributes>Surah
+--
+-id: int
+-name: String
+-totalVerses: int
+-revelationPlace: String
+-verses: List&lt;Verse&gt;
+--
+Surah.fromJson(Map json): factory
+getID(): int
+setID(int)
+setVerses(List&lt;Verse&gt;)
+getVerses():List&lt;Verse&gt;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>210</x><y>90</y><w>105</w><h>115</h></coordinates><panel_attributes>Dua
+--
+-id: int
+-title: String
+-type: String
+-category: String
+-arabicText: String
+-englishText: String
+-explanation: String
+-reference:List&lt;String&gt;
+--
+Dua.fromJson(Map json): factory
+getID(): int
+setID(int)
+getArabicText(): String
+setArabicText(String)</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>215</x><y>240</y><w>105</w><h>85</h></coordinates><panel_attributes>User
+--
+-id: Long
+-name: String
+-contact: int
+-email: String
+-gender: String
+-type: char
+-imagePath: String
+--
+User(email: String)
+User(contact: int)
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>610</x><y>340</y><w>105</w><h>85</h></coordinates><panel_attributes>DuaController
+--
+response: Response
+--
+fetchDuas(): Future&lt;Dua&gt;
+fetchDuas(type: String): Future&lt;Dua&gt;
+fetchDuas(category: String): Future&lt;Dua&gt;
+fetchDuas(id: int): Future&lt;Dua&gt;
+fetchDuas(type: String): Future&lt;Dua&gt;
+
+updateDua(dua: Dua): Future&lt;Dua&gt;
+createDua(dua: Dua): Future&lt;Dua&gt;
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>725</x><y>360</y><w>150</w><h>35</h></coordinates><panel_attributes>SearchResultsController
+--
+response: Response
+--
+fetchResults(query: String): Future&lt;SearchResults&gt;
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>790</x><y>240</y><w>105</w><h>70</h></coordinates><panel_attributes>SearchResults
+--
+-totalResults: int
+-timeTaken: Long
+-CipherQuery: String
+-userQuery: String
+-results: List&lt;SearchResultItem&gt;
+--
+SearchResults.fromJson(Map json): factory
+getResults(): List&lt;SearchResultItem&gt;
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>550</x><y>15</y><w>105</w><h>30</h></coordinates><panel_attributes>&lt;&lt;Interface&gt;&gt;
+SearchResultItem
+--
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>710</x><y>85</y><w>105</w><h>80</h></coordinates><panel_attributes>GoogleResult
+--
+-id: int
+-link: String
+-icon: Icon
+--
+GoogleResult.fromJson(Map json): factory
+getLink(): String
+getID(): int</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>615</x><y>200</y><w>105</w><h>30</h></coordinates><panel_attributes>&lt;&lt;Interface&gt;&gt;
+Controller
+--
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>470</x><y>340</y><w>130</w><h>55</h></coordinates><panel_attributes>Auth
+--
+-userCredential: UserCredential
+-user: FirebaseAuth.instance.currentUser
+--
+signIn(email: String, password: string)
+signUp(email: String, password: string)
+signInWithGoogle()
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>350</x><y>340</y><w>105</w><h>50</h></coordinates><panel_attributes>FirestoreHandler
+--
+-db: FirebaseFirestore.instance
+--
+addInitialUserDetails(user:User)
+getUserDetails(id: int): User
+updateUserDetails(user: User)
+
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>615</x><y>270</y><w>105</w><h>30</h></coordinates><panel_attributes>&lt;&lt;Interface&gt;&gt;
+HTTPController
+--
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>660</x><y>295</y><w>15</w><h>55</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;10;10;90</additional_attributes></element><element><id>Relation</id><coordinates><x>675</x><y>295</y><w>115</w><h>75</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;10;10;60;210;60;210;130</additional_attributes></element><element><id>Relation</id><coordinates><x>660</x><y>225</y><w>15</w><h>55</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;10;10;90</additional_attributes></element><element><id>Relation</id><coordinates><x>520</x><y>225</y><w>135</w><h>125</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>250;10;250;60;10;60;10;230</additional_attributes></element><element><id>Relation</id><coordinates><x>375</x><y>225</y><w>260</w><h>125</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>500;10;500;50;10;50;10;230</additional_attributes></element><element><id>Relation</id><coordinates><x>595</x><y>40</y><w>65</w><h>55</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;10;10;60;110;60;110;90</additional_attributes></element><element><id>Relation</id><coordinates><x>610</x><y>40</y><w>165</w><h>55</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;10;10;50;310;50;310;90</additional_attributes></element><element><id>Relation</id><coordinates><x>525</x><y>40</y><w>75</w><h>55</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>130;10;130;60;10;60;10;90</additional_attributes></element><element><id>Relation</id><coordinates><x>410</x><y>40</y><w>175</w><h>55</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>330;10;330;50;10;50;10;90</additional_attributes></element><element><id>Relation</id><coordinates><x>650</x><y>25</y><w>230</w><h>225</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>440;430;440;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>250</x><y>320</y><w>295</w><h>155</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>570;150;570;290;10;290;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>270</x><y>320</y><w>145</w><h>130</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>270;140;270;240;10;240;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>90</x><y>155</y><w>595</w><h>380</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>1170;540;1170;740;20;740;10;10;240;10</additional_attributes></element><element><id>Relation</id><coordinates><x>835</x><y>305</y><w>15</w><h>65</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;110;10;10</additional_attributes></element></diagram>

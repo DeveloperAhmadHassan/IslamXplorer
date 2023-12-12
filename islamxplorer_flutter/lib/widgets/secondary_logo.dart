@@ -6,7 +6,8 @@ class SecondaryLogo extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 290,
+      height: 170,
+      padding: const EdgeInsets.only(top: 65),
       child:Image.asset('assets/secondary_logo.png'),
     );
   }

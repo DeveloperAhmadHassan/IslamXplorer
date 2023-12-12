@@ -2,13 +2,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:islamxplorer_flutter/pages/HomePage.dart';
+import 'package:islamxplorer_flutter/pages/NewPage.dart';
 import 'package:islamxplorer_flutter/pages/ProfilePage.dart';
 import 'package:islamxplorer_flutter/pages/SearchItemPage.dart';
 import 'package:islamxplorer_flutter/pages/SearchResultsPage.dart';
 import 'package:islamxplorer_flutter/pages/SearchingPage.dart';
 import 'package:islamxplorer_flutter/pages/SignInPage.dart';
 import 'package:islamxplorer_flutter/pages/SignUpPage.dart';
+import 'package:islamxplorer_flutter/qiblah/qiblah.dart';
 import 'package:islamxplorer_flutter/qiblah/qiblah_main.dart';
+import 'package:islamxplorer_flutter/widgets/dummy_search_bar.dart';
 import 'package:islamxplorer_flutter/widgets/nav_bar.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -61,7 +64,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: SearchItemPage(),
+      home: MyPage()
     );
   }
 }

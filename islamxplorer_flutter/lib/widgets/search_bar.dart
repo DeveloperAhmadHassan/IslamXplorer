@@ -26,20 +26,20 @@ class CustomSearchBar extends StatelessWidget {
             filled: true,
             fillColor: const Color.fromRGBO(255, 249, 197, 1),
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(100),
               borderSide: const BorderSide(
                 color: Color.fromRGBO(255, 249, 197, 1),
                 width: 10,
               ),
             ),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(100),
               borderSide: const BorderSide(
                 color: Color.fromRGBO(255, 249, 197, 1),
               ),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(100),
               borderSide: const BorderSide(
                 color: Color.fromRGBO(255, 249, 197, 1),
               ),

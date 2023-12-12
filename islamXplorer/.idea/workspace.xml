@@ -5,17 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5b725d72-cbff-48c8-89dd-d50a571af1ef" name="Changes" comment="Further learning in Flask + Connection with Neo4j">
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/android/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/android/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/DuaPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/DuaPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/HomePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/HomePage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/ProfilePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/ProfilePage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/widgets/dua_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/widgets/dua_card.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/widgets/nav_bar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/widgets/nav_bar.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/SearchItemPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/SearchItemPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/SignInPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/SignInPage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/pubspec.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/windows/flutter/generated_plugins.cmake" afterDir="false" />
     </list>
@@ -38,6 +31,9 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2Y9nKV3bog34DsdZhCAFSEtgWs5" />
   <component name="ProjectViewState">

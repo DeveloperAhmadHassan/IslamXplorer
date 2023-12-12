@@ -31,9 +31,9 @@ class _QiblahCompassState extends State<QiblahCompass> {
   @override
   Widget build(BuildContext context) {
     return Container(
-
       alignment: Alignment.center,
       padding: const EdgeInsets.all(8.0),
+      color: Colors.lightBlue,
       child: StreamBuilder(
         stream: stream,
         builder: (context, AsyncSnapshot<LocationStatus> snapshot) {
