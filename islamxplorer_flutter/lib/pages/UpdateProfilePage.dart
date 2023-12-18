@@ -1,6 +1,11 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:islamxplorer_flutter/Controllers/userDataController.dart';
+import 'package:islamxplorer_flutter/models/user.dart';
 import 'package:islamxplorer_flutter/widgets/custom_button.dart';
 import 'package:islamxplorer_flutter/widgets/custom_text.dart';
 import 'package:islamxplorer_flutter/widgets/custom_textfield.dart';
@@ -8,36 +13,60 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
 class UpdateProfilePage extends StatefulWidget{
+  const UpdateProfilePage({super.key});
+
 
   @override
   State<UpdateProfilePage> createState() => _UpdateProfilePageState();
 }
 
 class _UpdateProfilePageState extends State<UpdateProfilePage> {
-  TextEditingController nameTextEditingController = TextEditingController();
-  TextEditingController dateinput = TextEditingController();
-  var user = FirebaseAuth.instance.currentUser;
+  TextEditingController userNameTextEditingController = TextEditingController();
+  TextEditingController dateInput = TextEditingController();
+  TextEditingController phoneTextEditingController = TextEditingController();
+  TextEditingController emailTextEditingController = TextEditingController();
+
+  UserDataController userDataController = UserDataController();
+
+  AppUser user = AppUser();
+  late File? pickedImage;
+
+  @override
+  void initState() {
+    super.initState();
+    print("initState");
+    fetchUserData();
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    String? photoUrl = user?.photoURL;
-    String? email = user?.email;
+    // user = userDataController.getUserData() as AppUser;
+    // String? photoUrl = user?.profilePic as String?;
+    // String? email = user?.email;
+    //
+    // String userEmail = email != null
+    //     ? email.toString()
+    //     : "john123@gmail.com";
+    // emailTextEditingController.text = userEmail;
+    //
+    // String? name = user?.userName;
+    // String userName = name != null
+    //     ? name.toString()
+    //     : "John Doe";
+    // userNameTextEditingController.text = userName;
+    //
+    // String? phone = user?.phone;
+    // String userPhone = phone != null
+    //     ? phone.toString()
+    //     : "0331 4477744";
+    // phoneTextEditingController.text = userPhone;
 
-    String userEmail = email != null
-        ? email.toString()
-        : "john123@gmail.com";
+    String userEmail = "";
+    String userName = "";
+    String userPhone = "";
 
-    String? name = user?.displayName;
-
-    String userName = name != null
-        ? name.toString()
-        : "John Doe";
-
-    String? phone = user?.phoneNumber;
-
-    String userPhone = phone != null
-        ? phone.toString()
-        : "0331 4477744";
+    String? photoUrl;
 
     Widget profileImage = photoUrl != null
         ? Image.network(photoUrl, fit: BoxFit.fill,)
@@ -83,10 +112,13 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                         borderRadius: BorderRadius.circular(100),
                         color: Colors.amberAccent
                       ),
-                      child: const Icon(
-                        LineAwesomeIcons.alternate_pencil,
-                        color: Colors.black,
-                        size: 20,
+                      child: GestureDetector(
+                        onTap: _pickImage,
+                        child: const Icon(
+                          LineAwesomeIcons.alternate_pencil,
+                          color: Colors.black,
+                          size: 20,
+                        ),
                       ),
                     ),
                   )
@@ -101,7 +133,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                         Icon(LineAwesomeIcons.user),
                         userName,
                         false,
-                        nameTextEditingController
+                        userNameTextEditingController
                       ),
                       SizedBox(height: 25,),
                       CustomText("Email", 20, bold: true,),
@@ -109,7 +141,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                           Icon(LineAwesomeIcons.envelope_1),
                           userEmail,
                           false,
-                          nameTextEditingController
+                          emailTextEditingController
                       ),
                       SizedBox(height: 25,),
                       CustomText("Phone No", 20, bold: true,),
@@ -117,7 +149,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                           Icon(LineAwesomeIcons.phone),
                           userPhone,
                           false,
-                          nameTextEditingController
+                          phoneTextEditingController
                       ),
                       SizedBox(height: 25,),
                       CustomText("Birth Date", 20, bold: true,),
@@ -125,7 +157,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                           Icon(LineAwesomeIcons.calendar_1),
                           "Enter Date",
                           false,
-                          dateinput,
+                          dateInput,
                           onTap: () async {
                             DateTime? pickedDate = await showDatePicker(
                                 context: context, initialDate: DateTime.now(),
@@ -139,7 +171,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                               print(formattedDate);
 
                               setState(() {
-                                dateinput.text = formattedDate;//set output date to TextField value.
+                                dateInput.text = formattedDate;//set output date to TextField value.
                               });
                             }else{
                               print("Date is not selected");
@@ -150,7 +182,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                     ],
                   )
               ),
-              CustomButton("Update Profile", (){}),
+              CustomButton("Update Profile", updateProfile),
 
             ],
           ),
@@ -159,15 +191,46 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     );
   }
 
-  // Future _selectDate() async {
-  //   DateTime? picked = await showDatePicker(
-  //     context: context,
-  //     initialDate: new DateTime.now(),
-  //     firstDate: new DateTime(2016),
-  //     lastDate: new DateTime(2019),
-  //   );
-  //   if(picked != null) setState(() => _value = picked.toString());
-  // }
+  void updateProfile(){
+    String userName = userNameTextEditingController.text;
+    String phone = phoneTextEditingController.text;
+    String email = emailTextEditingController.text;
+    String birthdate = dateInput.text;
+    String? uid = user?.uid;
+
+    AppUser appUser = AppUser(uid: uid, email: email, phone: phone, userName: userName, birthdate: birthdate);
+    userDataController.addUserToFirestore(appUser);
+    Navigator.pop(context);
+  }
+
+  Future<void> fetchUserData() async {
+    AppUser? userData = await userDataController.getUserData();
+    if (userData != null) {
+      setState(() {
+        user = userData;
+        populateTextFields();
+      });
+    } else {
+      // Handle the case when user data is not available
+    }
+  }
+  void populateTextFields() {
+    emailTextEditingController.text = user.email!;
+    userNameTextEditingController.text = user.userName!;
+    phoneTextEditingController.text = user.phone!;
+    dateInput.text = user.birthdate!;
+  }
+
+  Future<void> _pickImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      setState(() {
+        pickedImage = File(pickedFile.path);
+      });
+    }
+  }
 }
 
 class ProfileMenuWidget extends StatelessWidget {

@@ -9,8 +9,8 @@ import 'package:islamxplorer_flutter/pages/SearchResultsPage.dart';
 import 'package:islamxplorer_flutter/pages/SearchingPage.dart';
 import 'package:islamxplorer_flutter/pages/SignInPage.dart';
 import 'package:islamxplorer_flutter/pages/SignUpPage.dart';
-import 'package:islamxplorer_flutter/qiblah/qiblah.dart';
-import 'package:islamxplorer_flutter/qiblah/qiblah_main.dart';
+import 'package:islamxplorer_flutter/qiblah/qiblah_widget.dart';
+import 'package:islamxplorer_flutter/qiblah/QiblaPage.dart';
 import 'package:islamxplorer_flutter/widgets/dummy_search_bar.dart';
 import 'package:islamxplorer_flutter/widgets/nav_bar.dart';
 
@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: MyPage()
+      home: SignInPage()
     );
   }
 }
