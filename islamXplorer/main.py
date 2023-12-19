@@ -5,35 +5,71 @@ from neo4j import GraphDatabase
 
 from models.surah import Surah
 from models.verse import Verse
-from utils.utils import getUniqueSurahs, groupVerses, setSurahAndVerseJson, setSurahJson
+from models.hadith import Hadith
+from utils.utils import getUniqueSurahs, getUniqueVerses, getUniqueHadiths, groupVerses, setSurahAndVerseJson, setSurahJson, createDataJSON
 
 app = Flask(__name__)
-
 
 with GraphDatabase.driver(constants.URI, auth=constants.AUTH) as driver:
     driver.verify_connectivity()
 
     records, summary, keys = driver.execute_query(
         "MATCH (v:Verse),(s:Surah)"
+        + "\nOPTIONAL MATCH (h:Hadith)"
         + "\nMATCH (v)-[:VERSE_OF]->(s)"
-        + "\nRETURN v.verseID as ID, v.englishText as EnglishText, v.arabicText as ArabicText,"
-        + "\ns.name as surahName, s.revelation_place as revealedIn, s.surah_number as surahNumber",
+        + "\nRETURN v.verseID as VerseID, v.englishText as VerseEnglishText, v.arabicText as VerseArabicText,"
+        + "\ns.name as surahName, s.revelation_place as revealedIn, s.surah_number as surahNumber,"
+        + "\nh.hadithID as HadithID, h.arabicText as HadithArabicText,h.englishText as HadithEnglishText,h.source as "
+          "HadithSource,h.narratedBy as HadithNarratedBy",
         database_="neo4j",
     )
 
     verses = []
     surahs = []
+    hadiths = []
+
+    dummy_verses=[]
+    dummy_hadiths = []
 
     for record in records:
-        surahs.append(Surah(record['surahName'], record['surahNumber'], record['revealedIn']))
-        verses.append(Verse(record['ID'], record['EnglishText'], record['ArabicText']))
+        surah = Surah(record['surahName'], record['surahNumber'], record['revealedIn'])
+        surahs.append(surah)
+        verses.append(Verse(record['VerseID'], record['VerseEnglishText'], record['VerseArabicText'], surah.name))
+        dummy_verses.append(record['VerseID'])
+        dummy_hadiths.append(record['HadithID'])
+        hadiths.append(Hadith(record['HadithID'], record['HadithEnglishText'], record['HadithArabicText'], record['HadithSource'], record['HadithNarratedBy']))
 
     surahs = getUniqueSurahs(surahs)
+    verses = getUniqueVerses(verses)
+    hadiths = getUniqueHadiths(hadiths)
     groupedVerses = groupVerses(verses)
     surahs = setSurahAndVerseJson(surahs, groupedVerses)
 
-    data = setSurahJson(surahs)
-    print(data)
+    results = createDataJSON(summary.query, summary.result_available_after, verses, hadiths)
+    print(results)
+
+    # results = (data, summary.query, len(records), summary.result_available_after)
+    # print(results)
+
+    print("TOTAL HADITHS: "+str(len(hadiths)))
+    print("TOTAL VERSES: " + str(len(verses)))
+    # for hadith in hadiths:
+    #     print(hadith)
+
+    unique_hadith_list = []
+    for item in dummy_hadiths:
+        if item not in unique_hadith_list:
+            unique_hadith_list.append(item)
+
+    unique_verse_list = []
+    for item in dummy_verses:
+        if item not in unique_verse_list:
+            unique_verse_list.append(item)
+    print("TOTAL UNIQUE VERSES: " + str(len(unique_verse_list)))
+    print("TOTAL UNIQUE HADITHS: "+str(len(unique_hadith_list)))
+    # for item in unique_list:
+    #     print(item)
+
 
     print()
     # Summary information
@@ -41,7 +77,7 @@ with GraphDatabase.driver(constants.URI, auth=constants.AUTH) as driver:
         query=summary.query, records_count=len(records),
         time=summary.result_available_after,
     ))
-    print(type(summary.result_available_after))
+    print(summary.result_available_after)
 
     # session.close()
     driver.close()
@@ -49,7 +85,7 @@ with GraphDatabase.driver(constants.URI, auth=constants.AUTH) as driver:
 
 @app.route('/')
 def root():
-    return Response(data, mimetype="text/json", ), 200
+    return Response(results, mimetype="text/json", ), 200
     # return 'Hello'
 
 

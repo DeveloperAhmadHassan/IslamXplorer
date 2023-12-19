@@ -1,9 +1,10 @@
-class Verse:
-    def __init__(self, verseID, englishText, arabicText, surah):
-        self.id = verseID
+class Hadith:
+    def __init__(self, hadithID, englishText, arabicText, source, narratedBy):
+        self.id = hadithID
         self.englishText = englishText
         self.arabicText = arabicText
-        self.surah = surah
+        self.source = source
+        self.narratedBy = narratedBy
 
     @property
     def __str__(self):
@@ -14,11 +15,12 @@ class Verse:
 
     def to_dict(self):
         return {
-            "type": "verse",
-            "verseID": self.id,
+            "type": "hadith",
+            "hadithID": self.id,
             "arabicText": self.arabicText,
             "englishText": self.englishText,
-            "surahName": self.surah
+            "source": self.source,
+            "narratedBy": self.narratedBy
         }
 
     # TODO:Setters and Getters for attributes
