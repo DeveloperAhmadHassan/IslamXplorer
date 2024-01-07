@@ -50,4 +50,4 @@ jobs:
         with:
           artifacts: "islamxplorer_flutter/build/app/outputs/apk/release/*"
           tag: v1.0.${{ github.run_number }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.CLI_TOKEN }}
