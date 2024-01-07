@@ -52,4 +52,4 @@ jobs:
             "islamxplorer_flutter/build/app/outputs/flutter-apk/*"
             "islamxplorer_flutter/build/app/outputs/bundle/release/app-release.aab"
           tag: v1.0.${{ github.run_number }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.CLI_TOKEN }}
