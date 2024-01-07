@@ -26,8 +26,18 @@ jobs:
           channel: 'stable'
           architecture: x64
 
+      - name: Set up Secrets
+        run: |
+          echo "KEY_ALIAS=${{ secrets.KEY_ALIAS }}" >> $GITHUB_ENV
+          echo "KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}" >> $GITHUB_ENV
+          echo "STORE_FILE=${{ secrets.STORE_FILE }}" >> $GITHUB_ENV
+          echo "STORE_PASSWORD=${{ secrets.STORE_PASSWORD }}" >> $GITHUB_ENV
+
       - name: Create Keystore File
         run: echo "${{ secrets.KEYSTORE_FILE_CONTENT }}" | base64 --decode > islamxplorer_flutter/android/app/upload-keystore.jks
+
+      - name: Debug STORE_FILE
+        run: echo "STORE_FILE=$(pwd)/islamxplorer_flutter/android/app/upload-keystore.jks"
 
       - name: Build APK and IPA
         run: |
