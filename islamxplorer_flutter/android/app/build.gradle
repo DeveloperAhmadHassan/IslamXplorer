@@ -54,7 +54,7 @@ android {
         release {
             keyAlias System.getenv("KEY_ALIAS")
             keyPassword System.getenv("KEY_PASSWORD")
-            storeFile new ByteArrayInputStream(System.getenv("KEYSTORE_FILE_CONTENT").getBytes("UTF-8"))
+            storeFile file(System.getenv("STORE_FILE"))
             storePassword System.getenv("STORE_PASSWORD")
         }
     }
