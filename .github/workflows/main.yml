@@ -25,6 +25,12 @@ jobs:
           channel: 'stable'
           architecture: x64
 
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'  # or 'adopt-openj9', depending on your preference
+          java-version: '11'     # specify the Java version you want to use
+
       - name: Build & Release
         run: |
           cd islamxplorer_flutter  # Change to your Flutter project directory
@@ -43,6 +49,7 @@ jobs:
           artifacts: "islamxplorer_flutter/build/app/outputs/apk/release/*,islamxplorer_flutter/build/ios/iphoneos/app.ipa"
           tag: v1.0.${{ github.run_number }}
           token: ${{ secrets.TOKEN }}
+
 
 
 
