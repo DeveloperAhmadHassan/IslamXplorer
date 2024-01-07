@@ -1,3 +1,5 @@
+name: Build & Release
+
 on:
   pull_request:
     branches:
@@ -9,15 +11,20 @@ on:
       - master
       - develop
 
-name: "Build & Release"
-
 jobs:
   build:
     name: Build & Release
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: '12'
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
@@ -25,15 +32,13 @@ jobs:
           channel: 'stable'
           architecture: x64
 
-      - name: Set up Java
-        uses: actions/setup-java@v2
-        with:
-          distribution: 'adopt'  # or 'adopt-openj9', depending on your preference
-          java-version: '11'     # specify the Java version you want to use
-
-      - name: Build & Release
+      - name: Build APK and IPA
         run: |
-          cd islamxplorer_flutter  # Change to your Flutter project directory
+          echo "KEY_ALIAS=${{ secrets.KEY_ALIAS }}" >> $GITHUB_ENV
+          echo "KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}" >> $GITHUB_ENV
+          echo "STORE_FILE=${{ secrets.STORE_FILE }}" >> $GITHUB_ENV
+          echo "STORE_PASSWORD=${{ secrets.STORE_PASSWORD }}" >> $GITHUB_ENV
+
           flutter build apk --release --split-per-abi
           flutter build ios --no-codesign
           cd build/ios/iphoneos
@@ -46,9 +51,10 @@ jobs:
       - name: Push to Releases
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "islamxplorer_flutter/build/app/outputs/apk/release/*,islamxplorer_flutter/build/ios/iphoneos/app.ipa"
+          artifacts: "build/app/outputs/apk/release/*,build/ios/iphoneos/app.ipa"
           tag: v1.0.${{ github.run_number }}
-          token: ${{ secrets.TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
 
 
 
