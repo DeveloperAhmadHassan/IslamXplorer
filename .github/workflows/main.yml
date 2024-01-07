@@ -1,4 +1,4 @@
-name: Push to Releases
+name: Build & Release
 
 on:
   pull_request:
@@ -48,6 +48,6 @@ jobs:
       - name: Push to Releases
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "build/app/outputs/apk/release/*,build/ios/iphoneos/app.ipa"
+          artifacts: "islamxplorer_flutter/build/app/outputs/apk/release/*"
           tag: v1.0.${{ github.run_number }}
           token: ${{ secrets.CLI_TOKEN }}
