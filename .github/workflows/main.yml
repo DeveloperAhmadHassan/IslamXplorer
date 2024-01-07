@@ -39,6 +39,7 @@ jobs:
           echo "STORE_FILE=${{ secrets.STORE_FILE }}" >> $GITHUB_ENV
           echo "STORE_PASSWORD=${{ secrets.STORE_PASSWORD }}" >> $GITHUB_ENV
 
+          cd islamxplorer_flutter  # Change to the Flutter project directory
           flutter build apk --release --split-per-abi
           flutter build ios --no-codesign
           cd build/ios/iphoneos
@@ -51,7 +52,7 @@ jobs:
       - name: Push to Releases
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "build/app/outputs/apk/release/*,build/ios/iphoneos/app.ipa"
+          artifacts: "islamxplorer_flutter/build/app/outputs/apk/release/*,islamxplorer_flutter/build/ios/iphoneos/app.ipa"
           tag: v1.0.${{ github.run_number }}
           token: ${{ secrets.GITHUB_TOKEN }}
 
