@@ -43,7 +43,7 @@ jobs:
         run: |
           cd islamxplorer_flutter  # Change to the Flutter project directory
           flutter build apk --release --split-per-abi
-          flutter build ios --no-codesign
+          flutter build ipa --release --no-codesign
           cd build/ios/iphoneos
           mkdir Payload
           cd Payload
