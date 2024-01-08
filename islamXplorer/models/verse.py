@@ -1,9 +1,10 @@
 class Verse:
-    def __init__(self, verseID, englishText, arabicText, surah):
+    def __init__(self, verseID, englishText, arabicText, surah, surahNumber):
         self.id = verseID
         self.englishText = englishText
         self.arabicText = arabicText
         self.surah = surah
+        self.surahNumber = surahNumber
 
     @property
     def __str__(self):
@@ -18,7 +19,6 @@ class Verse:
             "verseID": self.id,
             "arabicText": self.arabicText,
             "englishText": self.englishText,
-            "surahName": self.surah
+            "surahName": self.surah,
+            "surahNumber": self.surahNumber
         }
-
-    # TODO:Setters and Getters for attributes

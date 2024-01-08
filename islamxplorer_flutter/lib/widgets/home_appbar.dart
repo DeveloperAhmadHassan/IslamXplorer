@@ -36,7 +36,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget{
       ),
 
       actions: [
-        IconButton(onPressed: ()=>Get.to(MyPage(state: 2)), icon: ProfilePhoto(profileImage: profileImage, size: 40,))
+        IconButton(onPressed: ()=>Get.to(UserPage(state: 2)), icon: ProfilePhoto(profileImage: profileImage, size: 40,))
       ],
 
     );

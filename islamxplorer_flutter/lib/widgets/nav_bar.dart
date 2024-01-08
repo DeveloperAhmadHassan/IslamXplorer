@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:islamxplorer_flutter/main.dart';
+import 'package:islamxplorer_flutter/pages/AdminPanel.dart';
+import 'package:islamxplorer_flutter/pages/DuaListPage.dart';
+import 'package:islamxplorer_flutter/pages/HadithListPage.dart';
 import 'package:islamxplorer_flutter/pages/HomePage.dart';
 import 'package:islamxplorer_flutter/pages/DuaPage.dart';
 import 'package:islamxplorer_flutter/pages/ProfilePage.dart';
+import 'package:islamxplorer_flutter/pages/VerseListPage.dart';
 
 
 class BotNavBar extends StatefulWidget{
   int state;
-  BotNavBar({this.state=0, super.key});
+  String type;
+  BotNavBar({this.state=0, this.type = "U", super.key});
 
   @override
   State<StatefulWidget> createState() {
@@ -89,14 +95,13 @@ class BotNavBarState extends State<BotNavBar> with TickerProviderStateMixin{
     });
   }
 
-  final _pageOptions=[
-    DuaPage(),
-    HomePage(),
-    ProfilePage()
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final _pageOptions=[
+      widget.type == "A" ? AdminPanel() : DuaPage(),
+      HomePage(),
+      ProfilePage()
+    ];
 
     return Stack(
       children:[

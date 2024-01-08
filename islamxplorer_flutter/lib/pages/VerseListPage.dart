@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:islamxplorer_flutter/Controllers/duaDataController.dart';
-import 'package:islamxplorer_flutter/models/dua.dart';
-import 'package:islamxplorer_flutter/pages/AddUpdateDuaPage.dart';
-import 'package:islamxplorer_flutter/pages/DuaItemPage.dart';
+import 'package:islamxplorer_flutter/Controllers/hadithDataController.dart';
+import 'package:islamxplorer_flutter/Controllers/verseDataController.dart';
+import 'package:islamxplorer_flutter/models/hadith.dart';
+import 'package:islamxplorer_flutter/models/verse.dart';
+import 'package:islamxplorer_flutter/pages/AddUpdateHadithPage.dart';
+import 'package:islamxplorer_flutter/pages/AddUpdateVersePage.dart';
 import 'package:islamxplorer_flutter/widgets/custom_appbar.dart';
 import 'package:islamxplorer_flutter/widgets/custom_button.dart';
 import 'package:islamxplorer_flutter/widgets/custom_text.dart';
@@ -11,22 +13,19 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 import 'SearchItemPage.dart';
 
-class DuaListPage extends StatelessWidget {
-  String title;
-  String type;
-  final DuaDataController duaDataController = DuaDataController();
 
-  DuaListPage({this.title = "worship", this.type = "U"});
+class VerseListPage extends StatelessWidget {
+  final VerseDataController verseDataController = VerseDataController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromRGBO(255, 200, 62, 1.0),
       appBar: AppBar(
-        title: Text("Duas"),
+        title: Text("Verses"),
       ),
-      body: FutureBuilder<List<Dua>>(
-        future: type == "A" ? duaDataController.fetchAllDuas() : duaDataController.fetchDuasFromTypes(title),
+      body: FutureBuilder<List<Verse>>(
+        future: verseDataController.fetchAllVerses(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
@@ -37,14 +36,14 @@ class DuaListPage extends StatelessWidget {
               child: Text('Error: ${snapshot}'),
             );
           } else {
-            final List<Dua> duas = snapshot.data ?? []; // Use empty list if data is null
+            final List<Verse> verses = snapshot.data ?? []; // Use empty list if data is null
             return SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
-                    type == "A" ? CustomButton("Add Dua", ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>AddUpdateDuaPage()))) : Container(),
-                    Cards(duas: duas),
+                    CustomButton("Add Verse", ()=>Navigator.push(context, MaterialPageRoute(builder: (cntext)=>AddUpdateVersePage()))),
+                    Cards(verses: verses),
                   ],
                 ),
               ),
@@ -57,25 +56,25 @@ class DuaListPage extends StatelessWidget {
 }
 
 class Cards extends StatelessWidget {
-  final List<Dua> duas;
+  final List<Verse> verses;
 
-  const Cards({Key? key, required this.duas}) : super(key: key);
+  const Cards({Key? key, required this.verses}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        for (var dua in duas)
-          DuaCard(dua: dua),
+        for (var verse in verses)
+          VerseCard(verse: verse),
       ],
     );
   }
 }
 
-class DuaCard extends StatelessWidget {
-  final Dua dua;
+class VerseCard extends StatelessWidget {
+  final Verse verse;
 
-  const DuaCard({Key? key, required this.dua}) : super(key: key);
+  const VerseCard({Key? key, required this.verse}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -85,20 +84,20 @@ class DuaCard extends StatelessWidget {
           onTap: () => Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => DuaItemPage(dua: dua), // Replace SearchItemPage with your actual page class
+              builder: (context) => SearchItemPage(searchResultItem: verse),
             ),
           ),
           child: Card(
             elevation: 7,
             child: ListTile(
-              leading: Icon(Icons.mosque_outlined),
-              title: Text(dua.title),
-              subtitle: Text(dua.englishText, overflow: TextOverflow.ellipsis),
+              leading: Text(verse.id),
+              title: Text(verse.surah),
+              subtitle: Text(verse.englishText, overflow: TextOverflow.ellipsis),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   GestureDetector(
-                    // onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>AddUpdateHadithPage(hadith: hadith, isUpdate: true,))),
+                    onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>AddUpdateVersePage(verse: verse, isUpdate: true,))),
                     child: Container(
                       padding: EdgeInsets.all(7),
                       decoration: BoxDecoration(
@@ -110,7 +109,7 @@ class DuaCard extends StatelessWidget {
                   ),
                   SizedBox(width: 10,),
                   GestureDetector(
-                    // onTap: ()=>{deleteHadith(hadith.id)},
+                    onTap: ()=>{deleteVerse(verse.id)},
                     child: Container(
                       padding: EdgeInsets.all(7),
                       decoration: BoxDecoration(
@@ -130,8 +129,8 @@ class DuaCard extends StatelessWidget {
     );
   }
 
-  // void deleteHadith(String id){
-  //   HadithDataController hadithDataController = HadithDataController();
-  //   hadithDataController.deleteHadith(id);
-  // }
+  void deleteVerse(String id){
+    VerseDataController verseDataController = VerseDataController();
+    verseDataController.deleteVerse(id);
+  }
 }

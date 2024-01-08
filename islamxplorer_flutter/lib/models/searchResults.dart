@@ -7,16 +7,34 @@ class SearchResults{
 
   SearchResults();
 
-  void addItems(){
+  factory SearchResults.fromJson(List<dynamic> jsonList) {
+    final searchResults = SearchResults();
 
-    l1.add(Verse(1));
-    l1.add(Hadith(2));
-    print("Items Added!");
-  }
+    for (final jsonItem in jsonList) {
+      final type = jsonItem['type'] as String?;
 
-  void printItems(){
-    for (var element in l1) {
-      print(element);
+      if (type == null) {
+        // Handle missing or invalid type
+        continue;
+      }
+
+      switch (type) {
+        case 'hadith':
+          searchResults.l1.add(Hadith.fromJson(jsonItem));
+          break;
+        case 'verse':
+          searchResults.l1.add(Verse.fromJson(jsonItem));
+          break;
+        // case 'Dua':
+        //   searchResults.l1.add(Dua.fromJson(jsonItem));
+        //   break;
+        default:
+        // Handle unknown type or throw an exception
+          throw Exception('Unsupported SearchResultItem type: $type');
+      }
     }
+
+    return searchResults;
   }
+
 }

@@ -9,46 +9,34 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import '../models/dua.dart';
 import '../models/verse.dart';
 
-class SearchItemPage extends StatefulWidget{
-  SearchItemPage({required this.searchResultItem, super.key});
-  SearchResultItem searchResultItem;
+class DuaItemPage extends StatefulWidget{
+  DuaItemPage({required this.dua, super.key});
+  Dua dua;
 
   @override
-  State<SearchItemPage> createState() => _SearchItemPageState();
+  State<DuaItemPage> createState() => _DuaItemPageState();
 }
 
-class _SearchItemPageState extends State<SearchItemPage> {
-  @override
-  late Verse verse;
-  late Hadith hadith;
-  late Dua dua;
+class _DuaItemPageState extends State<DuaItemPage> {
   late String imageUrl;
 
   Widget build(BuildContext context) {
-    if(widget.searchResultItem is Hadith){
-      hadith = widget.searchResultItem as Hadith;
-      imageUrl = "https://raw.githubusercontent.com/DeveloperAhmadHassan/images/main/bg_hadith.jpg";
-    } else if(widget.searchResultItem is Verse){
-      verse = widget.searchResultItem as Verse;
-      imageUrl = "https://raw.githubusercontent.com/DeveloperAhmadHassan/images/main/bg_verse.jpg";
-    }
+    // if(widget.searchResultItem is Hadith){
+    //   hadith = widget.searchResultItem as Hadith;
+    // } else if(widget.searchResultItem is Verse){
+    //   verse = widget.searchResultItem as Verse;
+    // }
     return Scaffold(
       backgroundColor: Colors.tealAccent,
       body: SingleChildScrollView(
         child: Container(
+          // color: Colors.tealAccent,
           child: Stack(
               children: [
                 Container(
                   height: MediaQuery.of(context).size.height/3,
                   width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: NetworkImage(
-                              imageUrl
-                          ),
-                          fit: BoxFit.cover
-                      )
-                  ),
+                  color: Colors.green,
                   child: Padding(
                     padding: const EdgeInsets.only(top: 50, left: 15),
                     child: Row(
@@ -115,14 +103,11 @@ class _SearchItemPageState extends State<SearchItemPage> {
                             width: MediaQuery.of(context).size.width,
                             child: Padding(
                               padding: const EdgeInsets.all(17.0),
-                              child: Text(
-                                  widget.searchResultItem is Hadith ?
-                                  "${hadith.source}" :
-                                  "${verse.surah}",
+                              child: Text("${widget.dua.title}",
                                   style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w700
-                                  ),textAlign: TextAlign.center,),
+                                  )),
                             ),
                           ),
                         ),
@@ -144,13 +129,11 @@ class _SearchItemPageState extends State<SearchItemPage> {
                             // ),
                             child: Padding(
                               padding: const EdgeInsets.all(17.0),
-                              child: Text(widget.searchResultItem is Hadith ?
-                              "${hadith.arabicText}" :
-                              "${verse.arabicText}",
+                              child: Text("${widget.dua.arabicText}",
                                   style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.w700
-                              ),textDirection: TextDirection.rtl),
+                              )),
                             ),
                           ),
                         ),
@@ -172,9 +155,7 @@ class _SearchItemPageState extends State<SearchItemPage> {
                             width: MediaQuery.of(context).size.width,
                             child: Padding(
                               padding: const EdgeInsets.all(17.0),
-                              child: Text(widget.searchResultItem is Hadith ?
-                              "${hadith.englishText}" :
-                              "${verse.englishText}",
+                              child: Text("${widget.dua.englishText}",
                                   style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w700
@@ -183,18 +164,6 @@ class _SearchItemPageState extends State<SearchItemPage> {
                           ),
                         ),
                         SizedBox(height: 30,),
-                        Text("Further Reading: ", style: TextStyle(fontSize: 28),),
-                        SizedBox(height: 30,),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            RelatedItem(title: "Something", subtitle: "Subtitle of Something", icon: Icons.ac_unit_outlined),
-                            RelatedItem(title: "Something", subtitle: "Subtitle of Something", icon: Icons.ac_unit_outlined),
-                            RelatedItem(title: "Something", subtitle: "Subtitle of Something", icon: Icons.ac_unit_outlined),
-                          ],
-                        ),
-                        SizedBox(height: 30,)
                       ],
                     ),
                 ),

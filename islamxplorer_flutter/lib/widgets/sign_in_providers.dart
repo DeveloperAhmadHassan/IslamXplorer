@@ -48,7 +48,7 @@ class SignInProviders extends StatelessWidget{
         UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
 
         if(userCredential.user!=null){
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>MyPage()));
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>UserPage()));
         }
       }on FirebaseAuthException catch(e){
         print(e.code.toString());

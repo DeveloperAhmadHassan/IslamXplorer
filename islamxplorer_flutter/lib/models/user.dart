@@ -8,6 +8,7 @@ class AppUser{
   String? birthdate;
   String? userName;
   File? profilePic;
+  String? type;
   AppUser({
     this.uid,
     this.email,
@@ -16,6 +17,7 @@ class AppUser{
     this.birthdate,
     this.userName,
     this.profilePic,
+    this.type
   });
 }
 

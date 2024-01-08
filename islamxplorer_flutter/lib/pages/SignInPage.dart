@@ -3,7 +3,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:islamxplorer_flutter/Controllers/userDataController.dart';
 import 'package:islamxplorer_flutter/main.dart';
+import 'package:islamxplorer_flutter/models/user.dart';
 import 'package:islamxplorer_flutter/pages/HomePage.dart';
 import 'package:islamxplorer_flutter/pages/SignUpPage.dart';
 import 'package:islamxplorer_flutter/widgets/custom_button.dart';
@@ -25,20 +27,40 @@ class _SignInPageState extends State<SignInPage> {
 
   // const SignInPage({super.key});
 
-  void login() async{
+  void login() async {
     String email = _emailEditingController.text.trim();
     String password = _passwordEditingController.text.trim();
 
-    try{
-      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
 
-      if(userCredential.user!=null){
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>MyPage()));
+      if (userCredential.user != null) {
+        UserDataController userDataController = UserDataController();
+        try {
+          AppUser appUser = await userDataController.getUserData();
+
+          print("User Type: ${appUser.type}");
+
+          if (appUser.type == "U") {
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => UserPage()));
+          } else {
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AdminPage()));
+          }
+        } catch (e) {
+          print("Error fetching user data: $e");
+        }
+
       }
-    }on FirebaseAuthException catch(e){
-      print(e.code.toString());
+    } on FirebaseAuthException catch (e) {
+      print("Firebase Authentication Error: ${e.code}");
+    } catch (e) {
+      print("Unexpected Error: $e");
     }
   }
+
 
   void openSignUp(){
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SignUpPage()));

@@ -2,23 +2,134 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:islamxplorer_flutter/models/duaType.dart';
 import 'package:islamxplorer_flutter/pages/DuaListPage.dart';
+import 'package:islamxplorer_flutter/pages/HadithListPage.dart';
+import 'package:islamxplorer_flutter/pages/VerseListPage.dart';
 import 'package:islamxplorer_flutter/widgets/custom_appbar.dart';
 import 'package:islamxplorer_flutter/widgets/custom_text.dart';
 import 'package:islamxplorer_flutter/widgets/new_tag.dart';
 import 'package:islamxplorer_flutter/controllers/duaDataController.dart';
 
-class DuaPage extends StatelessWidget {
+class AdminPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromRGBO(255, 200, 62, 1.0),
       appBar: AppBar(
-        title: Text("Duas"),
+        title: Text("Home"),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: DuaGrid(),
-      ),
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.all(20),
+          child: StaggeredGrid.count(
+              crossAxisCount: 4,
+              children: [
+                StaggeredGridTile.count(
+                  crossAxisCellCount: 4,
+                  mainAxisCellCount: 2,
+                  child: Card(
+                    elevation: 7,
+                    child: Container(
+                      child: Center(child: CustomText("Reports", 40, alignment: Alignment.center,)),
+                    ),
+                  ),
+                ),
+                StaggeredGridTile.count(
+                  crossAxisCellCount: 2,
+                  mainAxisCellCount: 2,
+                  child: GestureDetector(
+                    onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>DuaListPage(type:"A") )),
+                    child: Card(
+                      elevation: 7,
+                      child: Container(
+                        child: Center(child: CustomText("Duas", 40, alignment: Alignment.center,)),
+                      ),
+                    ),
+                  )
+                ),
+                StaggeredGridTile.count(
+                  crossAxisCellCount: 2,
+                  mainAxisCellCount: 3,
+                  child: GestureDetector(
+                    onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>VerseListPage() )),
+                    child: Card(
+                      elevation: 7,
+                      child: Container(
+                        child: Center(child: CustomText("Verses", 40, alignment: Alignment.center,)),
+                      ),
+                    ),
+                  )
+                ),
+                StaggeredGridTile.count(
+                  crossAxisCellCount: 2,
+                  mainAxisCellCount: 2,
+                  child: Card(
+                    elevation: 7,
+                    child: Container(
+                      height: 200,
+                      child: Center(child: CustomText("Dua Type", 30, alignment: Alignment.center,)),
+                    ),
+                  ),
+                ),
+                StaggeredGridTile.count(
+                  crossAxisCellCount: 2,
+                  mainAxisCellCount: 3,
+                  child: GestureDetector(
+                    onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>HadithListPage() )),
+                    child: Card(
+                      elevation: 7,
+                      child: Container(
+                        height: 200,
+                        child: Center(child: CustomText("Hadiths", 40, alignment: Alignment.center,)),
+                      ),
+                    ),
+                  )
+                ),
+                StaggeredGridTile.count(
+                  crossAxisCellCount: 2,
+                  mainAxisCellCount: 2,
+                  child: Card(
+                    elevation: 7,
+                    child: Container(
+                      height: 200,
+                      child: Center(child: CustomText("Surah", 40, alignment: Alignment.center,)),
+                    ),
+                  ),
+                ),
+                StaggeredGridTile.count(
+                  crossAxisCellCount: 2,
+                  mainAxisCellCount: 2,
+                  child: Card(
+                    elevation: 7,
+                    child: Container(
+                      height: 200,
+                      child: Center(child: CustomText("Ontology", 30, alignment: Alignment.center,)),
+                    ),
+                  ),
+                ),
+                // StaggeredGridTile.count(
+                //   crossAxisCellCount: 2,
+                //   mainAxisCellCount: 1,
+                //   child: Tile(index: 1),
+                // ),
+                // StaggeredGridTile.count(
+                //   crossAxisCellCount: 1,
+                //   mainAxisCellCount: 1,
+                //   child: Tile(index: 2),
+                // ),
+                // StaggeredGridTile.count(
+                //   crossAxisCellCount: 1,
+                //   mainAxisCellCount: 1,
+                //   child: Tile(index: 3),
+                // ),
+                // StaggeredGridTile.count(
+                //   crossAxisCellCount: 4,
+                //   mainAxisCellCount: 2,
+                //   // child: Tile(index: 4),
+                // ),
+              ],
+            )
+        ),
+      )
     );
   }
 }

@@ -11,6 +11,7 @@ class CustomTextfield extends StatefulWidget {
    String? tempHintText;
    Function()? onTap;
    TextEditingController? _textEditingController;
+  Function(String)? validationCallback;
 
   CustomTextfield(
       Icon this.icon,
@@ -21,6 +22,7 @@ class CustomTextfield extends StatefulWidget {
         this.onTap,
         this.isEmailField = true,
         this.isPhone = false,
+        this.validationCallback,
         super.key,
       })  : tempIcon = icon,
         tempHintText = hintText,
@@ -39,7 +41,7 @@ class _CustomTextfieldState extends State<CustomTextfield> {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      onTap: widget.onTap != null ? () => widget.onTap!() : null,
+      // onTap: widget.onTap != null ? () => widget.onTap!() : null,
       controller: widget._textEditingController,
       obscureText: widget.isPassword,
       enableSuggestions: !widget.isPassword,
@@ -90,7 +92,14 @@ class _CustomTextfieldState extends State<CustomTextfield> {
           },
           child: widget.icon,
         ),
+
       ),
+      onChanged: (input) {
+        // Call validation callback with the current input value
+        if (widget.validationCallback != null) {
+          widget.validationCallback!(input);
+        }
+      },
     );
   }
 }

@@ -28,9 +28,14 @@ def createDataJSON(query, time, verse_objects, hadith_objects):
     hadiths_data = [hadith.to_dict() for hadith in hadith_objects]
 
     results = {
-        "Cipher": query,
-        "TotalResults": total_results,
-        "TimeTaken": time,
+        "status": 200,
+        "cipher": query,
+        "totalResults": {
+            "total": len(verse_objects) + len(hadith_objects),
+            "verses": len(verse_objects),
+            "hadiths": len(hadith_objects)
+         },
+        "timeTaken": time,
         "data": verses_data+hadiths_data
     }
     return json.dumps(results, ensure_ascii=False, default=obj_dict, indent=4)

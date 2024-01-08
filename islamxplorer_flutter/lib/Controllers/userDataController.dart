@@ -45,12 +45,14 @@ class UserDataController{
         print('User ID: $userId');
         print('Email: ${userData['email']}');
         print('Username: ${userData['userName']}');
+        print('Type: ${userData['type']}');
 
         appUser = AppUser(uid: userId,
             userName: userData['userName'],
             email: userData['email'],
             birthdate: userData['birthdate'],
             phone: userData['phone'],
+            type: userData['type'],
             gender: userData['gender']);
 
         return appUser;

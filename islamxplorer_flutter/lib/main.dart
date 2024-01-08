@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:islamxplorer_flutter/Controllers/userDataController.dart';
+import 'package:islamxplorer_flutter/models/user.dart';
+import 'package:islamxplorer_flutter/pages/DuaPage.dart';
 import 'package:islamxplorer_flutter/pages/HomePage.dart';
 import 'package:islamxplorer_flutter/pages/NewPage.dart';
 import 'package:islamxplorer_flutter/pages/ProfilePage.dart';
@@ -28,61 +31,96 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    // FirebaseAuth.instance
-    //     .authStateChanges()
-    //     .listen((User? user) {
-    //   if (user != null) {
-    //     print(user.uid);
-    //   }
-    // });
-    // User? user = FirebaseAuth.instance.currentUser;
-    // if (user != null) {
-    //   for (final providerProfile in user.providerData) {
-    //     // ID of the provider (google.com, apple.com, etc.)
-    //     final provider = providerProfile.providerId;
-    //     print("Provider: $provider");
-    //
-    //     // UID specific to the provider
-    //     final uid = providerProfile.uid;
-    //     print("UID: $uid");
-    //
-    //     // Name, email address, and profile photo URL
-    //     final name = providerProfile.displayName;
-    //     print("Name: $name");
-    //     final emailAddress = providerProfile.email;
-    //     print("email: $emailAddress");
-    //     final profilePhoto = providerProfile.photoURL;
-    //     print("pp: $profilePhoto");
-    //   }
-    // }
+    UserDataController userDataController = UserDataController();
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'IslamXplorer',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: SignInPage()
+      home: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (BuildContext context, AsyncSnapshot<User?> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            // Show a loading indicator if the authentication state is still loading
+            return CircularProgressIndicator();
+          } else if (snapshot.hasError) {
+            // Handle error if necessary
+            return Text('Error: ${snapshot.error}');
+          } else if (snapshot.hasData && snapshot.data != null) {
+            // User is signed in, fetch user details
+            return FutureBuilder<AppUser>(
+              future: userDataController.getUserData(),
+              builder: (BuildContext context, AsyncSnapshot<AppUser> userSnapshot) {
+                if (userSnapshot.connectionState == ConnectionState.waiting) {
+                  // Show a loading indicator if user details are still loading
+                  return CircularProgressIndicator();
+                } else if (userSnapshot.hasError) {
+                  // Handle error if necessary
+                  return Text('Error: ${userSnapshot.error}');
+                } else if (userSnapshot.hasData && userSnapshot.data != null) {
+                  // Check user type and navigate accordingly
+                  if (userSnapshot.data!.type == "A") {
+                    return AdminPage(); // Replace with the actual AdminPage widget
+                  } else {
+                    return UserPage(); // Replace with the actual UserPage widget
+                  }
+                } else {
+                  // Handle the case when user details are not available
+                  return Text('User details not available');
+                }
+              },
+            );
+          } else {
+            // User is not signed in, navigate to SignInPage
+            return SignInPage(); // Replace with the actual SignInPage widget
+          }
+        },
+      ),
+
     );
   }
 }
 
-class MyPage extends StatefulWidget {
+class UserPage extends StatefulWidget {
   int state;
-  MyPage({this.state = 0,super.key});
+  UserPage({this.state = 0,super.key});
 
   @override
-  State<MyPage> createState() => _MyPageState();
+  State<UserPage> createState() => _UserPageState();
 }
 
-class _MyPageState extends State<MyPage>  {
+class _UserPageState extends State<UserPage>  {
 
   @override
   Widget build(BuildContext context) {
+    print('User Page');
     return SizedBox(
       child: BotNavBar(state: widget.state)
+    );
+  }
+}
+
+
+class AdminPage extends StatefulWidget {
+  int state;
+  AdminPage({this.state = 0,super.key});
+
+  @override
+  State<AdminPage> createState() => _AdminPageState();
+}
+
+class _AdminPageState extends State<AdminPage>  {
+
+  @override
+  Widget build(BuildContext context) {
+    print('Admin Page');
+    return SizedBox(
+        child: BotNavBar(state: widget.state, type: "A")
     );
   }
 }

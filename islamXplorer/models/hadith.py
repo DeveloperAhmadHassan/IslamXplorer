@@ -1,6 +1,7 @@
 class Hadith:
-    def __init__(self, hadithID, englishText, arabicText, source, narratedBy):
+    def __init__(self, hadithID, hadithNo, englishText, arabicText, source, narratedBy):
         self.id = hadithID
+        self.hadithNo = hadithNo
         self.englishText = englishText
         self.arabicText = arabicText
         self.source = source
@@ -17,6 +18,7 @@ class Hadith:
         return {
             "type": "hadith",
             "hadithID": self.id,
+            "hadithNo": self.hadithNo,
             "arabicText": self.arabicText,
             "englishText": self.englishText,
             "source": self.source,

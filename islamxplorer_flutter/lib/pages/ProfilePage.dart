@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:islamxplorer_flutter/pages/SignInPage.dart';
 import 'package:islamxplorer_flutter/pages/UpdateProfilePage.dart';
 import 'package:islamxplorer_flutter/widgets/custom_button.dart';
 import 'package:islamxplorer_flutter/widgets/custom_text.dart';
@@ -85,7 +86,7 @@ class ProfilePage extends StatelessWidget{
               const Divider(),
               const SizedBox(height: 20,),
               ProfileMenuWidget(icon:LineAwesomeIcons.file, text: "Documentation", onTap: (){}),
-              ProfileMenuWidget(icon:LineAwesomeIcons.alternate_sign_out, text: "Logout", onTap: (){}, textColor: Colors.red,endIcon: false,),
+              ProfileMenuWidget(icon:LineAwesomeIcons.alternate_sign_out, text: "Logout", onTap: ()=>signOut(context), textColor: Colors.red,endIcon: false,),
               const SizedBox(height: 100,)
             ],
           ),
@@ -93,7 +94,17 @@ class ProfilePage extends StatelessWidget{
       )
     );
   }
-
+  Future<void> signOut(BuildContext context) async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => SignInPage()),
+      );
+    } catch (e) {
+      print('Error signing out: $e');
+    }
+  }
 }
 
 class ProfileMenuWidget extends StatelessWidget {
@@ -137,4 +148,5 @@ class ProfileMenuWidget extends StatelessWidget {
       ): null,
     );
   }
+  
 }
