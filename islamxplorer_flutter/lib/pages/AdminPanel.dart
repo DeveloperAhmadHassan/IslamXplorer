@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:islamxplorer_flutter/Controllers/duaDataController.dart';
 import 'package:islamxplorer_flutter/models/duaType.dart';
 import 'package:islamxplorer_flutter/pages/DuaListPage.dart';
 import 'package:islamxplorer_flutter/pages/HadithListPage.dart';
@@ -7,7 +8,7 @@ import 'package:islamxplorer_flutter/pages/VerseListPage.dart';
 import 'package:islamxplorer_flutter/widgets/custom_appbar.dart';
 import 'package:islamxplorer_flutter/widgets/custom_text.dart';
 import 'package:islamxplorer_flutter/widgets/new_tag.dart';
-import 'package:islamxplorer_flutter/controllers/duaDataController.dart';
+// import 'package:islamxplorer_flutter/controllers/duaDataController.dart';
 
 class AdminPanel extends StatelessWidget {
   @override
