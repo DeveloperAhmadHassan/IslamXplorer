@@ -5,7 +5,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:islamxplorer_flutter/Controllers/userDataController.dart';
+import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/models/user.dart';
+import 'package:islamxplorer_flutter/values/colors.dart';
 import 'package:islamxplorer_flutter/widgets/custom_button.dart';
 import 'package:islamxplorer_flutter/widgets/custom_text.dart';
 import 'package:islamxplorer_flutter/widgets/custom_textfield.dart';
@@ -73,9 +75,9 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
         : const Image(image: AssetImage('assets/profile.png'),);
 
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(255, 200, 62, 1.0),
+      backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch4),
       appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(255, 200, 62, 1.0),
+        backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch4),
         title: const Text("Edit Profile"),
         actions: [
           IconButton(onPressed: (){}, icon: const Icon(LineAwesomeIcons.moon))
@@ -84,7 +86,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
       body: SingleChildScrollView(
         child: Container(
           width: MediaQuery.of(context).size.width,
-          color: const Color.fromRGBO(255, 200, 62, 1.0),
+          // color: const Color.fromRGBO(255, 200, 62, 1.0),
           padding: const EdgeInsets.all(20),
           child: Column(
             children: [
@@ -95,7 +97,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                     height: 140,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(100),
-                      border: Border.all(width: 7, color: Colors.amberAccent)
+                      border: Border.all(width: 7, color: HexColor.fromHexStr(AppColor.primaryThemeSwatch2))
                     ),
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(100),
@@ -110,7 +112,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                       height: 35,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
-                        color: Colors.amberAccent
+                        color: HexColor.fromHexStr(AppColor.primaryThemeSwatch2)
                       ),
                       child: GestureDetector(
                         onTap: _pickImage,
@@ -161,17 +163,17 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                           onTap: () async {
                             DateTime? pickedDate = await showDatePicker(
                                 context: context, initialDate: DateTime.now(),
-                                firstDate: DateTime(1900), //DateTime.now() - not to allow to choose before today.
+                                firstDate: DateTime(1900),
                                 lastDate: DateTime.now()
                             );
 
                             if(pickedDate != null ){
-                              print(pickedDate);  //pickedDate output format => 2021-03-10 00:00:00.000
+                              print(pickedDate);
                               String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
                               print(formattedDate);
 
                               setState(() {
-                                dateInput.text = formattedDate;//set output date to TextField value.
+                                dateInput.text = formattedDate;
                               });
                             }else{
                               print("Date is not selected");

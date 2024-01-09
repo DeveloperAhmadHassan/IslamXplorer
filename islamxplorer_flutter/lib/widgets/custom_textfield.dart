@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:islamxplorer_flutter/extensions/color.dart';
+import 'package:islamxplorer_flutter/values/colors.dart';
 
 class CustomTextfield extends StatefulWidget {
   Icon? icon;
@@ -56,25 +58,25 @@ class _CustomTextfieldState extends State<CustomTextfield> {
         color: Colors.black54,
       ),
       decoration: InputDecoration(
-        focusColor: const Color.fromRGBO(255, 249, 197, 1),
+        focusColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
         isDense: true,
         hintText: "${widget.hintText}",
         filled: true,
-        fillColor: Colors.amberAccent,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20),
-          borderSide: const BorderSide(
-            color: Colors.amberAccent,
-          ),
-        ),
+        fillColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
+        // border: OutlineInputBorder(
+        //   borderRadius: BorderRadius.circular(20),
+        //   borderSide: const BorderSide(
+        //     color: Colors.amberAccent,
+        //   ),
+        // ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
-          borderSide: const BorderSide(color: Colors.amberAccent),
+          borderSide: const BorderSide(color: Colors.transparent),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
           borderSide: const BorderSide(
-            color: Colors.amberAccent,
+            color: Colors.white,
             width: 3,
           ),
         ),

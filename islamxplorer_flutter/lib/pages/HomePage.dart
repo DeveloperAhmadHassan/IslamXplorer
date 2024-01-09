@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/pages/SearchingPage.dart';
 import 'package:islamxplorer_flutter/qiblah/QiblaPage.dart';
+import 'package:islamxplorer_flutter/values/colors.dart';
 import 'package:islamxplorer_flutter/widgets/custom_text.dart';
 import 'package:islamxplorer_flutter/widgets/dummy_search_bar.dart';
 import 'package:islamxplorer_flutter/widgets/home_appbar.dart';
@@ -23,8 +25,8 @@ class HomePage extends StatelessWidget{
     }
 
     return Scaffold(
-      appBar: HomeAppBar(""),
-      backgroundColor: const Color.fromRGBO(255, 200, 62, 1.0),
+      // appBar: HomeAppBar(""),
+      backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
       
       body: Center(
 

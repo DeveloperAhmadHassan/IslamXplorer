@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:islamxplorer_flutter/Controllers/hadithDataController.dart';
+import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/models/hadith.dart';
 import 'package:islamxplorer_flutter/models/searchResultItem.dart';
+import 'package:islamxplorer_flutter/values/colors.dart';
 import 'package:islamxplorer_flutter/widgets/custom_button.dart';
 import 'package:islamxplorer_flutter/widgets/custom_text.dart';
 import 'package:islamxplorer_flutter/widgets/custom_textfield.dart';
@@ -36,9 +38,10 @@ class _AddUpdateHadithPageState extends State<AddUpdateHadithPage> {
     HadithDataController hadithDataController = HadithDataController();
 
     return Scaffold(
-      backgroundColor: Colors.amber,
+      backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch1),
       appBar: AppBar(
         title: Text("Add Hadith"),
+        backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch1),
       ),
       body: widget.isUpdate ?
       FutureBuilder<Hadith>(

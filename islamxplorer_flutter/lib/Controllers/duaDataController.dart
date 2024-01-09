@@ -105,43 +105,80 @@ class DuaDataController{
     }
   }
 
-  // Future<AppUser> getUserData() async {
-  //   var user = FirebaseAuth.instance.currentUser;
-  //   String? userId = user?.uid;
-  //   AppUser appUser = AppUser();
-  //   try {
-  //     FirebaseFirestore firestore = FirebaseFirestore.instance;
-  //     CollectionReference users = firestore.collection('Users');
-  //
-  //     // Get user document by ID
-  //     DocumentSnapshot userDoc = await users.doc(userId).get();
-  //
-  //     if (userDoc.exists) {
-  //       // Access user data
-  //       Map<String, dynamic> userData = userDoc.data() as Map<String, dynamic>;
-  //
-  //       // Print or use user data
-  //       print('User ID: $userId');
-  //       print('Email: ${userData['email']}');
-  //       print('Username: ${userData['userName']}');
-  //
-  //       appUser = AppUser(uid: userId,
-  //           userName: userData['userName'],
-  //           email: userData['email'],
-  //           birthdate: userData['birthdate'],
-  //           phone: userData['phone'],
-  //           gender: userData['gender']);
-  //
-  //       return appUser;
-  //
-  //       // Access other fields as needed
-  //     } else {
-  //       print('User with ID $userId does not exist in Firestore.');
-  //       return appUser;
-  //     }
-  //   } catch (e) {
-  //     print('Error fetching user data from Firestore: $e');
-  //     return appUser;
-  //   }
-  // }
+  Future<Dua> getDuaByID(String id) async {
+    var url = "http://192.168.56.1:48275/duas?id=$id";
+    print("Hello1");
+    try {
+      final response = await http.get(Uri.parse(url));
+
+      if (response.statusCode == 200) {
+        final List<dynamic> jsonData = json.decode(response.body)['data'];
+        print("Hello2");
+        final List<Dua> duas = jsonData.map((data) => Dua.fromJson(data)).toList();
+        print("Hello3");
+        return duas.first;
+      }  else {
+        throw Exception('Failed to load Dua');
+      }
+    } catch (e) {
+      throw Exception('Error: $e');
+    }
+  }
+
+  Future<bool> updateDua(Dua dua, String oldID) async {
+    String url = "http://192.168.56.1:48275/duas?id=$oldID";
+
+    try {
+      final response = await http.put(
+        Uri.parse(url),
+        body: jsonEncode({
+          "duaID": dua.id,
+          "englishText": dua.englishText,
+          "arabicText": dua.arabicText,
+          "title": dua.title,
+          "explanation": dua.explanation,
+          "transliteration": dua.transliteration,
+          "surah": dua.surah,
+          "verses": dua.verses,
+          "types": dua.types,
+        }),
+        headers: {"Content-Type": "application/json"},
+      );
+
+      if (response.statusCode == 200) {
+        print("Dua updated successfully");
+        return true;
+      } else {
+        throw Exception("Failed to update Dua");
+        return true;
+      }
+    } catch (e) {
+      print("Error updating Dua: $e");
+      throw Exception("Error updating Dua: $e");
+      return true;
+    }
+  }
+
+  Future<bool> deleteDua(String duaID) async {
+    String url = "http://192.168.56.1:48275/duas?id=$duaID";
+
+    try {
+      final response = await http.delete(
+        Uri.parse(url),
+        headers: {"Content-Type": "application/json"},
+      );
+
+      if (response.statusCode == 200) {
+        print("Dua deleted successfully");
+        return true;
+      } else {
+        throw Exception("Failed to delete Dua");
+        return true;
+      }
+    } catch (e) {
+      print("Error deleting Dua: $e");
+      throw Exception("Error deleting Dua: $e");
+      return true;
+    }
+  }
 }

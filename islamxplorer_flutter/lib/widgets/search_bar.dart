@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/pages/SearchingPage.dart';
+import 'package:islamxplorer_flutter/values/colors.dart';
 
 class CustomSearchBar extends StatelessWidget {
   final bool focus;
@@ -13,8 +15,8 @@ class CustomSearchBar extends StatelessWidget {
     focusNode.requestFocus();
     return InkWell(
       onTap: () {
-        FocusScope.of(context).unfocus(); // Unfocus to dismiss the keyboard
-        onTap(); // Navigate to SearchingPage
+        FocusScope.of(context).unfocus();
+        onTap();
       },
       child: SizedBox(
         width: MediaQuery.of(context).size.width - 15,
@@ -24,30 +26,31 @@ class CustomSearchBar extends StatelessWidget {
           decoration: InputDecoration(
             hintText: "Search",
             filled: true,
-            fillColor: const Color.fromRGBO(255, 249, 197, 1),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(100),
-              borderSide: const BorderSide(
-                color: Color.fromRGBO(255, 249, 197, 1),
-                width: 10,
-              ),
-            ),
+            fillColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
+            // border: OutlineInputBorder(
+            //   borderRadius: BorderRadius.circular(100),
+            //   borderSide: const BorderSide(
+            //     color: Color.fromRGBO(255, 249, 197, 1),
+            //     width: 10,
+            //   ),
+            // ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(100),
               borderSide: const BorderSide(
-                color: Color.fromRGBO(255, 249, 197, 1),
+                color: Colors.transparent,
               ),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(100),
               borderSide: const BorderSide(
-                color: Color.fromRGBO(255, 249, 197, 1),
+                color: Colors.white,
+                width: 3
               ),
             ),
             suffixIcon: IconButton(
               icon: Icon(Icons.search, color: Colors.black),
               onPressed: () {
-                onTap(); // Call the onTap callback provided by the parent widget
+                onTap();
               },
             ),
             prefixIcon: Padding(

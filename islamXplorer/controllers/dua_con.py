@@ -148,7 +148,7 @@ class DuaCon:
             return {'error': f'Unexpected error: {str(other_error)}'}
 
     @staticmethod
-    def updateDuaByID(dua: Dua):
+    def updateDuaByID(duaID: str, dua: Dua):
         mongoClient = MongoDBConn.createMongoDBConnection()
         duaMongoDB = MongoDBConn.getDuaMongoDB(mongoClient)
         quranicDuaCollection = MongoDBConn.getQuranicDuaCollection(duaMongoDB)
@@ -156,8 +156,7 @@ class DuaCon:
         print("ID: " + dua.id)
 
         try:
-            # Convert the input string to a valid ObjectId
-            objectID = ObjectId(dua.id)
+            objectID = ObjectId(duaID)
 
         except Exception as e:
             MongoDBConn.closeClient(mongoClient)

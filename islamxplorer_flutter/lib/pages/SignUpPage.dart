@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/pages/EmailVerificationPage.dart';
 import 'package:islamxplorer_flutter/pages/HomePage.dart';
 import 'package:islamxplorer_flutter/pages/SignInPage.dart';
+import 'package:islamxplorer_flutter/values/colors.dart';
 import 'package:islamxplorer_flutter/widgets/sign_in_providers.dart';
 
 import '../widgets/custom_button.dart';
@@ -38,15 +40,12 @@ class _SignUpPageState extends State<SignUpPage> {
         await addInitialUserDetails(email, username, user.uid);
 
         for (final providerProfile in user.providerData) {
-          // ID of the provider (google.com, apple.com, etc.)
           final provider = providerProfile.providerId;
           print("Provider: $provider");
 
-          // UID specific to the provider
           final uid = providerProfile.uid;
           print("UID: $uid");
 
-          // Name, email address, and profile photo URL
           final name = providerProfile.displayName;
           print("Name: $name");
           final emailAddress = providerProfile.email;
@@ -66,10 +65,11 @@ class _SignUpPageState extends State<SignUpPage> {
     try {
       var db = FirebaseFirestore.instance;
       await db.collection('Users').doc(uid).set({
-        "id":uid,
+        // "id":uid,
         "email": email,
         "username": username,
-        // "profile_image":
+        "type": "U",
+        "bookmarks":[]
       });
       print('User details added to Firestore');
     } catch (e) {
@@ -87,14 +87,14 @@ class _SignUpPageState extends State<SignUpPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Sign Up"),
-        backgroundColor: const Color.fromRGBO(255, 200, 62, 1.0),
+        backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch1),
       ),
         body: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             alignment: Alignment.topLeft,
             decoration: BoxDecoration(
-              color: const Color.fromRGBO(255, 200, 62, 1.0),
+              color: HexColor.fromHexStr(AppColor.primaryThemeSwatch1),
             ),
             child: Padding(
               padding: const EdgeInsets.all(18.0),
@@ -103,9 +103,10 @@ class _SignUpPageState extends State<SignUpPage> {
                   children: <Widget>[
                     const PrimaryLogo(),
                     Container(
-                      height: 40,
+                      height: 20,
                     ),
-                    CustomText("Welcome", 48, color: Colors.deepOrange,),
+                    // CustomText("Assalamualaikum", 30, color: HexColor.fromHexStr(AppColor.primaryThemeSwatch3)),
+                    // SizedBox(height: 20,),
                     CustomText("Email or Phone",20, bold: true,),
                     CustomTextfield(const Icon(Icons.email_outlined, color: Colors.black,), "john@gmail.com", false, isEmail: true,_emailEditingController),
                     Container(
@@ -128,6 +129,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     CustomButton("SIGN UP", createAccount),
                     SignInProviders(),
+                    SizedBox(height: 10,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

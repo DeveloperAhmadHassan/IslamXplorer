@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/main.dart';
 import 'package:islamxplorer_flutter/pages/ProfilePage.dart';
+import 'package:islamxplorer_flutter/values/colors.dart';
 import 'package:islamxplorer_flutter/widgets/custom_text.dart';
 import 'package:islamxplorer_flutter/widgets/profile_photo.dart';
 import 'package:islamxplorer_flutter/widgets/secondary_logo.dart';
@@ -20,7 +22,7 @@ class SecondaryAppBar extends StatelessWidget implements PreferredSizeWidget{
   Widget build(BuildContext context) {
 
     return Container(
-      color: Color.fromRGBO(255, 200, 62, 1.0),
+      color: HexColor.fromHexStr(AppColor.primaryThemeSwatch1),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         mainAxisAlignment: MainAxisAlignment.start,

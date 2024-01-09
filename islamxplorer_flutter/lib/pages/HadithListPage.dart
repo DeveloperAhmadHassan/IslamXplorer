@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:islamxplorer_flutter/Controllers/hadithDataController.dart';
+import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/models/hadith.dart';
 import 'package:islamxplorer_flutter/pages/AddUpdateHadithPage.dart';
+import 'package:islamxplorer_flutter/values/colors.dart';
 import 'package:islamxplorer_flutter/widgets/custom_appbar.dart';
 import 'package:islamxplorer_flutter/widgets/custom_button.dart';
 import 'package:islamxplorer_flutter/widgets/custom_text.dart';
@@ -17,9 +19,10 @@ class HadithListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(255, 200, 62, 1.0),
+      backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
       appBar: AppBar(
         title: Text("Hadiths"),
+        backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
       ),
       body: FutureBuilder<List<Hadith>>(
         future: hadithDataController.fetchAllHadiths(),
@@ -39,7 +42,7 @@ class HadithListPage extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
-                    CustomButton("Add Hadith", ()=>Navigator.push(context, MaterialPageRoute(builder: (cntext)=>AddUpdateHadithPage()))),
+                    CustomButton("Add Hadith", ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>AddUpdateHadithPage()))),
                     Cards(hadiths: hadiths),
                   ],
                 ),
@@ -75,22 +78,31 @@ class HadithCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Use the 'hadith' object to populate your card
     return Column(
       children: [
         GestureDetector(
           onTap: () => Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => SearchItemPage(searchResultItem: hadith), // Replace SearchItemPage with your actual page class
+              builder: (context) => SearchItemPage(searchResultItem: hadith),
             ),
           ),
           child: Card(
             elevation: 7,
+            color: HexColor.fromHexStr(AppColor.secondaryThemeSwatch1),
             child: ListTile(
-              leading: Text(hadith.id),
-              title: Text(hadith.source),
-              subtitle: Text(hadith.englishText, overflow: TextOverflow.ellipsis),
+              leading: Text(hadith.id, style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600
+              )),
+              title: Text(hadith.source, style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600
+              )),
+              subtitle: Text(hadith.englishText, overflow: TextOverflow.ellipsis,style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600
+              )),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [

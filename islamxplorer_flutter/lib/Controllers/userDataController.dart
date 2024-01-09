@@ -5,20 +5,16 @@ import 'package:islamxplorer_flutter/models/user.dart';
 class UserDataController{
   Future<void> addUserToFirestore(AppUser user) async {
     try {
-      // Access the Firestore instance
       FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-      // Reference to the "users" collection
       CollectionReference users = firestore.collection('Users');
 
-      // Add a new document with a unique ID
       await users.doc(user.uid).set({
         'email': user.email,
         'userName': user.userName,
         'phone': user.phone,
         'gender': user.gender,
         'birthdate': user.birthdate
-        // Add more fields as needed
       });
 
       print('User updated!');
@@ -26,6 +22,7 @@ class UserDataController{
       print('Error updating user to Firestore: $e');
     }
   }
+
   Future<AppUser> getUserData() async {
     var user = FirebaseAuth.instance.currentUser;
     String? userId = user?.uid;
@@ -34,14 +31,11 @@ class UserDataController{
       FirebaseFirestore firestore = FirebaseFirestore.instance;
       CollectionReference users = firestore.collection('Users');
 
-      // Get user document by ID
       DocumentSnapshot userDoc = await users.doc(userId).get();
 
       if (userDoc.exists) {
-        // Access user data
         Map<String, dynamic> userData = userDoc.data() as Map<String, dynamic>;
 
-        // Print or use user data
         print('User ID: $userId');
         print('Email: ${userData['email']}');
         print('Username: ${userData['userName']}');
@@ -52,12 +46,11 @@ class UserDataController{
             email: userData['email'],
             birthdate: userData['birthdate'],
             phone: userData['phone'],
-            type: userData['type'],
+            type: userData['type']??"U",
             gender: userData['gender']);
 
         return appUser;
 
-        // Access other fields as needed
       } else {
         print('User with ID $userId does not exist in Firestore.');
         return appUser;
@@ -65,6 +58,63 @@ class UserDataController{
     } catch (e) {
       print('Error fetching user data from Firestore: $e');
       return appUser;
+    }
+  }
+
+  Future<bool> addBookmark(String id) async {
+    try {
+      var user = FirebaseAuth.instance.currentUser;
+
+      DocumentReference userDoc = FirebaseFirestore.instance.collection('Users').doc(user?.uid);
+      List<dynamic> currentBookmarks = (await userDoc.get()).get('bookmarks') ?? [];
+
+      currentBookmarks.add(id);
+
+      await userDoc.update({
+        'bookmarks': currentBookmarks,
+      });
+
+      print('Dua added to Bookmarks!');
+      return true;
+    } catch (e) {
+      print('Error adding bookmark to Firestore: $e');
+      return false;
+    }
+  }
+
+  Future<bool> removeBookmark(String id) async {
+    try {
+      var user = FirebaseAuth.instance.currentUser;
+
+      DocumentReference userDoc = FirebaseFirestore.instance.collection('Users').doc(user?.uid);
+      List<dynamic> currentBookmarks = (await userDoc.get()).get('bookmarks') ?? [];
+
+      currentBookmarks.remove(id);
+
+      await userDoc.update({
+        'bookmarks': currentBookmarks,
+      });
+
+      print('Dua removed from Bookmarks!');
+      return true;
+    } catch (e) {
+      print('Error removing bookmark from Firestore: $e');
+      return false;
+    }
+  }
+
+  Future<bool> isBookmarked(String id) async {
+    try {
+      var user = FirebaseAuth.instance.currentUser;
+
+      DocumentReference userDoc = FirebaseFirestore.instance.collection('Users').doc(user?.uid);
+      List<dynamic> currentBookmarks = (await userDoc.get()).get('bookmarks') ?? [];
+
+      // Check if the specified id exists in bookmarks
+      return currentBookmarks.contains(id);
+    } catch (e) {
+      print('Error checking if bookmark exists in Firestore: $e');
+      return false;
     }
   }
 }

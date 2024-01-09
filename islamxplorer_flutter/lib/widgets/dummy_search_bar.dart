@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/pages/SearchingPage.dart';
 
 import 'package:flutter/material.dart';
+import 'package:islamxplorer_flutter/values/colors.dart';
 
 class DummySearchBar extends StatefulWidget {
   @override
@@ -30,7 +32,7 @@ class _DummySearchBarState extends State<DummySearchBar> {
         width: MediaQuery.of(context).size.width-30,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: isClicked ? Colors.grey : Color.fromRGBO(255, 249, 197, 1),
+          color: isClicked ? Colors.grey : HexColor.fromHexStr(AppColor.primaryThemeSwatch4),
           borderRadius: BorderRadius.all(Radius.circular(100)),
         ),
         child: Row(

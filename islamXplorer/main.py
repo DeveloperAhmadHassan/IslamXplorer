@@ -111,12 +111,12 @@ def deleteDua():
         return Response(methodNotAllowedJson, mimetype="text/json"), 405
 
 
-@app.route('/duas/<id>', methods=["PUT"])
-def updateDua(id):
-    print(id)
+@app.route('/duas', methods=["PUT"])
+def updateDua():
+    oldID = request.args.get('id')
     params = request.json
     dua = Dua(**params)
-    jsonData = DuaCon.updateDuaByID(dua)
+    jsonData = DuaCon.updateDuaByID(oldID, dua)
     parsed_data = json.loads(jsonData)
     if parsed_data["status"] != 200:
         print("Fail")

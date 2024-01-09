@@ -4,10 +4,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:islamxplorer_flutter/Controllers/userDataController.dart';
+import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/main.dart';
 import 'package:islamxplorer_flutter/models/user.dart';
 import 'package:islamxplorer_flutter/pages/HomePage.dart';
 import 'package:islamxplorer_flutter/pages/SignUpPage.dart';
+import 'package:islamxplorer_flutter/values/colors.dart';
 import 'package:islamxplorer_flutter/widgets/custom_button.dart';
 import 'package:islamxplorer_flutter/widgets/custom_text.dart';
 import 'package:islamxplorer_flutter/widgets/custom_textfield.dart';
@@ -71,14 +73,14 @@ class _SignInPageState extends State<SignInPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Log In"),
-        backgroundColor: const Color.fromRGBO(255, 200, 62, 1.0),
+        backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch1),
       ),
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         alignment: Alignment.topLeft,
         decoration: BoxDecoration(
-          color: const Color.fromRGBO(255, 200, 62, 1.0),
+          color: HexColor.fromHexStr(AppColor.primaryThemeSwatch1),
         ),
         child: Padding(
           padding: const EdgeInsets.all(18.0),

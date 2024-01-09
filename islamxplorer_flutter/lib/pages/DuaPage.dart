@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:islamxplorer_flutter/Controllers/duaDataController.dart';
+import 'package:islamxplorer_flutter/extensions/color.dart';
+import 'package:islamxplorer_flutter/extensions/string.dart';
 import 'package:islamxplorer_flutter/models/duaType.dart';
 import 'package:islamxplorer_flutter/pages/DuaListPage.dart';
+import 'package:islamxplorer_flutter/values/colors.dart';
 import 'package:islamxplorer_flutter/widgets/custom_appbar.dart';
 import 'package:islamxplorer_flutter/widgets/custom_text.dart';
 import 'package:islamxplorer_flutter/widgets/new_tag.dart';
@@ -12,9 +15,10 @@ class DuaPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(255, 200, 62, 1.0),
+      backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
       appBar: AppBar(
         title: Text("Duas"),
+        backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2)
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -73,15 +77,15 @@ class DuaItemCard extends StatelessWidget {
         child: Container(
           width: 190,
           height: duaType.height.toDouble(),
-          color: Color.fromRGBO(246, 237, 151, 1.0),
+          color: HexColor.fromHexStr(AppColor.primaryThemeSwatch4),
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(right: 10, left: 10, top: 8),
             child: Column(
               children: [
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
-                    color: Colors.amberAccent,
+                    // color: Colors.amberAccent,
                   ),
                   child: Column(
                     children: [
@@ -101,9 +105,10 @@ class DuaItemCard extends StatelessWidget {
                   ),
                 ),
                 Container(
+                  padding: const EdgeInsets.only(right: 10, left: 10, top: 8),
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    duaType.name,
+                    duaType.name.capitalizeFirstLetter,
                     style: TextStyle(
                       fontSize: 18,
                       color: Colors.deepPurple,

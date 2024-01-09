@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:islamxplorer_flutter/Controllers/hadithDataController.dart';
 import 'package:islamxplorer_flutter/Controllers/verseDataController.dart';
+import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/models/hadith.dart';
 import 'package:islamxplorer_flutter/models/searchResultItem.dart';
+import 'package:islamxplorer_flutter/values/colors.dart';
 import 'package:islamxplorer_flutter/widgets/custom_button.dart';
 import 'package:islamxplorer_flutter/widgets/custom_text.dart';
 import 'package:islamxplorer_flutter/widgets/custom_textfield.dart';
@@ -44,9 +46,10 @@ class _AddUpdateVersePageState extends State<AddUpdateVersePage> {
     VerseDataController verseDataController = VerseDataController();
 
     return Scaffold(
-      backgroundColor: Colors.amber,
+      backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch1),
       appBar: AppBar(
         title: Text("Add Verse"),
+        backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch1),
       ),
       body:  widget.isUpdate ?
       FutureBuilder<Verse>(
@@ -96,18 +99,18 @@ class _AddUpdateVersePageState extends State<AddUpdateVersePage> {
                       prefixIcon: const Icon(Icons.mosque_outlined, color: Colors.black),
                       hintText: "Enter Verse Number",
                       filled: true,
-                      fillColor: Colors.amberAccent,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: const BorderSide(color: Colors.amberAccent),
-                      ),
+                      fillColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
+                      // border: OutlineInputBorder(
+                      //   borderRadius: BorderRadius.circular(20),
+                      //   borderSide: const BorderSide(color: Colors.amberAccent),
+                      // ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
-                        borderSide: const BorderSide(color: Colors.amberAccent),
+                        borderSide: const BorderSide(color: Colors.transparent),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
-                        borderSide: const BorderSide(color: Colors.amberAccent, width: 3),
+                        borderSide: const BorderSide(color: Colors.white, width: 3),
                       ),
                     ),
                     validator: (value) {
@@ -173,18 +176,18 @@ class _AddUpdateVersePageState extends State<AddUpdateVersePage> {
                 prefixIcon: const Icon(Icons.mosque_outlined, color: Colors.black),
                 hintText: "Enter Verse Number",
                 filled: true,
-                fillColor: Colors.amberAccent,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  borderSide: const BorderSide(color: Colors.amberAccent),
-                ),
+                fillColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
+                // border: OutlineInputBorder(
+                //   borderRadius: BorderRadius.circular(20),
+                //   borderSide: const BorderSide(color: Colors.amberAccent),
+                // ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20),
-                  borderSide: const BorderSide(color: Colors.amberAccent),
+                  borderSide: const BorderSide(color: Colors.transparent),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20),
-                  borderSide: const BorderSide(color: Colors.amberAccent, width: 3),
+                  borderSide: const BorderSide(color: Colors.white, width: 3),
                 ),
               ),
               validator: (value) {

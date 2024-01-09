@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:islamxplorer_flutter/Controllers/duaDataController.dart';
+import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/models/duaType.dart';
 import 'package:islamxplorer_flutter/pages/DuaListPage.dart';
 import 'package:islamxplorer_flutter/pages/HadithListPage.dart';
 import 'package:islamxplorer_flutter/pages/VerseListPage.dart';
+import 'package:islamxplorer_flutter/values/colors.dart';
 import 'package:islamxplorer_flutter/widgets/custom_appbar.dart';
 import 'package:islamxplorer_flutter/widgets/custom_text.dart';
 import 'package:islamxplorer_flutter/widgets/new_tag.dart';
@@ -14,9 +16,10 @@ class AdminPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(255, 200, 62, 1.0),
+      backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
       appBar: AppBar(
         title: Text("Home"),
+        backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -28,6 +31,7 @@ class AdminPanel extends StatelessWidget {
                   crossAxisCellCount: 4,
                   mainAxisCellCount: 2,
                   child: Card(
+                    color: HexColor.fromHexStr(AppColor.secondaryThemeSwatch3),
                     elevation: 7,
                     child: Container(
                       child: Center(child: CustomText("Reports", 40, alignment: Alignment.center,)),
@@ -40,6 +44,7 @@ class AdminPanel extends StatelessWidget {
                   child: GestureDetector(
                     onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>DuaListPage(type:"A") )),
                     child: Card(
+                      color: HexColor.fromHexStr(AppColor.secondaryThemeSwatch2),
                       elevation: 7,
                       child: Container(
                         child: Center(child: CustomText("Duas", 40, alignment: Alignment.center,)),
@@ -53,6 +58,7 @@ class AdminPanel extends StatelessWidget {
                   child: GestureDetector(
                     onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>VerseListPage() )),
                     child: Card(
+                      color: HexColor.fromHexStr(AppColor.secondaryThemeSwatch2),
                       elevation: 7,
                       child: Container(
                         child: Center(child: CustomText("Verses", 40, alignment: Alignment.center,)),
@@ -64,10 +70,11 @@ class AdminPanel extends StatelessWidget {
                   crossAxisCellCount: 2,
                   mainAxisCellCount: 2,
                   child: Card(
+                    color: HexColor.fromHexStr(AppColor.secondaryThemeSwatch2),
                     elevation: 7,
                     child: Container(
                       height: 200,
-                      child: Center(child: CustomText("Dua Type", 30, alignment: Alignment.center,)),
+                      child: Center(child: CustomText("DuaType", 30, alignment: Alignment.center,bold: true,)),
                     ),
                   ),
                 ),
@@ -77,6 +84,7 @@ class AdminPanel extends StatelessWidget {
                   child: GestureDetector(
                     onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>HadithListPage() )),
                     child: Card(
+                      color: HexColor.fromHexStr(AppColor.secondaryThemeSwatch2),
                       elevation: 7,
                       child: Container(
                         height: 200,
@@ -89,6 +97,7 @@ class AdminPanel extends StatelessWidget {
                   crossAxisCellCount: 2,
                   mainAxisCellCount: 2,
                   child: Card(
+                    color: HexColor.fromHexStr(AppColor.secondaryThemeSwatch2),
                     elevation: 7,
                     child: Container(
                       height: 200,
@@ -100,6 +109,7 @@ class AdminPanel extends StatelessWidget {
                   crossAxisCellCount: 2,
                   mainAxisCellCount: 2,
                   child: Card(
+                    color: HexColor.fromHexStr(AppColor.secondaryThemeSwatch2),
                     elevation: 7,
                     child: Container(
                       height: 200,

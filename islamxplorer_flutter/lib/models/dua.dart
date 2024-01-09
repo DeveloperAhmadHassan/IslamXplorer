@@ -10,6 +10,7 @@ class Dua implements SearchResultItem{
   String? verses;
   int? surah;
   List<String>? types;
+  bool isBookmarked = false;
   // String? explanation;
 
   @override
@@ -43,11 +44,10 @@ class Dua implements SearchResultItem{
       title: json['title'] as String,
       englishText: json['englishText'] as String,
       arabicText: json['arabicText'] as String ?? "",
-      // json['explanation'] as String ?? "",
       transliteration: json['transliteration'] as String ?? "",
-      // explanation: json['explanation'] as String ?? "",
-      // verses: json['verses'] as String ?? "",
+      verses: json['verses'],
       surah: json['surah'] as int ?? 0,
+      explanation: json['explanation']
     );
   }
 }

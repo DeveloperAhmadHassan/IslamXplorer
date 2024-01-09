@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/pages/SearchResultsPage.dart';
+import 'package:islamxplorer_flutter/values/colors.dart';
 import 'package:islamxplorer_flutter/widgets/custom_text.dart';
 import 'package:islamxplorer_flutter/widgets/search_bar.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
@@ -30,7 +32,7 @@ class _SearchingPageState extends State<SearchingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(255, 200, 62, 1.0),
+      backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch1),
       body: Column(
         children: [
           SizedBox(height: 50,),
@@ -39,7 +41,7 @@ class _SearchingPageState extends State<SearchingPage> {
             child: Container(
               margin: EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: Color.fromRGBO(255, 249, 197, 1),
+                color: HexColor.fromHexStr(AppColor.primaryThemeSwatch4),
                 borderRadius: BorderRadius.circular(30.0),
               ),
               child: Padding(

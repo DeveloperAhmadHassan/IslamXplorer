@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/models/hadith.dart';
 import 'package:islamxplorer_flutter/models/searchResultItem.dart';
+import 'package:islamxplorer_flutter/values/colors.dart';
+import 'package:islamxplorer_flutter/values/strings.dart';
 import 'package:islamxplorer_flutter/widgets/custom_text.dart';
 import 'package:islamxplorer_flutter/widgets/search_bar.dart';
 import 'package:islamxplorer_flutter/widgets/secondary_logo.dart';
@@ -27,13 +30,13 @@ class _SearchItemPageState extends State<SearchItemPage> {
   Widget build(BuildContext context) {
     if(widget.searchResultItem is Hadith){
       hadith = widget.searchResultItem as Hadith;
-      imageUrl = "https://raw.githubusercontent.com/DeveloperAhmadHassan/images/main/bg_hadith.jpg";
+      imageUrl = AppString.hadithBGUrl;
     } else if(widget.searchResultItem is Verse){
       verse = widget.searchResultItem as Verse;
-      imageUrl = "https://raw.githubusercontent.com/DeveloperAhmadHassan/images/main/bg_verse.jpg";
+      imageUrl = AppString.verseBGUrl;
     }
     return Scaffold(
-      backgroundColor: Colors.tealAccent,
+      backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch4),
       body: SingleChildScrollView(
         child: Container(
           child: Stack(
@@ -110,6 +113,7 @@ class _SearchItemPageState extends State<SearchItemPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Card(
+                          color: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
                           elevation: 7,
                           child: Container(
                             width: MediaQuery.of(context).size.width,
@@ -118,15 +122,16 @@ class _SearchItemPageState extends State<SearchItemPage> {
                               child: Text(
                                   widget.searchResultItem is Hadith ?
                                   "${hadith.source}" :
-                                  "${verse.surah}",
+                                  "${verse.surah}:",
                                   style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 24,
                                       fontWeight: FontWeight.w700
                                   ),textAlign: TextAlign.center,),
                             ),
                           ),
                         ),
                         Card(
+                          color: HexColor.fromHexStr(AppColor.secondaryThemeSwatch1),
                           elevation: 7,
                           child: Container(
                             width: MediaQuery.of(context).size.width,
@@ -167,6 +172,7 @@ class _SearchItemPageState extends State<SearchItemPage> {
                         //   ),
                         // ),
                         Card(
+                          color: HexColor.fromHexStr(AppColor.secondaryThemeSwatch1),
                           elevation: 7,
                           child: Container(
                             width: MediaQuery.of(context).size.width,

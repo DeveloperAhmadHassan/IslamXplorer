@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:islamxplorer_flutter/extensions/color.dart';
+import 'package:islamxplorer_flutter/values/colors.dart';
 
 class ProfilePhoto extends StatelessWidget {
   const ProfilePhoto({
@@ -18,7 +20,7 @@ class ProfilePhoto extends StatelessWidget {
         height: size,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(100),
-            border: Border.all(width: 2, color: Colors.amberAccent)
+            border: Border.all(width: 4, color: HexColor.fromHexStr(AppColor.secondaryThemeSwatch3))
         ),
         child: ClipRRect(
             borderRadius: BorderRadius.circular(100),

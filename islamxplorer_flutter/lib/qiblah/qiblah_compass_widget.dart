@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_qiblah/flutter_qiblah.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:islamxplorer_flutter/extensions/color.dart';
+import 'package:islamxplorer_flutter/values/colors.dart';
 
 import 'error.dart';
 import 'loading.dart';
@@ -33,7 +35,7 @@ class _QiblahCompassState extends State<QiblahCompass> {
     return Container(
       alignment: Alignment.center,
       padding: const EdgeInsets.all(8.0),
-      color: Colors.amber,
+      color: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
       child: StreamBuilder(
         stream: stream,
         builder: (context, AsyncSnapshot<LocationStatus> snapshot) {

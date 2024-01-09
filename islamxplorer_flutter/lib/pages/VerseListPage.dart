@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:islamxplorer_flutter/Controllers/hadithDataController.dart';
 import 'package:islamxplorer_flutter/Controllers/verseDataController.dart';
+import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/models/hadith.dart';
 import 'package:islamxplorer_flutter/models/verse.dart';
 import 'package:islamxplorer_flutter/pages/AddUpdateHadithPage.dart';
 import 'package:islamxplorer_flutter/pages/AddUpdateVersePage.dart';
+import 'package:islamxplorer_flutter/values/colors.dart';
 import 'package:islamxplorer_flutter/widgets/custom_appbar.dart';
 import 'package:islamxplorer_flutter/widgets/custom_button.dart';
 import 'package:islamxplorer_flutter/widgets/custom_text.dart';
@@ -20,9 +22,10 @@ class VerseListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(255, 200, 62, 1.0),
+      backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
       appBar: AppBar(
         title: Text("Verses"),
+        backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
       ),
       body: FutureBuilder<List<Verse>>(
         future: verseDataController.fetchAllVerses(),
@@ -89,10 +92,20 @@ class VerseCard extends StatelessWidget {
           ),
           child: Card(
             elevation: 7,
+            color: HexColor.fromHexStr(AppColor.secondaryThemeSwatch1),
             child: ListTile(
-              leading: Text(verse.id),
-              title: Text(verse.surah),
-              subtitle: Text(verse.englishText, overflow: TextOverflow.ellipsis),
+              leading: Text(verse.id, style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600
+              )),
+              title: Text(verse.surah, style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600
+              )),
+              subtitle: Text(verse.englishText, overflow: TextOverflow.ellipsis, style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600
+              )),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [

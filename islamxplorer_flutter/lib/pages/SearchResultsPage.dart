@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:islamxplorer_flutter/Controllers/resultsDataController.dart';
+import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/models/hadith.dart';
 import 'package:islamxplorer_flutter/models/searchResultItem.dart';
 import 'package:islamxplorer_flutter/models/verse.dart';
 import 'package:islamxplorer_flutter/pages/SearchItemPage.dart';
+import 'package:islamxplorer_flutter/values/colors.dart';
 import 'package:islamxplorer_flutter/widgets/custom_text.dart';
 import 'package:islamxplorer_flutter/widgets/dummy_search_bar.dart';
 import 'package:islamxplorer_flutter/widgets/search_bar.dart';
@@ -62,7 +64,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
     }
 
     return Scaffold(
-      backgroundColor: Color.fromRGBO(255, 200, 62, 1.0),
+      backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch1),
       appBar: SecondaryAppBar(""),
       body: SingleChildScrollView(
         padding: EdgeInsets.only(top: 25),
@@ -101,11 +103,21 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
               Padding(
                 padding: EdgeInsets.only(bottom: 7),
                 child: Card(
+                  color: HexColor.fromHexStr(AppColor.secondaryThemeSwatch1),
                   elevation: 7,
                   child: ListTile(
-                    title: Text("${result.s_title}"), // Adjust accordingly
-                    subtitle: Text("${result.s_subtitle}", overflow: TextOverflow.ellipsis,), // Adjust accordingly
-                    leading: Text("${result.s_id}"), // Adjust accordingly
+                    title: Text("${result.s_title}", style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600
+                    )),
+                    subtitle: Text("${result.s_subtitle}", overflow: TextOverflow.ellipsis, style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600
+                    )),
+                    leading: Text("${result.s_id}", style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600
+                    )),
                     trailing: Icon(LineAwesomeIcons.vertical_ellipsis),
                     onTap: () {
                       Navigator.push(

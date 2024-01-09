@@ -2,8 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/pages/SignInPage.dart';
 import 'package:islamxplorer_flutter/pages/UpdateProfilePage.dart';
+import 'package:islamxplorer_flutter/values/colors.dart';
 import 'package:islamxplorer_flutter/widgets/custom_button.dart';
 import 'package:islamxplorer_flutter/widgets/custom_text.dart';
 import 'package:islamxplorer_flutter/widgets/profile_photo.dart';
@@ -35,9 +37,9 @@ class ProfilePage extends StatelessWidget{
         : const Image(image: AssetImage('assets/profile.png'),);
 
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(255, 200, 62, 1.0),
+      backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch1),
       appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(255, 200, 62, 1.0),
+        backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch1),
         title: const Text("Profile"),
         actions: [
           IconButton(onPressed: (){}, icon: const Icon(LineAwesomeIcons.moon))
@@ -45,7 +47,7 @@ class ProfilePage extends StatelessWidget{
       ),
       body: SingleChildScrollView(
         child: Container(
-          color: const Color.fromRGBO(255, 200, 62, 1.0),
+          // color: const Color.fromRGBO(255, 200, 62, 1.0),
           padding: const EdgeInsets.all(20),
           child: Column(
             children: [
@@ -60,7 +62,7 @@ class ProfilePage extends StatelessWidget{
                       height: 35,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
-                        color: Colors.amberAccent
+                        color: HexColor.fromHexStr(AppColor.secondaryThemeSwatch3),
                       ),
                       child: const Icon(
                         LineAwesomeIcons.alternate_pencil,
@@ -136,7 +138,7 @@ class ProfileMenuWidget extends StatelessWidget {
         ),
         child: Icon(icon, color: Colors.blueAccent,),
       ),
-      title: CustomText(text, 20, color: textColor,),
+      title: CustomText(text, 20, color: textColor,bold: true,),
       trailing: endIcon ? Container(
         width: 35,
         height: 35,
