@@ -110,11 +110,50 @@ class UserDataController{
       DocumentReference userDoc = FirebaseFirestore.instance.collection('Users').doc(user?.uid);
       List<dynamic> currentBookmarks = (await userDoc.get()).get('bookmarks') ?? [];
 
-      // Check if the specified id exists in bookmarks
       return currentBookmarks.contains(id);
     } catch (e) {
       print('Error checking if bookmark exists in Firestore: $e');
       return false;
     }
   }
+
+  Future<bool> addReport(String id, String message) async {
+    try {
+      // Get the current authenticated user
+      var user = FirebaseAuth.instance.currentUser;
+
+      // Check if the user is signed in
+      if (user != null) {
+        // Get a reference to the Firestore collection named "ReportedItems"
+        var reportsCollection = FirebaseFirestore.instance.collection('Reports');
+
+        // Create a timestamp for the current date and time
+        var timestamp = DateTime.now().toUtc();
+
+        // Create a new document in the "ReportedItems" collection without specifying an ID
+        var newReportDocumentRef = reportsCollection.doc();
+
+        print('Randomly generated document ID: ${newReportDocumentRef.id}');
+
+        // Set the fields for the document
+        await newReportDocumentRef.set({
+          'userId': user.uid,
+          'reportedItemId': id,
+          'message': message,
+          'timestamp': timestamp,
+        });
+
+        // Return true to indicate the report was successfully added
+        return true;
+      } else {
+        // Return false if the user is not signed in
+        return false;
+      }
+    } catch (e) {
+      // Return false if an error occurs during the process
+      return false;
+    }
+  }
+
+
 }

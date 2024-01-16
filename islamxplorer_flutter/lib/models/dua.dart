@@ -11,6 +11,7 @@ class Dua implements SearchResultItem{
   int? surah;
   List<String>? types;
   bool isBookmarked = false;
+  bool isReported = false;
   // String? explanation;
 
   @override

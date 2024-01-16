@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:islamxplorer_flutter/Controllers/userDataController.dart';
 import 'package:islamxplorer_flutter/models/dua.dart';
 import 'package:islamxplorer_flutter/models/duaType.dart';
 import 'package:islamxplorer_flutter/models/hadith.dart';
@@ -116,6 +117,14 @@ class DuaDataController{
         print("Hello2");
         final List<Dua> duas = jsonData.map((data) => Dua.fromJson(data)).toList();
         print("Hello3");
+
+        var result = setBookmark(duas.first);
+        if(await result){
+          duas.first.isBookmarked = true;
+        } else {
+          duas.first.isBookmarked = false;
+        }
+
         return duas.first;
       }  else {
         throw Exception('Failed to load Dua');
@@ -179,6 +188,17 @@ class DuaDataController{
       print("Error deleting Dua: $e");
       throw Exception("Error deleting Dua: $e");
       return true;
+    }
+  }
+
+  Future<bool> setBookmark(Dua dua) async{
+    UserDataController userDataController = UserDataController();
+    if(await userDataController.isBookmarked(dua.id)){
+      // dua.isBookmarked = true;
+      return true;
+    } else {
+      // dua.isBookmarked = false;
+      return false;
     }
   }
 }

@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:islamxplorer_flutter/Controllers/userDataController.dart';
+import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/models/user.dart';
 import 'package:islamxplorer_flutter/pages/DuaPage.dart';
 import 'package:islamxplorer_flutter/pages/HomePage.dart';
@@ -14,6 +16,7 @@ import 'package:islamxplorer_flutter/pages/SignInPage.dart';
 import 'package:islamxplorer_flutter/pages/SignUpPage.dart';
 import 'package:islamxplorer_flutter/qiblah/qiblah_widget.dart';
 import 'package:islamxplorer_flutter/qiblah/QiblaPage.dart';
+import 'package:islamxplorer_flutter/values/colors.dart';
 import 'package:islamxplorer_flutter/widgets/dummy_search_bar.dart';
 import 'package:islamxplorer_flutter/widgets/nav_bar.dart';
 
@@ -47,7 +50,22 @@ class MyApp extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot<User?> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             // Show a loading indicator if the authentication state is still loading
-            return CircularProgressIndicator();
+            return Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                  color: HexColor.fromHexStr(AppColor.primaryThemeSwatch2)
+              ),
+              child: SpinKitCircle(
+                itemBuilder: (BuildContext context, int index) {
+                  return DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: HexColor.fromHexStr(AppColor.secondaryThemeSwatch1),
+                    ),
+                  );
+                },
+              ),
+            );
           } else if (snapshot.hasError) {
             // Handle error if necessary
             return Text('Error: ${snapshot.error}');
@@ -58,7 +76,22 @@ class MyApp extends StatelessWidget {
               builder: (BuildContext context, AsyncSnapshot<AppUser> userSnapshot) {
                 if (userSnapshot.connectionState == ConnectionState.waiting) {
                   // Show a loading indicator if user details are still loading
-                  return CircularProgressIndicator();
+                  return Container(
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                        color: HexColor.fromHexStr(AppColor.primaryThemeSwatch2)
+                    ),
+                    child: SpinKitCircle(
+                      itemBuilder: (BuildContext context, int index) {
+                        return DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: HexColor.fromHexStr(AppColor.secondaryThemeSwatch1),
+                          ),
+                        );
+                      },
+                    ),
+                  );
                 } else if (userSnapshot.hasError) {
                   // Handle error if necessary
                   return Text('Error: ${userSnapshot.error}');

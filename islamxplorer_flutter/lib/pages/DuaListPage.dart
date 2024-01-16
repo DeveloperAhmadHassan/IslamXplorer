@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:islamxplorer_flutter/Controllers/duaDataController.dart';
 import 'package:islamxplorer_flutter/Controllers/userDataController.dart';
 import 'package:islamxplorer_flutter/extensions/color.dart';
@@ -36,8 +37,34 @@ class DuaListPage extends StatelessWidget {
             future: type == "A" ? duaDataController.fetchAllDuas() : duaDataController.fetchDuasFromTypes(title),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
-                  child: CircularProgressIndicator(),
+                return Scaffold(
+                  body: Container(
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                        color: HexColor.fromHexStr(AppColor.primaryThemeSwatch2)
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SpinKitWave(
+                          itemBuilder: (BuildContext context, int index) {
+                            return DecoratedBox(
+                              decoration: BoxDecoration(
+                                color: HexColor.fromHexStr(AppColor.secondaryThemeSwatch1),
+                              ),
+                            );
+                          },
+                        ),
+                        SizedBox(height: 30,),
+                        Text("Loading Item. Please Wait", style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600
+                        ))
+                      ],
+                    ),
+                  ),
                 );
               } else if (snapshot.hasError) {
                 return Center(
@@ -122,8 +149,13 @@ class _DuaCardState extends State<DuaCard> {
             color: HexColor.fromHexStr(AppColor.secondaryThemeSwatch1),
             child: ListTile(
               leading: Icon(Icons.mosque_outlined),
-              title: Text(widget.dua.title),
-              subtitle: Text(widget.dua.englishText, overflow: TextOverflow.ellipsis),
+              title: Text(widget.dua.title, style: TextStyle(
+                fontWeight: FontWeight.w600
+              )),
+              subtitle: Text(widget.dua.englishText, overflow: TextOverflow.ellipsis, style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 17
+              )),
               trailing: widget.type == "A"
                 ? Row(
                 mainAxisSize: MainAxisSize.min,

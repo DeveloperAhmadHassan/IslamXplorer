@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:islamxplorer_flutter/Controllers/duaDataController.dart';
 import 'package:islamxplorer_flutter/Controllers/userDataController.dart';
 import 'package:islamxplorer_flutter/extensions/color.dart';
@@ -33,8 +34,34 @@ class _DuaItemPageState extends State<DuaItemPage> {
       future: widget.duaDataController.getDuaByID(widget.dua.id),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
-            child: CircularProgressIndicator(),
+          return Scaffold(
+            body: Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                  color: HexColor.fromHexStr(AppColor.primaryThemeSwatch2)
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SpinKitWave(
+                    itemBuilder: (BuildContext context, int index) {
+                      return DecoratedBox(
+                        decoration: BoxDecoration(
+                          color: HexColor.fromHexStr(AppColor.secondaryThemeSwatch1),
+                        ),
+                      );
+                    },
+                  ),
+                  SizedBox(height: 30,),
+                  Text("Loading Item. Please Wait", style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600
+                  ))
+                ],
+              ),
+            ),
           );
         } else if (snapshot.hasError) {
           return Center(
@@ -85,9 +112,7 @@ class _DuaItemPageState extends State<DuaItemPage> {
                                       color: Colors.white.withOpacity(0.7)
                                   ),
                                   // color: Colors.white,
-                                  child: widget.dua.isBookmarked
-                                    ? IconButton(icon: Icon(Icons.bookmark), onPressed: ()=>toggleBookmarks(dua.id, context),)
-                                    : IconButton(icon: Icon(Icons.bookmark_border_rounded), onPressed: ()=>toggleBookmarks(dua.id, context),),
+                                  child: Bookmark(dua: dua,),
                                 ),
                                 SizedBox(width: 15,),
                                 Container(
@@ -107,7 +132,7 @@ class _DuaItemPageState extends State<DuaItemPage> {
                                       color: Colors.white.withOpacity(0.7)
                                   ),
                                   // color: Colors.white,
-                                  child: IconButton(icon: Icon(Icons.report_gmailerrorred_outlined), onPressed: () {  },),
+                                  child: Report(dua: dua,),
                                 ),
                                 SizedBox(width: 10,),
                               ],
@@ -272,5 +297,206 @@ class RelatedItem extends StatelessWidget{
       subtitle: Text(subtitle),
       leading: Icon(icon),
     );
+  }
+}
+
+class Bookmark extends StatefulWidget{
+  late IconData icon;
+  Dua dua;
+
+  Bookmark({super.key, required this.dua}){
+    if(dua.isBookmarked){
+      icon = Icons.bookmark;
+    } else {
+      icon = Icons.bookmark_border_rounded;
+    }
+  }
+
+  @override
+  State<Bookmark> createState() => _BookmarkState();
+}
+
+class _BookmarkState extends State<Bookmark> {
+  @override
+  Widget build(BuildContext context) {
+    print(widget.dua.isBookmarked);
+    return Container(
+      child: IconButton(icon: Icon(widget.icon), onPressed: () {
+        if(widget.dua.isBookmarked){
+          toggleBookmarks(widget.dua.id, context);
+        } else {
+          toggleBookmarks(widget.dua.id, context);
+        }
+      }),
+    );
+  }
+
+  void toggleBookmarks(String id, BuildContext context) async{
+    UserDataController userDataController = UserDataController();
+    if(widget.dua.isBookmarked){
+      var result = userDataController.removeBookmark(id);
+      if(await result){
+        widget.dua.isBookmarked = false;
+        widget.icon = Icons.bookmark_border_rounded;
+        setState(() {
+
+        });
+      }
+    } else {
+      var result = userDataController.addBookmark(id);
+      if(await result){
+        widget.dua.isBookmarked = true;
+        widget.icon = Icons.bookmark;
+        setState(() {
+
+        });
+      }
+    }
+  }
+}
+
+class Report extends StatefulWidget{
+  late IconData icon;
+  late bool isReported;
+  Dua dua;
+  late Color color;
+
+  Report({super.key, required this.dua}){
+    if(dua.isReported){
+      icon = Icons.report;
+      color = Colors.red;
+      isReported = true;
+    } else {
+      icon = Icons.report_gmailerrorred_rounded;
+      isReported = false;
+      color = Colors.black;
+    }
+  }
+
+  @override
+  State<Report> createState() => _ReportState();
+}
+
+class _ReportState extends State<Report> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: IconButton(icon: Icon(widget.icon, color: widget.color), onPressed: () {
+        if(widget.isReported){
+          // widget.isReported = false;
+          // widget.icon = Icons.report_gmailerrorred_outlined;
+          // widget.color = Colors.black;
+          reportDua(widget.dua.id, context);
+          // setState(() {
+          //
+          // });
+          // toggleBookmarks(widget.dua.id, context);
+        } else {
+          // widget.isReported = true;
+          // widget.icon = Icons.report;
+          // widget.color = Colors.red;
+          reportDua(widget.dua.id, context);
+          // setState(() {
+          //
+          // });
+          // toggleBookmarks(widget.dua.id, context);
+        }
+      }),
+    );
+  }
+
+  void reportDua(String id, BuildContext context) async {
+    UserDataController userDataController = UserDataController();
+    TextEditingController reportMessageTextEditingController = TextEditingController();
+
+    if (widget.dua.isReported) {
+      widget.dua.isReported = false;
+      widget.icon = Icons.report_gmailerrorred_outlined;
+      widget.color = Colors.black;
+      setState(() {
+
+      });
+    } else {
+      bool confirmDelete = await showDialog(
+        context: context,
+        builder: (BuildContext dialogContext) {
+          return AlertDialog(
+            title: Text('Report Dua'),
+            content: Column(
+              children: [
+                Text('Are you sure you want to report this Dua?'),
+                SizedBox(height: 16),
+                TextField(
+                  decoration: InputDecoration(labelText: 'Enter your message'),
+                  controller: reportMessageTextEditingController,
+                ),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(dialogContext).pop(false);
+                },
+                child: Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(dialogContext).pop(true);
+                },
+                child: Text('Report'),
+              ),
+            ],
+          );
+        },
+      );
+
+      if (confirmDelete == true) {
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Reporting Item...'),
+            duration: Duration(seconds: 7),
+          ),
+        );
+        String message = reportMessageTextEditingController.text ?? "";
+        var result = await userDataController.addReport(widget.dua.id, message);
+
+        if (result) {
+          widget.dua.isReported = true;
+          widget.icon = Icons.report;
+          widget.color = Colors.red;
+          setState(() {
+
+          });
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Item Reported successfully!'),
+              backgroundColor: Colors.green,
+            ),
+          );
+        //   // Navigator.of(context).pop();
+        //   // Navigator.of(context).push(
+        //   //   MaterialPageRoute(builder: (context) => DuaListPage(type: "A")),
+        //   // );
+        // } else {
+        //   ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        //   ScaffoldMessenger.of(context).showSnackBar(
+        //     const SnackBar(
+        //       content: Text('Error occurred!'),
+        //       backgroundColor: Colors.red,
+        //     ),
+        //   );
+        }
+      } else {
+        widget.dua.isReported = false;
+        widget.icon = Icons.report_gmailerrorred_outlined;
+        widget.color = Colors.black;
+        setState(() {
+
+        });
+        // ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      }
+    }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:islamxplorer_flutter/Controllers/duaDataController.dart';
 import 'package:islamxplorer_flutter/extensions/color.dart';
@@ -36,7 +37,35 @@ class DuaGrid extends StatelessWidget {
       future: duaDataController.fetchAllDuaTypes(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
+          return Scaffold(
+            body: Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                  color: HexColor.fromHexStr(AppColor.primaryThemeSwatch2)
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SpinKitWave(
+                    itemBuilder: (BuildContext context, int index) {
+                      return DecoratedBox(
+                        decoration: BoxDecoration(
+                          color: HexColor.fromHexStr(AppColor.secondaryThemeSwatch1),
+                        ),
+                      );
+                    },
+                  ),
+                  SizedBox(height: 30,),
+                  Text("Loading Item. Please Wait", style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600
+                  ))
+                ],
+              ),
+            ),
+          );
         } else if (snapshot.hasError) {
           return Center(child: Text('Error: ${snapshot.error}'));
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
