@@ -260,9 +260,12 @@ class _DuaCardState extends State<DuaCard> {
   void setBookmark(String id) async{
     UserDataController userDataController = UserDataController();
     if(await userDataController.isBookmarked(id)){
-      widget.dua.isBookmarked = true;
+      widget.dua.updateBookmarkStatus(true);
+      print("S: ${widget.dua.sIsBookmarked}");
+      print("Dua: ${widget.dua.isBookmarked}");
+
     } else {
-      widget.dua.isBookmarked = false;
+      widget.dua.updateBookmarkStatus(false);
     }
   }
 }

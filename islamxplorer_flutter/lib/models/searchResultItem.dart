@@ -1,5 +1,13 @@
 abstract class SearchResultItem{
-  late String s_id;
-  late String s_title;
-  late String s_subtitle;
+  late String sID;
+  late String sTitle;
+  late String sSubtitle;
+
+  late bool sIsBookmarked;
+  late bool sIsReported;
+
+  late String sType;
+
+  void updateBookmarkStatus(bool isBookmarked);
+  void updateReportStatus(bool isReported);
 }

@@ -5,15 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5b725d72-cbff-48c8-89dd-d50a571af1ef" name="Changes" comment="&quot;Improved Code&quot;">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/Controllers/duaDataController.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/controllers/duaDataController.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/Controllers/hadithDataController.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/controllers/hadithDataController.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/Controllers/resultsDataController.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/controllers/resultsDataController.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/Controllers/userDataController.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/controllers/userDataController.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/Controllers/verseDataController.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/controllers/verseDataController.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/controllers/duaDataController.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/controllers/duaDataController.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/models/dua.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/models/dua.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/models/hadith.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/models/hadith.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/models/searchResultItem.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/models/searchResultItem.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/models/verse.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/models/verse.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/DuaItemPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/DuaItemPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/DuaListPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/DuaListPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/SearchResultsPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/SearchResultsPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/linux/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/linux/flutter/generated_plugin_registrant.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/linux/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/linux/flutter/generated_plugins.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/windows/flutter/generated_plugins.cmake" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

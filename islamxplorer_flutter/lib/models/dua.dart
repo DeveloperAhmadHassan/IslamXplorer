@@ -10,18 +10,26 @@ class Dua implements SearchResultItem{
   String? verses;
   int? surah;
   List<String>? types;
-  bool isBookmarked = false;
+  bool isBookmarked;
   bool isReported = false;
-  // String? explanation;
 
   @override
-  late String s_id;
+  late String sID;
 
   @override
-  late String s_title;
+  late String sTitle;
 
   @override
-  late String s_subtitle;
+  late String sSubtitle;
+
+  @override
+  late bool sIsBookmarked;
+
+  @override
+  late bool sIsReported;
+
+  @override
+  late String sType;
 
   Dua({
     required this.id,
@@ -32,11 +40,15 @@ class Dua implements SearchResultItem{
     required this.surah,
     this.explanation,
     this.verses,
-    this.types
+    this.types,
+    this.isBookmarked = false
   }) {
-    s_id = id; // Set title based on source
-    s_title = title;
-    s_subtitle = englishText;// Set subtitle based on englishText
+    sID = id;
+    sTitle = title;
+    sSubtitle = englishText;
+    sIsBookmarked = isBookmarked;
+    sIsReported = isReported;
+    sType = runtimeType.toString();
   }
 
   factory Dua.fromJson(Map<String, dynamic> json) {
@@ -50,5 +62,19 @@ class Dua implements SearchResultItem{
       surah: json['surah'] as int ?? 0,
       explanation: json['explanation']
     );
+  }
+
+  @override
+  void updateBookmarkStatus(bool isBookmarked) {
+    this.isBookmarked = isBookmarked;
+    sIsBookmarked = isBookmarked;
+    print("Type: ${sType}");
+  }
+
+  @override
+  void updateReportStatus(bool isReported) {
+    this.isReported = isReported;
+    sIsReported = isReported;
+    print("Type: ${sType}");
   }
 }

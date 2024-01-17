@@ -106,15 +106,15 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                   color: HexColor.fromHexStr(AppColor.secondaryThemeSwatch1),
                   elevation: 7,
                   child: ListTile(
-                    title: Text("${result.s_title}", style: TextStyle(
+                    title: Text("${result.sTitle}", style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w600
                     )),
-                    subtitle: Text("${result.s_subtitle}", overflow: TextOverflow.ellipsis, style: TextStyle(
+                    subtitle: Text("${result.sSubtitle}", overflow: TextOverflow.ellipsis, style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600
                     )),
-                    leading: Text("${result.s_id}", style: TextStyle(
+                    leading: Text("${result.sID}", style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600
                     )),

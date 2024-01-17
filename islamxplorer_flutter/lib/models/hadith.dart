@@ -7,15 +7,26 @@ class Hadith implements SearchResultItem{
   String? narratedBy;
   String source;
   int hadithNo;
+  bool isBookmarked = false;
+  bool isReported = false;
 
   @override
-  late String s_id;
+  late String sID;
 
   @override
-  late String s_title;
+  late String sTitle;
 
   @override
-  late String s_subtitle;
+  late String sSubtitle;
+
+  @override
+  late bool sIsBookmarked;
+
+  @override
+  late bool sIsReported;
+
+  @override
+  late String sType;
 
   Hadith({
     required this.id,
@@ -25,9 +36,12 @@ class Hadith implements SearchResultItem{
     this.narratedBy,
     required this.hadithNo
   }) {
-    s_id = id;
-    s_title = source;
-    s_subtitle = englishText;
+    sID = id;
+    sTitle = source;
+    sSubtitle = englishText;
+    sIsBookmarked = isBookmarked;
+    sIsReported = isReported;
+    sType = runtimeType.toString();
   }
 
   factory Hadith.fromJson(Map<String, dynamic> json) {
@@ -41,4 +55,17 @@ class Hadith implements SearchResultItem{
     );
   }
 
+  @override
+  void updateBookmarkStatus(bool isBookmarked) {
+    this.isBookmarked = isBookmarked;
+    sIsBookmarked = isBookmarked;
+    print("Type: ${sType}");
+  }
+
+  @override
+  void updateReportStatus(bool isReported) {
+    this.isReported = isReported;
+    sIsReported = isReported;
+    print("Type: ${sType}");
+  }
 }

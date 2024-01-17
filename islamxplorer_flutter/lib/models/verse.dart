@@ -7,15 +7,26 @@ class Verse implements SearchResultItem{
   String englishText;
   String surah;
   int? surahNumber;
+  bool isBookmarked = false;
+  bool isReported = false;
 
   @override
-  late String s_id;
+  late String sID;
 
   @override
-  late String s_title;
+  late String sTitle;
 
   @override
-  late String s_subtitle;
+  late String sSubtitle;
+
+  @override
+  late bool sIsBookmarked;
+
+  @override
+  late bool sIsReported;
+
+  @override
+  late String sType;
 
   Verse({
     required this.id,
@@ -24,9 +35,12 @@ class Verse implements SearchResultItem{
     required this.surah,
     this.surahNumber
   }) {
-    s_id = id;
-    s_title = surah;
-    s_subtitle = englishText;
+    sID = id;
+    sTitle = surah;
+    sSubtitle = englishText;
+    sIsBookmarked = isBookmarked;
+    sIsReported = isReported;
+    sType = runtimeType.toString();
   }
 
 
@@ -40,6 +54,19 @@ class Verse implements SearchResultItem{
     );
   }
 
+  @override
+  void updateBookmarkStatus(bool isBookmarked) {
+    this.isBookmarked = isBookmarked;
+    sIsBookmarked = isBookmarked;
+    print("Type: ${sType}");
+  }
+
+  @override
+  void updateReportStatus(bool isReported) {
+    this.isReported = isReported;
+    sIsReported = isReported;
+    print("Type: ${sType}");
+  }
 }
 
 

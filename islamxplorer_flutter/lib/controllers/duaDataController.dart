@@ -118,8 +118,8 @@ class DuaDataController{
         final List<Dua> duas = jsonData.map((data) => Dua.fromJson(data)).toList();
         print("Hello3");
 
-        duas.first.isBookmarked  = await setBookmark(duas.first.id);
-        duas.first.isReported = await setReport(duas.first.id);
+        duas.first.updateBookmarkStatus(await setBookmark(duas.first.id));
+        duas.first.updateReportStatus(await setReport(duas.first.id));
 
         return duas.first;
       }  else {
