@@ -6,6 +6,8 @@ import 'package:islamxplorer_flutter/Controllers/userDataController.dart';
 import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/models/hadith.dart';
 import 'package:islamxplorer_flutter/models/searchResultItem.dart';
+import 'package:islamxplorer_flutter/utils/alertDialogs.dart';
+import 'package:islamxplorer_flutter/utils/snackBars.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
 import 'package:islamxplorer_flutter/values/strings.dart';
 import 'package:islamxplorer_flutter/widgets/custom_text.dart';
@@ -378,28 +380,15 @@ class Report extends StatefulWidget{
 }
 
 class _ReportState extends State<Report> {
+  TextEditingController reportMessageTextEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Container(
       child: IconButton(icon: Icon(widget.icon, color: widget.color), onPressed: () {
         if(widget.isReported){
-          // widget.isReported = false;
-          // widget.icon = Icons.report_gmailerrorred_outlined;
-          // widget.color = Colors.black;
           reportDua(widget.dua.id, context);
-          // setState(() {
-          //
-          // });
-          // toggleBookmarks(widget.dua.id, context);
         } else {
-          // widget.isReported = true;
-          // widget.icon = Icons.report;
-          // widget.color = Colors.red;
           reportDua(widget.dua.id, context);
-          // setState(() {
-          //
-          // });
-          // toggleBookmarks(widget.dua.id, context);
         }
       }),
     );
@@ -407,95 +396,52 @@ class _ReportState extends State<Report> {
 
   void reportDua(String id, BuildContext context) async {
     UserDataController userDataController = UserDataController();
-    TextEditingController reportMessageTextEditingController = TextEditingController();
 
     if (widget.dua.isReported) {
-      widget.dua.isReported = false;
-      widget.icon = Icons.report_gmailerrorred_outlined;
-      widget.color = Colors.black;
-      setState(() {
+      bool confirmDeleteReport = await AlertDialogs.removeReportAlertDialog(context);
+      if (confirmDeleteReport == true) {
+        SnackBars.showWaitingSnackBar(context, "Deleting Report.....");
+        var result = await userDataController.removeReport(widget.dua.id);
 
-      });
-    } else {
-      bool confirmDelete = await showDialog(
-        context: context,
-        builder: (BuildContext dialogContext) {
-          return AlertDialog(
-            title: Text('Report Dua'),
-            content: Column(
-              children: [
-                Text('Are you sure you want to report this Dua?'),
-                SizedBox(height: 16),
-                TextField(
-                  decoration: InputDecoration(labelText: 'Enter your message'),
-                  controller: reportMessageTextEditingController,
-                ),
-              ],
-            ),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(dialogContext).pop(false);
-                },
-                child: Text('Cancel'),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.of(dialogContext).pop(true);
-                },
-                child: Text('Report'),
-              ),
-            ],
-          );
-        },
-      );
+        if (result) {
+          setState(() {
+            widget.dua.isReported = false;
+            widget.icon = Icons.report_gmailerrorred_outlined;
+            widget.color = Colors.black;
+          });
+          SnackBars.showSuccessSnackBar(context, "Report Deleted Sucessfully!");
+        } else {
+          SnackBars.showFailureSnackBar(context, "Failed to Remove Report!");
+        }
+      } else {
+        setState(() {
 
-      if (confirmDelete == true) {
-        ScaffoldMessenger.of(context).hideCurrentSnackBar();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Reporting Item...'),
-            duration: Duration(seconds: 7),
-          ),
-        );
+        });
+      }
+    }
+    else {
+      bool confirmReport = await AlertDialogs.reportAlertDialog(context, reportMessageTextEditingController, "Dua");
+
+      if (confirmReport == true) {
+        SnackBars.showWaitingSnackBar(context, "Reporting Item.....");
         String message = reportMessageTextEditingController.text ?? "";
         var result = await userDataController.addReport(widget.dua.id, message);
 
         if (result) {
-          widget.dua.isReported = true;
-          widget.icon = Icons.report;
-          widget.color = Colors.red;
           setState(() {
-
+            widget.dua.isReported = true;
+            widget.icon = Icons.report;
+            widget.color = Colors.red;
           });
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Item Reported successfully!'),
-              backgroundColor: Colors.green,
-            ),
-          );
-        //   // Navigator.of(context).pop();
-        //   // Navigator.of(context).push(
-        //   //   MaterialPageRoute(builder: (context) => DuaListPage(type: "A")),
-        //   // );
-        // } else {
-        //   ScaffoldMessenger.of(context).hideCurrentSnackBar();
-        //   ScaffoldMessenger.of(context).showSnackBar(
-        //     const SnackBar(
-        //       content: Text('Error occurred!'),
-        //       backgroundColor: Colors.red,
-        //     ),
-        //   );
+
+          SnackBars.showSuccessSnackBar(context, "Item Reported Succesfully!");
+        } else {
+          SnackBars.showFailureSnackBar(context, "Failed To Report Item!");
         }
       } else {
-        widget.dua.isReported = false;
-        widget.icon = Icons.report_gmailerrorred_outlined;
-        widget.color = Colors.black;
         setState(() {
 
         });
-        // ScaffoldMessenger.of(context).hideCurrentSnackBar();
       }
     }
   }

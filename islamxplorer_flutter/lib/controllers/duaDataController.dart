@@ -118,12 +118,8 @@ class DuaDataController{
         final List<Dua> duas = jsonData.map((data) => Dua.fromJson(data)).toList();
         print("Hello3");
 
-        var result = setBookmark(duas.first);
-        if(await result){
-          duas.first.isBookmarked = true;
-        } else {
-          duas.first.isBookmarked = false;
-        }
+        duas.first.isBookmarked  = await setBookmark(duas.first.id);
+        duas.first.isReported = await setReport(duas.first.id);
 
         return duas.first;
       }  else {
@@ -191,13 +187,20 @@ class DuaDataController{
     }
   }
 
-  Future<bool> setBookmark(Dua dua) async{
+  Future<bool> setBookmark(String id) async{
     UserDataController userDataController = UserDataController();
-    if(await userDataController.isBookmarked(dua.id)){
-      // dua.isBookmarked = true;
+    if(await userDataController.isBookmarked(id)){
       return true;
     } else {
-      // dua.isBookmarked = false;
+      return false;
+    }
+  }
+
+  Future<bool> setReport(String id) async{
+    UserDataController userDataController = UserDataController();
+    if(await userDataController.isReported(id)){
+      return true;
+    } else {
       return false;
     }
   }

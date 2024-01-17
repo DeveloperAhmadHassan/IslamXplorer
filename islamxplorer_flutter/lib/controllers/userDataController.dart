@@ -119,41 +119,78 @@ class UserDataController{
 
   Future<bool> addReport(String id, String message) async {
     try {
-      // Get the current authenticated user
       var user = FirebaseAuth.instance.currentUser;
 
-      // Check if the user is signed in
       if (user != null) {
-        // Get a reference to the Firestore collection named "ReportedItems"
         var reportsCollection = FirebaseFirestore.instance.collection('Reports');
-
-        // Create a timestamp for the current date and time
         var timestamp = DateTime.now().toUtc();
 
-        // Create a new document in the "ReportedItems" collection without specifying an ID
         var newReportDocumentRef = reportsCollection.doc();
-
-        print('Randomly generated document ID: ${newReportDocumentRef.id}');
-
-        // Set the fields for the document
         await newReportDocumentRef.set({
           'userId': user.uid,
-          'reportedItemId': id,
-          'message': message,
-          'timestamp': timestamp,
+          'reportedItemID': id,
+          'reportedItemType': message,
+          'reportedTime': timestamp,
+          'reportedMessage': message
         });
 
-        // Return true to indicate the report was successfully added
+        var userDocumentRef = FirebaseFirestore.instance.collection('Users').doc(user.uid);
+        await userDocumentRef.update({
+          'reports': FieldValue.arrayUnion([{ 'reportID': newReportDocumentRef.id, 'itemID': id }])
+        });
+
+        print('Randomly generated document ID: ${newReportDocumentRef.id}');
         return true;
       } else {
-        // Return false if the user is not signed in
         return false;
       }
     } catch (e) {
-      // Return false if an error occurs during the process
       return false;
     }
   }
 
+  Future<bool> removeReport(String id) async {
+    try {
+      var user = FirebaseAuth.instance.currentUser;
 
+      DocumentReference userDoc = FirebaseFirestore.instance.collection('Users').doc(user?.uid);
+      List<dynamic> currentReports = (await userDoc.get()).get('reports') ?? [];
+
+      var matchingReport = currentReports.firstWhere((report) => report['itemID'] == id, orElse: () => null);
+
+      if (matchingReport != null) {
+        var reportID = matchingReport['reportID'];
+        currentReports.removeWhere((report) => report['itemID'] == id);
+        await userDoc.update({
+          'reports': currentReports,
+        });
+
+        var reportsCollection = FirebaseFirestore.instance.collection('Reports');
+        await reportsCollection.doc(reportID).delete();
+
+        print('Item removed from Reports!');
+        return true;
+      }
+      else{
+        return false;
+      }
+    }catch (e) {
+      print('Error removing bookmark from Firestore: $e');
+      return false;
+    }
+  }
+
+  Future<bool> isReported(String id) async {
+    try {
+      var user = FirebaseAuth.instance.currentUser;
+
+      DocumentReference userDoc = FirebaseFirestore.instance.collection('Users').doc(user?.uid);
+      List<dynamic> currentReports = (await userDoc.get()).get('reports') ?? [];
+
+      return currentReports.any((report) => report['itemID'] == id);
+    } catch (e) {
+      print('Error checking if report exists in Firestore: $e');
+      return false;
+    }
+  }
 }
