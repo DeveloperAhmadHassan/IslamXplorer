@@ -3,8 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:islamxplorer_flutter/main.dart';
-import 'package:islamxplorer_flutter/widgets/custom_text.dart';
-import 'package:islamxplorer_flutter/widgets/sign_in_provider_button.dart';
+import 'package:islamxplorer_flutter/widgets/utils/custom_text.dart';
+import 'package:islamxplorer_flutter/widgets/authWidgets/sign_in_provider_button.dart';
 
 class SignInProviders extends StatelessWidget{
 
@@ -23,7 +23,7 @@ class SignInProviders extends StatelessWidget{
     }
   }
 
-  void signInWithGoogle(BuildContext context) async {
+  Future<void> signInWithGoogle(BuildContext context) async {
     try{
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();

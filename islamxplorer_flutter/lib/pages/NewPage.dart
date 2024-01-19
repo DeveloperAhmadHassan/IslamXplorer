@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/dummy_search_bar.dart';
+import '../widgets/searchBarWidgets/dummy_search_bar.dart';
 
 class NewPage extends StatelessWidget{
   @override

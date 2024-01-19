@@ -7,9 +7,10 @@ import 'package:islamxplorer_flutter/models/dua.dart';
 import 'package:islamxplorer_flutter/pages/AddUpdateDuaPage.dart';
 import 'package:islamxplorer_flutter/pages/DuaItemPage.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
-import 'package:islamxplorer_flutter/widgets/custom_appbar.dart';
-import 'package:islamxplorer_flutter/widgets/custom_button.dart';
-import 'package:islamxplorer_flutter/widgets/custom_text.dart';
+import 'package:islamxplorer_flutter/widgets/utils/custom_appbar.dart';
+import 'package:islamxplorer_flutter/widgets/utils/custom_button.dart';
+import 'package:islamxplorer_flutter/widgets/utils/custom_error_widget.dart';
+import 'package:islamxplorer_flutter/widgets/utils/custom_text.dart';
 import 'package:islamxplorer_flutter/widgets/new_tag.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
@@ -66,10 +67,9 @@ class DuaListPage extends StatelessWidget {
                     ),
                   ),
                 );
-              } else if (snapshot.hasError) {
-                return Center(
-                  child: Text('Error: ${snapshot}'),
-                );
+              }
+              else if (snapshot.hasError) {
+                return CustomErrorWidget(errorMessage: "Error!!!!!",);
               } else {
                 final List<Dua> duas = snapshot.data ?? [];
                 return SingleChildScrollView(

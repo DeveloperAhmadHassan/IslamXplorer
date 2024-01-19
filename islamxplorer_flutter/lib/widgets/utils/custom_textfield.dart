@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 class CustomTextfield extends StatefulWidget {
   Icon? icon;
@@ -13,7 +15,10 @@ class CustomTextfield extends StatefulWidget {
    String? tempHintText;
    Function()? onTap;
    TextEditingController? _textEditingController;
-  Function(String)? validationCallback;
+   Function(String)? validationCallback;
+   bool hidePassword = false;
+   IconData passwordIcon = LineAwesomeIcons.eye;
+   TextInputType textInputType;
 
   CustomTextfield(
       Icon this.icon,
@@ -25,9 +30,11 @@ class CustomTextfield extends StatefulWidget {
         this.isEmailField = true,
         this.isPhone = false,
         this.validationCallback,
+        this.textInputType = TextInputType.text,
         super.key,
       })  : tempIcon = icon,
         tempHintText = hintText,
+        hidePassword = isPassword,
         super();
 
   @override
@@ -42,15 +49,13 @@ class _CustomTextfieldState extends State<CustomTextfield> {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      // onTap: widget.onTap != null ? () => widget.onTap!() : null,
+    return TextFormField(
       controller: widget._textEditingController,
-      obscureText: widget.isPassword,
+      obscureText: widget.hidePassword,
       enableSuggestions: !widget.isPassword,
       autocorrect: !widget.isPassword,
       cursorColor: Colors.white,
-      keyboardType:
-      widget.isEmailField ? TextInputType.emailAddress : TextInputType.phone,
+      keyboardType: widget.textInputType,
       style: const TextStyle(
         fontFamily: "IBMPlexMono",
         fontSize: 16,
@@ -63,12 +68,6 @@ class _CustomTextfieldState extends State<CustomTextfield> {
         hintText: "${widget.hintText}",
         filled: true,
         fillColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
-        // border: OutlineInputBorder(
-        //   borderRadius: BorderRadius.circular(20),
-        //   borderSide: const BorderSide(
-        //     color: Colors.amberAccent,
-        //   ),
-        // ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
           borderSide: const BorderSide(color: Colors.transparent),
@@ -77,6 +76,20 @@ class _CustomTextfieldState extends State<CustomTextfield> {
           borderRadius: BorderRadius.circular(20),
           borderSide: const BorderSide(
             color: Colors.white,
+            width: 3,
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: const BorderSide(
+              color: Colors.red,
+              width: 3,
+            ),
+          ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20),
+          borderSide: const BorderSide(
+            color: Colors.red,
             width: 3,
           ),
         ),
@@ -94,13 +107,28 @@ class _CustomTextfieldState extends State<CustomTextfield> {
           },
           child: widget.icon,
         ),
-
+        suffixIcon: widget.hidePassword || widget.isPassword
+            ? GestureDetector(
+                onTap: (){
+                  setState(() {
+                    if(widget.hidePassword){
+                      widget.hidePassword = false;
+                      widget.passwordIcon = LineAwesomeIcons.eye_slash;
+                    }else{
+                      widget.hidePassword = true;
+                      widget.passwordIcon = LineAwesomeIcons.eye;
+                    }
+                  });
+                },
+                child: Icon(widget.passwordIcon)
+              )
+            : null,
       ),
-      onChanged: (input) {
-        // Call validation callback with the current input value
+      validator: (value) {
         if (widget.validationCallback != null) {
-          widget.validationCallback!(input);
+          return widget.validationCallback!(value ?? '');
         }
+        return null;
       },
     );
   }

@@ -3,11 +3,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:islamxplorer_flutter/extensions/color.dart';
-import 'package:islamxplorer_flutter/pages/SignInPage.dart';
+import 'package:islamxplorer_flutter/pages/authPages/SignInPage.dart';
 import 'package:islamxplorer_flutter/pages/UpdateProfilePage.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
-import 'package:islamxplorer_flutter/widgets/custom_button.dart';
-import 'package:islamxplorer_flutter/widgets/custom_text.dart';
+import 'package:islamxplorer_flutter/widgets/utils/custom_button.dart';
+import 'package:islamxplorer_flutter/widgets/utils/custom_text.dart';
 import 'package:islamxplorer_flutter/widgets/profile_photo.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 

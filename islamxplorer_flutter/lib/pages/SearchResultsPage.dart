@@ -6,11 +6,11 @@ import 'package:islamxplorer_flutter/models/searchResultItem.dart';
 import 'package:islamxplorer_flutter/models/verse.dart';
 import 'package:islamxplorer_flutter/pages/SearchItemPage.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
-import 'package:islamxplorer_flutter/widgets/custom_text.dart';
-import 'package:islamxplorer_flutter/widgets/dummy_search_bar.dart';
-import 'package:islamxplorer_flutter/widgets/search_bar.dart';
-import 'package:islamxplorer_flutter/widgets/secondary_appbar.dart';
-import 'package:islamxplorer_flutter/widgets/secondary_logo.dart';
+import 'package:islamxplorer_flutter/widgets/utils/custom_text.dart';
+import 'package:islamxplorer_flutter/widgets/searchBarWidgets/dummy_search_bar.dart';
+import 'package:islamxplorer_flutter/widgets/searchBarWidgets/search_bar.dart';
+import 'package:islamxplorer_flutter/widgets/utils/secondary_appbar.dart';
+import 'package:islamxplorer_flutter/widgets/logoWidgets/secondary_logo.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 
@@ -46,11 +46,9 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
   }
 
   @override
-  @override
   Widget build(BuildContext context) {
     List<SearchResultItem> filteredResults;
 
-    // Apply filtering based on the selected filter index
     switch (filterSelectedIndex) {
       case 1: // Verses
         filteredResults = searchResults.where((result) => result is Verse).toList();

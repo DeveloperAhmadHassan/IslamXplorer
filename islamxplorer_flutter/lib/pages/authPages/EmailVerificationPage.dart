@@ -1,17 +1,18 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:islamxplorer_flutter/pages/SignInPage.dart';
+import 'package:islamxplorer_flutter/pages/authPages/SignInPage.dart';
 
-class EmailVerificationScreen extends StatefulWidget {
-  const EmailVerificationScreen({Key? key}) : super(key: key);
+class EmailVerificationPage extends StatefulWidget {
+  String email;
+  EmailVerificationPage({super.key, required this.email});
 
   @override
-  State<EmailVerificationScreen> createState() =>
-      _EmailVerificationScreenState();
+  State<EmailVerificationPage> createState() =>
+      _EmailVerificationPageState();
 }
 
-class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
+class _EmailVerificationPageState extends State<EmailVerificationPage> {
   bool isEmailVerified = false;
   Timer? timer;
   @override
@@ -65,7 +66,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 32.0),
                 child: Center(
                   child: Text(
-                    'We have sent you a Email on  ',
+                    'We have sent you a Email on  ${widget.email}',
                     textAlign: TextAlign.center,
                   ),
                 ),

@@ -5,9 +5,8 @@ class PrimaryLogo extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Container(
-      width: 290,
+      width: 200,
       child:Image.asset('assets/default.png'),
     );
   }

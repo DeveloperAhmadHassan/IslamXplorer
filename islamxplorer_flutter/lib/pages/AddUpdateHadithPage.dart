@@ -4,11 +4,11 @@ import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/models/hadith.dart';
 import 'package:islamxplorer_flutter/models/searchResultItem.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
-import 'package:islamxplorer_flutter/widgets/custom_button.dart';
-import 'package:islamxplorer_flutter/widgets/custom_text.dart';
-import 'package:islamxplorer_flutter/widgets/custom_textfield.dart';
-import 'package:islamxplorer_flutter/widgets/search_bar.dart';
-import 'package:islamxplorer_flutter/widgets/secondary_logo.dart';
+import 'package:islamxplorer_flutter/widgets/utils/custom_button.dart';
+import 'package:islamxplorer_flutter/widgets/utils/custom_text.dart';
+import 'package:islamxplorer_flutter/widgets/utils/custom_textfield.dart';
+import 'package:islamxplorer_flutter/widgets/searchBarWidgets/search_bar.dart';
+import 'package:islamxplorer_flutter/widgets/logoWidgets/secondary_logo.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 import '../models/dua.dart';

@@ -7,8 +7,8 @@ import 'package:islamxplorer_flutter/pages/DuaListPage.dart';
 import 'package:islamxplorer_flutter/pages/HadithListPage.dart';
 import 'package:islamxplorer_flutter/pages/VerseListPage.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
-import 'package:islamxplorer_flutter/widgets/custom_appbar.dart';
-import 'package:islamxplorer_flutter/widgets/custom_text.dart';
+import 'package:islamxplorer_flutter/widgets/utils/custom_appbar.dart';
+import 'package:islamxplorer_flutter/widgets/utils/custom_text.dart';
 import 'package:islamxplorer_flutter/widgets/new_tag.dart';
 // import 'package:islamxplorer_flutter/controllers/duaDataController.dart';
 

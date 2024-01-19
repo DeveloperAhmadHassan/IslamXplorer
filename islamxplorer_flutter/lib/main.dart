@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:islamxplorer_flutter/Controllers/userDataController.dart';
 import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/models/user.dart';
+import 'package:islamxplorer_flutter/pages/AddUpdateDuaPageDummy.dart';
 import 'package:islamxplorer_flutter/pages/DuaPage.dart';
 import 'package:islamxplorer_flutter/pages/HomePage.dart';
 import 'package:islamxplorer_flutter/pages/NewPage.dart';
@@ -12,15 +13,16 @@ import 'package:islamxplorer_flutter/pages/ProfilePage.dart';
 import 'package:islamxplorer_flutter/pages/SearchItemPage.dart';
 import 'package:islamxplorer_flutter/pages/SearchResultsPage.dart';
 import 'package:islamxplorer_flutter/pages/SearchingPage.dart';
-import 'package:islamxplorer_flutter/pages/SignInPage.dart';
-import 'package:islamxplorer_flutter/pages/SignUpPage.dart';
+import 'package:islamxplorer_flutter/pages/authPages/SignInPage.dart';
+import 'package:islamxplorer_flutter/pages/authPages/SignUpPage.dart';
 import 'package:islamxplorer_flutter/qiblah/qiblah_widget.dart';
 import 'package:islamxplorer_flutter/qiblah/QiblaPage.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
-import 'package:islamxplorer_flutter/widgets/dummy_search_bar.dart';
+import 'package:islamxplorer_flutter/widgets/searchBarWidgets/dummy_search_bar.dart';
 import 'package:islamxplorer_flutter/widgets/nav_bar.dart';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:islamxplorer_flutter/widgets/utils/error.dart';
 import 'firebase_options.dart';
 
 
@@ -29,6 +31,10 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  // FlutterError.onError = (FlutterErrorDetails details) {
+  //   FlutterError.dumpErrorToConsole(details);
+  //   runApp(ErrorWidgetClass(details));
+  // };
   runApp(const MyApp());
 }
 
@@ -49,7 +55,6 @@ class MyApp extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (BuildContext context, AsyncSnapshot<User?> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            // Show a loading indicator if the authentication state is still loading
             return Container(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
@@ -67,15 +72,12 @@ class MyApp extends StatelessWidget {
               ),
             );
           } else if (snapshot.hasError) {
-            // Handle error if necessary
             return Text('Error: ${snapshot.error}');
           } else if (snapshot.hasData && snapshot.data != null) {
-            // User is signed in, fetch user details
             return FutureBuilder<AppUser>(
               future: userDataController.getUserData(),
               builder: (BuildContext context, AsyncSnapshot<AppUser> userSnapshot) {
                 if (userSnapshot.connectionState == ConnectionState.waiting) {
-                  // Show a loading indicator if user details are still loading
                   return Container(
                     height: MediaQuery.of(context).size.height,
                     width: MediaQuery.of(context).size.width,
@@ -93,17 +95,15 @@ class MyApp extends StatelessWidget {
                     ),
                   );
                 } else if (userSnapshot.hasError) {
-                  // Handle error if necessary
                   return Text('Error: ${userSnapshot.error}');
                 } else if (userSnapshot.hasData && userSnapshot.data != null) {
-                  // Check user type and navigate accordingly
                   if (userSnapshot.data!.type == "A") {
-                    return AdminPage(); // Replace with the actual AdminPage widget
+                    return AdminPage();
                   } else {
-                    return UserPage(); // Replace with the actual UserPage widget
+                    // throw Exception("Error");
+                    return UserPage();
                   }
                 } else {
-                  // Handle the case when user details are not available
                   return Text('User details not available');
                 }
               },
@@ -114,6 +114,8 @@ class MyApp extends StatelessWidget {
           }
         },
       ),
+
+      // home: AddUpdateDuaPageDummy(),
 
     );
   }

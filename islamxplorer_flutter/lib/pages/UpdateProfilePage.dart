@@ -8,9 +8,9 @@ import 'package:islamxplorer_flutter/Controllers/userDataController.dart';
 import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/models/user.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
-import 'package:islamxplorer_flutter/widgets/custom_button.dart';
-import 'package:islamxplorer_flutter/widgets/custom_text.dart';
-import 'package:islamxplorer_flutter/widgets/custom_textfield.dart';
+import 'package:islamxplorer_flutter/widgets/utils/custom_button.dart';
+import 'package:islamxplorer_flutter/widgets/utils/custom_text.dart';
+import 'package:islamxplorer_flutter/widgets/utils/custom_textfield.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 

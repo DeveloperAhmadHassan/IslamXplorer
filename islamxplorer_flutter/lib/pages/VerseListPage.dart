@@ -7,9 +7,9 @@ import 'package:islamxplorer_flutter/models/verse.dart';
 import 'package:islamxplorer_flutter/pages/AddUpdateHadithPage.dart';
 import 'package:islamxplorer_flutter/pages/AddUpdateVersePage.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
-import 'package:islamxplorer_flutter/widgets/custom_appbar.dart';
-import 'package:islamxplorer_flutter/widgets/custom_button.dart';
-import 'package:islamxplorer_flutter/widgets/custom_text.dart';
+import 'package:islamxplorer_flutter/widgets/utils/custom_appbar.dart';
+import 'package:islamxplorer_flutter/widgets/utils/custom_button.dart';
+import 'package:islamxplorer_flutter/widgets/utils/custom_text.dart';
 import 'package:islamxplorer_flutter/widgets/new_tag.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 

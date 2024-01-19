@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget{
   String? text;
-  Function? onTap;
+  final Function? onTap;
 
   CustomButton(this.text, this.onTap, {super.key});
 
@@ -16,8 +16,14 @@ class CustomButton extends StatelessWidget{
           borderRadius: BorderRadius.circular(30)
       ),
       child: ElevatedButton(
-        onPressed: (){
-          onTap!();
+        onPressed: () async {
+          if (onTap != null) {
+            final result = onTap!();
+
+            if (result is Future) {
+              await result;
+            }
+          }
         },
         style: ButtonStyle(
             backgroundColor: MaterialStateProperty.resolveWith((states)

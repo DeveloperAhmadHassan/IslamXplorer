@@ -7,8 +7,9 @@ import 'package:islamxplorer_flutter/extensions/string.dart';
 import 'package:islamxplorer_flutter/models/duaType.dart';
 import 'package:islamxplorer_flutter/pages/DuaListPage.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
-import 'package:islamxplorer_flutter/widgets/custom_appbar.dart';
-import 'package:islamxplorer_flutter/widgets/custom_text.dart';
+import 'package:islamxplorer_flutter/widgets/utils/custom_appbar.dart';
+import 'package:islamxplorer_flutter/widgets/utils/custom_error_widget.dart';
+import 'package:islamxplorer_flutter/widgets/utils/custom_text.dart';
 import 'package:islamxplorer_flutter/widgets/new_tag.dart';
 // import 'package:islamxplorer_flutter/controllers/duaDataController.dart';
 
@@ -66,10 +67,11 @@ class DuaGrid extends StatelessWidget {
               ),
             ),
           );
-        } else if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
+        }
+        else if (snapshot.hasError) {
+          return CustomErrorWidget(errorMessage: "Error!!!!!",);
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return Center(child: Text('No data available.'));
+          return CustomErrorWidget(errorMessage: "Error!!!!!",);
         } else {
           return Expanded(
             child: MasonryGridView.count(

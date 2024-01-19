@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:islamxplorer_flutter/main.dart';
 import 'package:islamxplorer_flutter/pages/ProfilePage.dart';
-import 'package:islamxplorer_flutter/widgets/custom_text.dart';
+import 'package:islamxplorer_flutter/widgets/utils/custom_text.dart';
 import 'package:islamxplorer_flutter/widgets/profile_photo.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 

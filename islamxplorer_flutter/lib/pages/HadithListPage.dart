@@ -4,9 +4,10 @@ import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/models/hadith.dart';
 import 'package:islamxplorer_flutter/pages/AddUpdateHadithPage.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
-import 'package:islamxplorer_flutter/widgets/custom_appbar.dart';
-import 'package:islamxplorer_flutter/widgets/custom_button.dart';
-import 'package:islamxplorer_flutter/widgets/custom_text.dart';
+import 'package:islamxplorer_flutter/widgets/utils/custom_appbar.dart';
+import 'package:islamxplorer_flutter/widgets/utils/custom_button.dart';
+import 'package:islamxplorer_flutter/widgets/utils/custom_error_widget.dart';
+import 'package:islamxplorer_flutter/widgets/utils/custom_text.dart';
 import 'package:islamxplorer_flutter/widgets/new_tag.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
@@ -32,11 +33,9 @@ class HadithListPage extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasError) {
-            return Center(
-              child: Text('Error: ${snapshot}'),
-            );
+            return CustomErrorWidget(errorMessage: "Error!!!!!",);
           } else {
-            final List<Hadith> hadiths = snapshot.data ?? []; // Use empty list if data is null
+            final List<Hadith> hadiths = snapshot.data ?? [];
             return SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:islamxplorer_flutter/widgets/custom_text.dart';
+import 'package:islamxplorer_flutter/widgets/utils/custom_text.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget{

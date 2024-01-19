@@ -5,9 +5,9 @@ import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/main.dart';
 import 'package:islamxplorer_flutter/pages/ProfilePage.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
-import 'package:islamxplorer_flutter/widgets/custom_text.dart';
+import 'package:islamxplorer_flutter/widgets/utils/custom_text.dart';
 import 'package:islamxplorer_flutter/widgets/profile_photo.dart';
-import 'package:islamxplorer_flutter/widgets/secondary_logo.dart';
+import 'package:islamxplorer_flutter/widgets/logoWidgets/secondary_logo.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 class SecondaryAppBar extends StatelessWidget implements PreferredSizeWidget{
