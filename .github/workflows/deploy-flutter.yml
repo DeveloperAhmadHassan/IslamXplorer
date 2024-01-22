@@ -1,0 +1,50 @@
+name: Deploy to Play Store (Production)
+
+on:
+  workflow_run:
+    workflows: ["Build & Release"]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    name: Deploy to Play Store (Production)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          architecture: x64
+
+      - name: Set up Secrets
+        run: |
+          echo "KEY_ALIAS=${{ secrets.KEY_ALIAS }}" >> $GITHUB_ENV
+          echo "KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}" >> $GITHUB_ENV
+          echo "STORE_FILE=${{ secrets.STORE_FILE }}" >> $GITHUB_ENV
+          echo "STORE_PASSWORD=${{ secrets.STORE_PASSWORD }}" >> $GITHUB_ENV
+
+      - name: Create Keystore File
+        run: echo "${{ secrets.KEYSTORE_FILE_CONTENT }}" | base64 --decode > islamxplorer_flutter/android/app/upload-keystore.jks
+
+      - name: Debug STORE_FILE
+        run: echo "STORE_FILE=$(pwd)/islamxplorer_flutter/android/app/upload-keystore.jks"
+
+      - name: Download APK and AAB artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: release-artifacts
+          path: islamxplorer_flutter/build/app/outputs
+
+      - name: Upload to Play Store (Production)
+        uses: r0adkll/upload-google-play@v1.0.18
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.ANDROID_SERVICE_ACCOUNT_JSON }}
+          packageName: com.islamxplorer.islamxplorer_flutter
+          releaseFiles: islamxplorer_flutter/build/app/outputs/bundle/release/app-release.aab
+          mappingFile: islamxplorer_flutter/build/app/outputs/mapping/release/mapping.txt
+          track: production
