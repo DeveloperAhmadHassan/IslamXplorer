@@ -46,7 +46,7 @@ class Hadith implements SearchResultItem{
 
   factory Hadith.fromJson(Map<String, dynamic> json) {
     return Hadith(
-      id: json['hadithID'] as String,
+      id: json['id'] as String,
       englishText: json['englishText'] as String,
       arabicText: json['arabicText'] as String,
       source: json['source'] as String,
