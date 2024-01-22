@@ -53,35 +53,35 @@ jobs:
           token: ${{ secrets.CLI_TOKEN }}
 
   release:
-  name: Release
-  runs-on: ubuntu-latest
-  needs: build
+    name: Release
+    runs-on: ubuntu-latest
+    needs: build
 
-  steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-    - name: Set up Flutter
-      uses: subosito/flutter-action@v2
-      with:
-        channel: 'stable'
-        architecture: x64
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          architecture: x64
 
-    - name: Get latest release information
-      id: get_release
-      run: |
-        release_id=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-                     "https://api.github.com/repos/${{ github.repository }}/releases/latest" \
-                     | jq -r '.id')
-        echo "Release ID: $release_id" >> $GITHUB_ENV
-        echo "AAB_URL=https://github.com/${{ github.repository }}/releases/download/$release_id/app-release.aab" >> $GITHUB_ENV
+      - name: Get latest release information
+        id: get_release
+        run: |
+          release_id=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+                      "https://api.github.com/repos/${{ github.repository }}/releases/latest" \
+                      | jq -r '.id')
+          echo "Release ID: $release_id" >> $GITHUB_ENV
+          echo "AAB_URL=https://github.com/${{ github.repository }}/releases/download/$release_id/app-release.aab" >> $GITHUB_ENV
 
-    - name: Download AAB artifact
-      run: |
-        wget -O islamxplorer_flutter/build/app/outputs/bundle/release/app-release.aab \
-             $AAB_URL
+      - name: Download AAB artifact
+        run: |
+          wget -O islamxplorer_flutter/build/app/outputs/bundle/release/app-release.aab \
+              $AAB_URL
 
-    - name: Upload to Play Store (Production)
+      - name: Upload to Play Store (Production)
       uses: r0adkll/upload-google-play@v1.0.18
       with:
         serviceAccountJsonPlainText: ${{ secrets.ANDROID_SERVICE_ACCOUNT_JSON }} 
