@@ -45,34 +45,6 @@ jobs:
           flutter build apk --release --split-per-abi
           flutter build appbundle --release
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: app-artifacts
-          path: |
-            islamxplorer_flutter/build/app/outputs/apk/release/
-            islamxplorer_flutter/build/app/outputs/bundle/release/
-
-  release:
-    name: Release
-    runs-on: ubuntu-latest
-    needs: build  # Specify that this job depends on the successful completion of the 'build' job
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
-          architecture: x64
-
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: app-artifacts
-
       - name: Push to Releases
         uses: ncipollo/release-action@v1
         with:
@@ -80,11 +52,42 @@ jobs:
           tag: v1.0.${{ github.run_number }}
           token: ${{ secrets.CLI_TOKEN }}
 
-      - name: Upload to Play Store (Production)
-        uses: r0adkll/upload-google-play@v1.0.18
-        with:
-          serviceAccountJsonPlainText: ${{ secrets.ANDROID_SERVICE_ACCOUNT_JSON }} 
-          packageName: com.islamxplorer.islamxplorer_flutter                       
-          releaseFiles: "islamxplorer_flutter/build/app/outputs/bundle/release/app-release.aab"
-          mappingFile: "islamxplorer_flutter/build/app/outputs/mapping/release/mapping.txt"
-          track: production
+  release:
+  name: Release
+  runs-on: ubuntu-latest
+  needs: build
+
+  steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        channel: 'stable'
+        architecture: x64
+
+    - name: Get latest release information
+      id: get_release
+      run: |
+        release_id=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+                     "https://api.github.com/repos/${{ github.repository }}/releases/latest" \
+                     | jq -r '.id')
+        echo "Release ID: $release_id" >> $GITHUB_ENV
+        echo "AAB_URL=https://github.com/${{ github.repository }}/releases/download/$release_id/app-release.aab" >> $GITHUB_ENV
+
+    - name: Download AAB artifact
+      run: |
+        wget -O islamxplorer_flutter/build/app/outputs/bundle/release/app-release.aab \
+             $AAB_URL
+
+    - name: Upload to Play Store (Production)
+      uses: r0adkll/upload-google-play@v1.0.18
+      with:
+        serviceAccountJsonPlainText: ${{ secrets.ANDROID_SERVICE_ACCOUNT_JSON }} 
+        packageName: com.islamxplorer.islamxplorer_flutter                       
+        releaseFiles: "islamxplorer_flutter/build/app/outputs/bundle/release/app-release.aab"
+        mappingFile: "islamxplorer_flutter/build/app/outputs/mapping/release/mapping.txt"
+        track: production
+
+
