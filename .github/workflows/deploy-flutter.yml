@@ -1,15 +1,10 @@
 name: Deploy to Play Store (Production)
 
 on:
-  pull_request:
-    branches:
-      - main
-      - master
-  push:
-    branches:
-      - main
-      - master
-      - develop
+  workflow_run:
+    workflows: ["Build & Release"]
+    types:
+      - completed
 
 jobs:
   deploy:
