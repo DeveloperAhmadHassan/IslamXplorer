@@ -16,9 +16,9 @@ class Verse:
     def to_dict(self):
         return {
             "type": "verse",
-            "verseID": self.id,
+            "id": self.id,
             "arabicText": self.arabicText,
             "englishText": self.englishText,
-            "surahName": self.surah,
+            "source": self.surah,
             "surahNumber": self.surahNumber
         }

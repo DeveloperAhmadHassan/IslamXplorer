@@ -17,7 +17,7 @@ class Hadith:
     def to_dict(self):
         return {
             "type": "hadith",
-            "hadithID": self.id,
+            "id": self.id,
             "hadithNo": self.hadithNo,
             "arabicText": self.arabicText,
             "englishText": self.englishText,

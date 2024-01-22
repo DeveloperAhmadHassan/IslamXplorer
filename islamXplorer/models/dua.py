@@ -19,7 +19,7 @@ class Dua:
 
     def to_dict(self):
         return {
-            "duaID": self.id,
+            "id": self.id,
             "arabicText": self.arabicText,
             "englishText": self.englishText,
             "transliteration": self.transliteration,

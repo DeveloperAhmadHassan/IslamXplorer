@@ -17,7 +17,10 @@ from controllers.dua_con import DuaCon
 from controllers.hadith_con import HadithCon
 from controllers.verse_con import VerseCon
 
+from flask_cors import CORS
+
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 load_dotenv()
 
 # print("TOTAL UNIQUE VERSES: " + str(len(unique_verse_list)))
@@ -268,6 +271,10 @@ def deleteVerse(id):
 def results():
     records, summary, keys = Neo4jConn.executeNeo4jQuery()
     queryResults = extractNeo4jResults(records, summary)
+    # queryResults.headers.add('Access-Control-Allow-Origin', '*')
+    # queryResults.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
+    # queryResults.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+    # queryResults.headers.add('Access-Control-Allow-Credentials', 'true')
 
     return Response(queryResults, mimetype="text/json"), 200
 
