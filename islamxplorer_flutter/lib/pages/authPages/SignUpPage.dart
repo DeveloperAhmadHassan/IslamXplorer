@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:islamxplorer_flutter/controllers/authController.dart';
-import 'package:islamxplorer_flutter/controllers/redirectionController.dart';
+import 'package:islamxplorer_flutter/Controllers/authController.dart';
+import 'package:islamxplorer_flutter/Controllers/redirectionController.dart';
 import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/pages/authPages/EmailVerificationPage.dart';
 import 'package:islamxplorer_flutter/pages/HomePage.dart';
