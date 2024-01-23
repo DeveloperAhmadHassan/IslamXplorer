@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:islamxplorer_flutter/Controllers/userDataController.dart';
+import 'package:islamxplorer_flutter/controllers/userDataController.dart';
 import 'package:islamxplorer_flutter/models/user.dart';
 import 'package:http/http.dart' as http;
 
