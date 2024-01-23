@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:islamxplorer_flutter/Controllers/duaDataController.dart';
+import 'package:islamxplorer_flutter/controllers/duaDataController.dart';
 import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/extensions/string.dart';
 import 'package:islamxplorer_flutter/models/duaType.dart';
 import 'package:islamxplorer_flutter/pages/DuaListPage.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
-import 'package:islamxplorer_flutter/widgets/utils/custom_appbar.dart';
 import 'package:islamxplorer_flutter/widgets/utils/custom_error_widget.dart';
-import 'package:islamxplorer_flutter/widgets/utils/custom_text.dart';
 import 'package:islamxplorer_flutter/widgets/new_tag.dart';
-// import 'package:islamxplorer_flutter/controllers/duaDataController.dart';
+
 
 class DuaPage extends StatelessWidget {
   @override

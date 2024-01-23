@@ -1,10 +1,5 @@
 import 'dart:convert';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:islamxplorer_flutter/models/dua.dart';
-import 'package:islamxplorer_flutter/models/hadith.dart';
-import 'package:islamxplorer_flutter/models/user.dart';
 import 'package:http/http.dart' as http;
 import 'package:islamxplorer_flutter/models/verse.dart';
 

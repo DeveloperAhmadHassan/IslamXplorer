@@ -2,27 +2,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:islamxplorer_flutter/Controllers/userDataController.dart';
+import 'package:islamxplorer_flutter/controllers/userDataController.dart';
 import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/models/user.dart';
-import 'package:islamxplorer_flutter/pages/AddUpdateDuaPageDummy.dart';
-import 'package:islamxplorer_flutter/pages/DuaPage.dart';
-import 'package:islamxplorer_flutter/pages/HomePage.dart';
-import 'package:islamxplorer_flutter/pages/NewPage.dart';
-import 'package:islamxplorer_flutter/pages/ProfilePage.dart';
-import 'package:islamxplorer_flutter/pages/SearchItemPage.dart';
-import 'package:islamxplorer_flutter/pages/SearchResultsPage.dart';
-import 'package:islamxplorer_flutter/pages/SearchingPage.dart';
 import 'package:islamxplorer_flutter/pages/authPages/SignInPage.dart';
-import 'package:islamxplorer_flutter/pages/authPages/SignUpPage.dart';
-import 'package:islamxplorer_flutter/qiblah/qiblah_widget.dart';
-import 'package:islamxplorer_flutter/qiblah/QiblaPage.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
-import 'package:islamxplorer_flutter/widgets/searchBarWidgets/dummy_search_bar.dart';
 import 'package:islamxplorer_flutter/widgets/nav_bar.dart';
 
 import 'package:firebase_core/firebase_core.dart';
-import 'package:islamxplorer_flutter/widgets/utils/error.dart';
 import 'firebase_options.dart';
 
 

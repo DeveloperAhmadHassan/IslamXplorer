@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:islamxplorer_flutter/main.dart';
 import 'package:islamxplorer_flutter/pages/AdminPanel.dart';
-import 'package:islamxplorer_flutter/pages/DuaListPage.dart';
-import 'package:islamxplorer_flutter/pages/HadithListPage.dart';
 import 'package:islamxplorer_flutter/pages/HomePage.dart';
 import 'package:islamxplorer_flutter/pages/DuaPage.dart';
 import 'package:islamxplorer_flutter/pages/ProfilePage.dart';
-import 'package:islamxplorer_flutter/pages/VerseListPage.dart';
 
 
 class BotNavBar extends StatefulWidget{

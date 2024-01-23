@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:islamxplorer_flutter/controllers/authController.dart';
 import 'package:islamxplorer_flutter/controllers/redirectionController.dart';
 import 'package:islamxplorer_flutter/extensions/color.dart';
-import 'package:islamxplorer_flutter/pages/authPages/EmailVerificationPage.dart';
-import 'package:islamxplorer_flutter/pages/HomePage.dart';
 import 'package:islamxplorer_flutter/pages/authPages/SignInPage.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
 import 'package:islamxplorer_flutter/values/strings.dart';

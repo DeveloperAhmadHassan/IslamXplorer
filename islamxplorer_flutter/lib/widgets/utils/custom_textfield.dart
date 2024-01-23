@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';

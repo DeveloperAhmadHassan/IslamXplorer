@@ -1,26 +1,16 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:islamxplorer_flutter/Controllers/duaDataController.dart';
-import 'package:islamxplorer_flutter/Controllers/userDataController.dart';
+import 'package:islamxplorer_flutter/controllers/duaDataController.dart';
+import 'package:islamxplorer_flutter/controllers/userDataController.dart';
 import 'package:islamxplorer_flutter/extensions/color.dart';
-import 'package:islamxplorer_flutter/models/hadith.dart';
-import 'package:islamxplorer_flutter/models/searchResultItem.dart';
-import 'package:islamxplorer_flutter/utils/alertDialogs.dart';
-import 'package:islamxplorer_flutter/utils/snackBars.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
 import 'package:islamxplorer_flutter/values/strings.dart';
 import 'package:islamxplorer_flutter/widgets/bookmarkWidget/bookmarkItem.dart';
 import 'package:islamxplorer_flutter/widgets/utils/custom_text.dart';
 import 'package:islamxplorer_flutter/widgets/reportWidget/reportItem.dart';
-import 'package:islamxplorer_flutter/widgets/searchBarWidgets/search_bar.dart';
-import 'package:islamxplorer_flutter/widgets/logoWidgets/secondary_logo.dart';
 import 'package:islamxplorer_flutter/widgets/shareWidget/shareItem.dart';
-import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import 'package:share_plus/share_plus.dart';
 
 import '../models/dua.dart';
-import '../models/verse.dart';
 
 class DuaItemPage extends StatefulWidget{
   DuaItemPage({required this.dua, super.key});

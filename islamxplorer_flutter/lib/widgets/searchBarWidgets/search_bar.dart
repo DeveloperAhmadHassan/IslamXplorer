@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:islamxplorer_flutter/extensions/color.dart';
-import 'package:islamxplorer_flutter/pages/SearchingPage.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
 
 class CustomSearchBar extends StatelessWidget {

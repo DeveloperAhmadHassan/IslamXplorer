@@ -13,7 +13,7 @@ on:
 
 jobs:
   build:
-    name: Build & Release
+    name: Build (APK and AAB)
     runs-on: ubuntu-latest
 
     steps:
@@ -45,9 +45,33 @@ jobs:
           flutter build apk --release --split-per-abi
           flutter build appbundle --release
 
-      - name: Push to Releases
+      - name: Push to Releases (GitHub Releases)
         uses: ncipollo/release-action@v1
         with:
           artifacts: "islamxplorer_flutter/build/app/outputs/apk/release/*, islamxplorer_flutter/build/app/outputs/bundle/release/*"
           tag: v1.0.${{ github.run_number }}
           token: ${{ secrets.CLI_TOKEN }}
+
+      - name: Upload app bundle
+        uses: actions/upload-artifact@v2
+        with:
+          name: appbundle
+          path: islamxplorer_flutter/build/app/outputs/bundle/release/app-release.aab
+  release:
+    name: Release (PlayStore)
+    needs: [build]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Get appbundle from artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: appbundle
+      - name: Upload to Play Store (Production)
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.ANDROID_SERVICE_ACCOUNT_JSON }} 
+          packageName: com.islamxplorer.islamxplorer_flutter                       
+          releaseFiles: app-release.aab
+          track: production

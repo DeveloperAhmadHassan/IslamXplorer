@@ -1,15 +1,8 @@
-// import 'dart:js';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:islamxplorer_flutter/Controllers/userDataController.dart';
 import 'package:islamxplorer_flutter/controllers/authController.dart';
 import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/main.dart';
-import 'package:islamxplorer_flutter/models/user.dart';
-import 'package:islamxplorer_flutter/pages/HomePage.dart';
 import 'package:islamxplorer_flutter/pages/authPages/SignUpPage.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
 import 'package:islamxplorer_flutter/values/strings.dart';
@@ -17,7 +10,6 @@ import 'package:islamxplorer_flutter/widgets/utils/custom_button.dart';
 import 'package:islamxplorer_flutter/widgets/utils/custom_text.dart';
 import 'package:islamxplorer_flutter/widgets/utils/custom_textfield.dart';
 import 'package:islamxplorer_flutter/widgets/logoWidgets/primary_logo.dart';
-import 'package:islamxplorer_flutter/widgets/authWidgets/sign_in_provider_button.dart';
 import 'package:islamxplorer_flutter/widgets/authWidgets/sign_in_providers.dart';
 
 class SignInPage extends StatefulWidget{

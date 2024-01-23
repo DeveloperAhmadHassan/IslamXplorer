@@ -4,11 +4,8 @@ import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/pages/SearchingPage.dart';
 import 'package:islamxplorer_flutter/qiblah/QiblaPage.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
-import 'package:islamxplorer_flutter/widgets/utils/custom_text.dart';
 import 'package:islamxplorer_flutter/widgets/searchBarWidgets/dummy_search_bar.dart';
-import 'package:islamxplorer_flutter/widgets/utils/home_appbar.dart';
 import 'package:islamxplorer_flutter/widgets/logoWidgets/primary_logo.dart';
-import 'package:islamxplorer_flutter/widgets/searchBarWidgets/search_bar.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 class HomePage extends StatelessWidget{

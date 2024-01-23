@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:islamxplorer_flutter/Controllers/userDataController.dart';
-import 'package:islamxplorer_flutter/models/dua.dart';
+import 'package:islamxplorer_flutter/controllers/userDataController.dart';
 import 'package:islamxplorer_flutter/models/searchResultItem.dart';
 
 class BookmarkItem extends StatefulWidget{
