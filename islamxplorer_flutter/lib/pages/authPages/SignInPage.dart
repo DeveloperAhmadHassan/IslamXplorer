@@ -67,10 +67,11 @@ class _SignInPageState extends State<SignInPage> {
                         return 'Please enter email!';
                       }
                       if(!value.isEmail){
-                        return 'Please enter valid email!';
+                        return 'Please enter a valid email!';
                       }
                       return null;
                     },
+                    key: const Key("emailTextField"),
                   ),
                   Container(
                     height: 20,
@@ -87,6 +88,7 @@ class _SignInPageState extends State<SignInPage> {
                       }
                       return null;
                     },
+                    key: const Key("passwordTextField"),
                   ),
                   Container(
                     height: 20,

@@ -3,6 +3,7 @@ import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/pages/SearchingPage.dart';
 
 import 'package:flutter/material.dart';
+import 'package:islamxplorer_flutter/values/assets.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
 
 class DummySearchBar extends StatefulWidget {
@@ -40,7 +41,7 @@ class _DummySearchBarState extends State<DummySearchBar> {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Image.asset(
-                'assets/icon.png',
+                AppAsset.defaultLogo,
                 width: 20,
                 height: 20,
                 fit: BoxFit.fill,

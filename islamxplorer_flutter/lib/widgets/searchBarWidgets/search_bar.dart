@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:islamxplorer_flutter/extensions/color.dart';
+import 'package:islamxplorer_flutter/values/assets.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
+import 'package:islamxplorer_flutter/widgets/logoWidgets/default_logo.dart';
 
 class CustomSearchBar extends StatelessWidget {
   final bool focus;
@@ -52,14 +54,10 @@ class CustomSearchBar extends StatelessWidget {
                 onTap();
               },
             ),
-            prefixIcon: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Image.asset(
-                'assets/icon.png',
-                width: 20,
-                height: 20,
-                fit: BoxFit.fill,
-              ),
+            prefixIcon: Container(
+              padding: EdgeInsets.all(15),
+              margin: EdgeInsets.only(left: 7),
+              child: DefaultLogo(),
             ),
           ),
         ),
