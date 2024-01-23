@@ -127,7 +127,14 @@ class _SignInPageState extends State<SignInPage> {
                     children: [
                       CustomText(AppString.signUpLabel, 18, bold: true,color: Colors.black54),
                       Container(width: 10,),
-                      CustomText(AppString.signUpHint, 18, bold: true, underline: true,onTap: openSignUp,),
+                      CustomText(
+                        AppString.signUpHint, 
+                        18, 
+                        bold: true, 
+                        underline: true, 
+                        color: Colors.blue,
+                        onTap: openSignUp,
+                      ),
                     ],
                   ),
 
