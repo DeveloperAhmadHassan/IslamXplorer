@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:islamxplorer_flutter/controllers/duaDataController.dart';
@@ -17,8 +18,24 @@ class DuaPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
       appBar: AppBar(
-        title: Text("Duas"),
-        backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2)
+        backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
+        systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent,
+            systemNavigationBarIconBrightness: Brightness.light,
+            systemNavigationBarColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
+        ),
+        toolbarHeight: 65,
+        title: Row(
+          children: [
+            const SizedBox(width: 70,),
+            Container(
+              margin: EdgeInsets.only(top: 25),
+              child: const Text("Duas", style: TextStyle(
+                fontSize: 35,
+              )),
+            )
+          ],
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),

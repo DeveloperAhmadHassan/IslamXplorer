@@ -25,10 +25,11 @@ import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    systemNavigationBarColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
-    systemNavigationBarContrastEnforced: false
-  ));
+  // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  //   systemNavigationBarColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2).withOpacity(0.002),
+  //   systemNavigationBarContrastEnforced: true,
+  //   systemNavigationBarIconBrightness: Brightness.light
+  // ));
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -140,6 +141,7 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
 
   bool _showOnBoarding = false;
   Widget _tabBody = Container(color: Colors.black);
+  int _tabIndex = 0;
   final List<Widget> _screens = [
     HomePage(),
     DuaPage(),
@@ -232,10 +234,10 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        systemNavigationBarColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
-        systemNavigationBarContrastEnforced: false,
-    ));
+    // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    //     systemNavigationBarColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
+    //     systemNavigationBarContrastEnforced: false,
+    // ));
     return Scaffold(
       extendBody: true,
       body: Stack(
@@ -293,7 +295,7 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
                 child: child!,
               );
             },
-            child: GestureDetector(
+            child: _tabIndex != 2 ? GestureDetector(
               child: MouseRegion(
                 cursor: SystemMouseCursors.click,
                 child: Container(
@@ -316,7 +318,7 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
               onTap: () {
 
               },
-            ),
+            ) : Container() ,
           ),
           RepaintBoundary(
             child: AnimatedBuilder(
@@ -325,9 +327,6 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
                 return SafeArea(
                   child: Row(
                     children: [
-                      // There's an issue/behaviour in flutter where translating the GestureDetector or any button
-                      // doesn't translate the touch area, making the Widget unclickable, so instead setting a SizedBox
-                      // in a Row to have a similar effect
                       SizedBox(width: _sidebarAnim.value * 216),
                       child!,
                     ],
@@ -454,6 +453,7 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
                 onTabChange: (tabIndex) {
                   setState(() {
                     _tabBody = _screens[tabIndex];
+                    _tabIndex = tabIndex;
                   });
                 },
               )

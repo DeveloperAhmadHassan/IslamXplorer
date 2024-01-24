@@ -18,6 +18,7 @@ class CustomTextfield extends StatefulWidget {
    bool hidePassword = false;
    IconData passwordIcon = LineAwesomeIcons.eye;
    TextInputType textInputType;
+   String? value = "";
 
   CustomTextfield(
       Icon this.icon,
@@ -30,6 +31,7 @@ class CustomTextfield extends StatefulWidget {
         this.isPhone = false,
         this.validationCallback,
         this.textInputType = TextInputType.text,
+        this.value,
         super.key,
       })  : tempIcon = icon,
         tempHintText = hintText,
@@ -47,6 +49,12 @@ class _CustomTextfieldState extends State<CustomTextfield> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    widget._textEditingController?.text = widget.value ?? "";
+  }
+
+  @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget._textEditingController,
@@ -55,6 +63,7 @@ class _CustomTextfieldState extends State<CustomTextfield> {
       autocorrect: !widget.isPassword,
       cursorColor: Colors.white,
       keyboardType: widget.textInputType,
+      // initialValue: widget.value ?? "",
       style: const TextStyle(
         fontFamily: "IBMPlexMono",
         fontSize: 16,

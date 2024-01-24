@@ -1,12 +1,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:islamxplorer_flutter/controllers/userDataController.dart';
 import 'package:islamxplorer_flutter/models/user.dart';
 import 'package:http/http.dart' as http;
+import 'package:islamxplorer_flutter/widgets/fullscreen_loader.dart';
 
 class AuthController{
+  var rememberMe = false;
+  var localStorage = GetStorage();
+  late String email;
+  late String password;
 
   Future<AppUser> login(String email, String password) async {
+    FullScreenLoader.openLoadingDialog("Loading", "Loading");
+
+    if(rememberMe){
+      localStorage.write("REMEMBER_ME_EMAIL_OR_CONTACT", email);
+      localStorage.write("REMEMBER_ME_PASSWORD", password);
+    }
+
     try {
       UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
@@ -20,17 +34,23 @@ class AuthController{
 
           print("User Type: ${appUser.type}");
 
+          FullScreenLoader.stopLoading();
+
           return appUser;
         } catch (e) {
+          FullScreenLoader.stopLoading();
           throw ("Error fetching user data: $e");
         }
 
       } else{
+        FullScreenLoader.stopLoading();
         throw ("Error");
       }
     } on FirebaseAuthException catch (e) {
+      FullScreenLoader.stopLoading();
       throw ("Firebase Authentication Error: ${e.code}");
     } catch (e) {
+      FullScreenLoader.stopLoading();
       throw ("Unexpected Error: $e");
     }
   }
@@ -83,4 +103,11 @@ class AuthController{
       print('Error adding user details: $e');
     }
   }
+
+  (String, String) getRememberMeDetails(){
+    email = localStorage.read("REMEMBER_ME_EMAIL_OR_CONTACT") ?? "";
+    password = localStorage.read("REMEMBER_ME_PASSWORD") ?? "";
+    return (email, password);
+  }
+
 }

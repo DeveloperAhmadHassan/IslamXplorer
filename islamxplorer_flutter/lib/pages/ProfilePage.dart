@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/pages/authPages/SignInPage.dart';
@@ -16,6 +17,7 @@ class ProfilePage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     var user = FirebaseAuth.instance.currentUser;
 
     String? photoUrl = user?.photoURL;
@@ -36,13 +38,26 @@ class ProfilePage extends StatelessWidget{
         : const Image(image: AssetImage('assets/profile.png'),);
 
     return Scaffold(
-      backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch1),
+      backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
       appBar: AppBar(
-        backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch1),
-        title: const Text("Profile"),
-        actions: [
-          IconButton(onPressed: (){}, icon: const Icon(LineAwesomeIcons.moon))
-        ],
+        backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          systemNavigationBarIconBrightness: Brightness.light,
+          systemNavigationBarColor: Colors.black.withOpacity(0.002)
+        ),
+        toolbarHeight: 70,
+        title: Row(
+          children: [
+            const SizedBox(width: 70,),
+            Container(
+              margin: EdgeInsets.only(top: 25),
+              child: const Text("Profile", style: TextStyle(
+                fontSize: 35,
+              )),
+            )
+          ],
+        ),
       ),
       body: SingleChildScrollView(
         child: Container(

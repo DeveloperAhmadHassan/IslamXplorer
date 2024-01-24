@@ -8,6 +8,7 @@ import 'package:islamxplorer_flutter/pages/authPages/SignInPage.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
 import 'package:islamxplorer_flutter/values/strings.dart';
 import 'package:islamxplorer_flutter/widgets/authWidgets/sign_in_providers.dart';
+import 'package:islamxplorer_flutter/widgets/checkBoxWidget/termsAndConditionsCheckBox.dart';
 
 import '../../widgets/utils/custom_button.dart';
 import '../../widgets/utils/custom_text.dart';
@@ -78,6 +79,11 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       CustomText("Confirm Password",20, bold: true,),
                       CustomTextfield(const Icon(Icons.lock_outline, color: Colors.black,), "**********", true, _confirmPasswordEditingController),
+                      Row(
+                        children: [
+                          TermsAndConditions(),
+                        ],
+                      ),
                       Container(
                         height: 20,
                       ),
@@ -117,9 +123,17 @@ class _SignUpPageState extends State<SignUpPage> {
                         children: [
                           CustomText("Already have an account?", 18, bold: true,color: Colors.black54),
                           Container(width: 10,),
-                          CustomText("Login", 18, bold: true, underline: true,onTap: openSignIn,),
+                          CustomText(
+                            "Log In",
+                            18,
+                            bold: true,
+                            underline: true,
+                            color: Colors.blue,
+                            onTap: openSignIn,
+                          ),
                         ],
-                      )
+                      ),
+                      SizedBox(height: 40,),
                     ],
                   ),
                 ),

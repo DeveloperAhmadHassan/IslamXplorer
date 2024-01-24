@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:islamxplorer_flutter/controllers/authController.dart';
 import 'package:islamxplorer_flutter/extensions/color.dart';
@@ -6,6 +7,7 @@ import 'package:islamxplorer_flutter/main.dart';
 import 'package:islamxplorer_flutter/pages/authPages/SignUpPage.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
 import 'package:islamxplorer_flutter/values/strings.dart';
+import 'package:islamxplorer_flutter/widgets/checkBoxWidget/rememberMeCheckBox.dart';
 import 'package:islamxplorer_flutter/widgets/utils/custom_button.dart';
 import 'package:islamxplorer_flutter/widgets/utils/custom_text.dart';
 import 'package:islamxplorer_flutter/widgets/utils/custom_textfield.dart';
@@ -20,22 +22,50 @@ class SignInPage extends StatefulWidget{
 class _SignInPageState extends State<SignInPage> {
   final TextEditingController _emailEditingController = TextEditingController();
   final TextEditingController _passwordEditingController = TextEditingController();
-
-  final AuthController authController = AuthController();
+  final AuthController _authController = AuthController();
   late String _errorText = "";
 
   final _formKey = GlobalKey<FormState>();
+
+  late String _email, _password;
   void openSignUp(){
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SignUpPage()));
   }
 
   @override
+  void initState() {
+    var (email, password) = _authController.getRememberMeDetails();
+    _email = email;
+    _password = password;
+  }
+
+  @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    var (email, password) = _authController.getRememberMeDetails();
+    _email = email;
+    _password = password;
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Log In"),
-        backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch1),
-      ),
+        appBar: AppBar(
+          backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch1),
+          systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent,
+            systemNavigationBarIconBrightness: Brightness.dark,
+            systemNavigationBarColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch1),
+          ),
+          toolbarHeight: 50,
+          title: Row(
+            children: [
+              const SizedBox(width: 30,),
+              Container(
+                margin: EdgeInsets.only(top: 25),
+                child: const Text("Log In", style: TextStyle(
+                  fontSize: 25,
+                )),
+              )
+            ],
+          ),
+        ),
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -54,12 +84,13 @@ class _SignInPageState extends State<SignInPage> {
                   Container(
                     height: 40,
                   ),
-                  CustomText(_errorText, 20, color: Colors.red, bold: true,),
-                  SizedBox(height: 20,),
+                  // CustomText(_errorText, 20, color: Colors.red, bold: true,),
+                  // SizedBox(height: 20,),
                   CustomText(AppString.usernameOrEmailLabel,20, bold: true,),
                   CustomTextfield(
                     const Icon(Icons.email_outlined, color: Colors.black,),
                     AppString.emailHint,
+                    value: _email,
                     false,
                     _emailEditingController,
                     validationCallback: (value) {
@@ -82,6 +113,7 @@ class _SignInPageState extends State<SignInPage> {
                     AppString.passwordHint,
                     true,
                     _passwordEditingController,
+                    value: _password,
                     validationCallback: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter password!';
@@ -90,13 +122,26 @@ class _SignInPageState extends State<SignInPage> {
                     },
                     key: const Key("passwordTextField"),
                   ),
-                  Container(
-                    height: 20,
+                  Row(
+                    children: [
+                      RememberMe(authController: _authController),
+                      Spacer(),
+                      CustomText(
+                        "Forget Password",
+                        16,
+                        bold: true,
+                        underline: true,
+                        color: Colors.blue,
+                        alignment: Alignment.center,
+                        onTap: (){},
+                      ),
+                    ],
                   ),
                   CustomButton(AppString.loginButton, () async {
                     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
+                      print("Password: ${_passwordEditingController.text.trim()}");
                       try {
-                        var loginResult = await authController.login(
+                        var loginResult = await _authController.login(
                           _emailEditingController.text.trim(),
                           _passwordEditingController.text.trim(),
                         );
@@ -131,7 +176,7 @@ class _SignInPageState extends State<SignInPage> {
                       Container(width: 10,),
                       CustomText(
                         AppString.signUpHint, 
-                        18, 
+                        18,
                         bold: true, 
                         underline: true, 
                         color: Colors.blue,
@@ -139,7 +184,7 @@ class _SignInPageState extends State<SignInPage> {
                       ),
                     ],
                   ),
-
+                  SizedBox(height: 40,),
                 ],
               ),
             ),
