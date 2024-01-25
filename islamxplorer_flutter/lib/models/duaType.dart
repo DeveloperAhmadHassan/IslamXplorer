@@ -14,9 +14,8 @@ class DuaType{
     required this.height,
   });
 
-  DuaType.withName({required String name})
+  DuaType.withName({required this.name})
       : id = '',
-        name = name,
         url = '',
         height = 0;
 

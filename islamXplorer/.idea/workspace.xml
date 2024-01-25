@@ -6,13 +6,18 @@
   <component name="ChangeListManager">
     <list default="true" id="5b725d72-cbff-48c8-89dd-d50a571af1ef" name="Changes" comment="&quot;Improved Code&quot;">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/controllers/authController.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/controllers/authController.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/hadith_con.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/hadith_con.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dummies/mongodb_testing.py" beforeDir="false" afterPath="$PROJECT_DIR$/dummies/mongodb_testing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/controllers/hadithDataController.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/controllers/hadithDataController.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/DuaItemPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/DuaItemPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/DuaPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/DuaPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/AddUpdateDuaPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/AddUpdateDuaPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/AddUpdateHadithPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/AddUpdateHadithPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/DuaListPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/DuaListPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/HadithListPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/HadithListPage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/HomePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/HomePage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/ProfilePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/ProfilePage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/authPages/SignInPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/authPages/SignInPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/authPages/SignUpPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/authPages/SignUpPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/widgets/utils/custom_textfield.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/widgets/utils/custom_textfield.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/pubspec.yaml" afterDir="false" />
     </list>
@@ -49,16 +54,17 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Ahmad/FYP/islamXplorer&quot;
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Ahmad/FYP/islamXplorer/dummies&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Ahmad\FYP\islamXplorer\dummies" />
       <recent name="C:\Users\Ahmad\FYP\islamXplorer" />
       <recent name="C:\Users\Ahmad\FYP\islamXplorer\models" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.main">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="islamXplorer" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -80,6 +86,32 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="mongodb_testing" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="islamXplorer" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/dummies" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/dummies/mongodb_testing.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.mongodb_testing" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">

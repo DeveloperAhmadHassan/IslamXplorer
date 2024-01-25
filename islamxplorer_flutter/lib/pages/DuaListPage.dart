@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:islamxplorer_flutter/controllers/duaDataController.dart';
 import 'package:islamxplorer_flutter/controllers/userDataController.dart';
@@ -6,35 +7,51 @@ import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/models/dua.dart';
 import 'package:islamxplorer_flutter/pages/AddUpdateDuaPage.dart';
 import 'package:islamxplorer_flutter/pages/DuaItemPage.dart';
+import 'package:islamxplorer_flutter/utils/alertDialogs.dart';
+import 'package:islamxplorer_flutter/utils/snackBars.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
 import 'package:islamxplorer_flutter/widgets/utils/custom_button.dart';
 import 'package:islamxplorer_flutter/widgets/utils/custom_error_widget.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
-class DuaListPage extends StatelessWidget {
+class DuaListPage extends StatefulWidget {
   String title;
   String type;
-  bool isDeleting = false;
-  final DuaDataController duaDataController = DuaDataController();
 
   DuaListPage({this.title = "worship", this.type = "U"});
 
   @override
+  State<DuaListPage> createState() => _DuaListPageState();
+}
+
+class _DuaListPageState extends State<DuaListPage> {
+  bool isDeleting = false;
+
+  final DuaDataController duaDataController = DuaDataController();
+
+  @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+
+
     return Scaffold(
       backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
       appBar: AppBar(
-        title: Text("Duas"),
-        backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2)
+        systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent,
+            systemNavigationBarIconBrightness: Brightness.light,
+            systemNavigationBarColor: Colors.black.withOpacity(0.0002)
+        ),
+          title: Text("Duas"),
+          backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2)
       ),
       body: Stack(
         children: [
           FutureBuilder<List<Dua>>(
-            future: type == "A" ? duaDataController.fetchAllDuas() : duaDataController.fetchDuasFromTypes(title),
+            future: widget.type == "A" ? duaDataController.fetchAllDuas() : duaDataController.fetchDuasFromTypes(widget.title),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Scaffold(
-                  body: Container(
+                return Container(
                     height: MediaQuery.of(context).size.height,
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
@@ -60,8 +77,7 @@ class DuaListPage extends StatelessWidget {
                         ))
                       ],
                     ),
-                  ),
-                );
+                  );
               }
               else if (snapshot.hasError) {
                 return CustomErrorWidget(errorMessage: "Error!!!!!",);
@@ -72,8 +88,8 @@ class DuaListPage extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
-                        type == "A" ? CustomButton("Add Dua", ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>AddUpdateDuaPage()))) : Container(),
-                        Cards(duas: duas, type: type=="A"? "A":"U",),
+                        widget.type == "A" ? CustomButton("Add Dua", ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>AddUpdateDuaPage()))) : Container(),
+                        Cards(duas: duas, type: widget.type=="A"? "A":"U",),
                       ],
                     ),
                   ),
@@ -81,13 +97,6 @@ class DuaListPage extends StatelessWidget {
               }
             },
           ),
-          if (isDeleting)
-            Container(
-              color: Colors.black.withOpacity(0.3),
-              child: Center(
-                child: CircularProgressIndicator(),
-              ),
-            ),
         ],
       ),
     );
@@ -192,63 +201,26 @@ class _DuaCardState extends State<DuaCard> {
   void deleteDua(String id, BuildContext context) async {
     DuaDataController duaDataController = DuaDataController();
 
-    bool confirmDelete = await showDialog(
-      context: context,
-      builder: (BuildContext dialogContext) {
-        return AlertDialog(
-          title: Text('Confirm Deletion'),
-          content: Text('Are you sure you want to delete this Dua?'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(dialogContext).pop(false); // User doesn't want to delete
-              },
-              child: Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(dialogContext).pop(true); // User confirms deletion
-              },
-              child: Text('Delete'),
-            ),
-          ],
-        );
-      },
-    );
+    bool confirmDelete = await AlertDialogs.deleteItemAlertDialog(context);
 
     if (confirmDelete == true) {
-      ScaffoldMessenger.of(context).hideCurrentSnackBar();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Deleting Dua...'),
-          duration: Duration(seconds: 7),
-        ),
-      );
+      SnackBars.showWaitingSnackBar(context, "Deleting Item.....");
       var result = await duaDataController.deleteDua(id);
 
       if (result) {
-        ScaffoldMessenger.of(context).hideCurrentSnackBar();
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Dua deleted successfully!'),
-            backgroundColor: Colors.green,
-          ),
-        );
+        SnackBars.showSuccessSnackBar(context,"Sucessfully Deleted Item!");
         Navigator.of(context).pop();
         Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => DuaListPage(type: "A")),
         );
       } else {
-        ScaffoldMessenger.of(context).hideCurrentSnackBar();
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Error occurred!'),
-            backgroundColor: Colors.red,
-          ),
-        );
+        SnackBars.showFailureSnackBar(context, "Failed To Delete Item!");
       }
     } else {
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      setState(() {
+
+      });
     }
   }
 

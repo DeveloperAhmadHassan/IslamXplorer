@@ -20,4 +20,9 @@ extension Validation on String {
     final arabicRegex = RegExp(r'[\u0600-\u06FF\s\.,;\"!?()]+$');
     return arabicRegex.hasMatch(this);
   }
+
+  bool isHadithID() {
+    final hadithIdRegex = RegExp(r'^[A-Z]{2} \d+:\s*[1-9]\d*$');
+    return hadithIdRegex.hasMatch(this);
+  }
 }

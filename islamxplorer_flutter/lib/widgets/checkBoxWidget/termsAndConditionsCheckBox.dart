@@ -4,15 +4,18 @@ import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
 import 'package:islamxplorer_flutter/widgets/utils/custom_text.dart';
 
-class TermsAndConditions extends StatefulWidget{
-  bool value = false;
-  TermsAndConditions({super.key});
+class TermsAndConditions extends StatefulWidget {
+  final ValueChanged<bool> onChanged;
+
+  TermsAndConditions({Key? key, required this.onChanged}) : super(key: key);
 
   @override
   State<TermsAndConditions> createState() => _TermsAndConditionsState();
 }
 
 class _TermsAndConditionsState extends State<TermsAndConditions> {
+  bool _value = false;
+
   @override
   Widget build(BuildContext context) {
     Color getColor(Set<MaterialState> states) {
@@ -27,24 +30,25 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
 
       return HexColor.fromHexStr(AppColor.primaryThemeSwatch1);
     }
+
     return Row(
       children: [
         Checkbox(
           checkColor: Colors.white,
           fillColor: MaterialStateProperty.resolveWith(getColor),
-          value: widget.value,
+          value: _value,
           onChanged: (bool? value) {
             setState(() {
-              toggleCheckBox();
+              _value = value ?? false;
+              widget.onChanged(_value);
             });
           },
         ),
         CustomText(
-          "I have read the ",
+          "Agree with ",
           14,
           color: Colors.black,
           alignment: Alignment.center,
-          onTap: (){},
         ),
         CustomText(
           "Terms and Conditions",
@@ -53,15 +57,9 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
           underline: true,
           color: Colors.blue,
           alignment: Alignment.center,
-          onTap: (){},
+          onTap: () {},
         ),
       ],
     );
-  }
-
-  void toggleCheckBox(){
-    setState(() {
-      widget.value = !widget.value;
-    });
   }
 }

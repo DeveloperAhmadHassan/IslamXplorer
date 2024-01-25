@@ -294,6 +294,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.0"
+  flutter_islamic_icons:
+    dependency: "direct main"
+    description:
+      name: flutter_islamic_icons
+      sha256: e3013fc04cadd49bc9afba00fc51028e5e5daf4657f4988d678f64e62ce63a36
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   flutter_launcher_icons:
     dependency: "direct main"
     description:
@@ -813,6 +821,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.1"
+  quran:
+    dependency: "direct main"
+    description:
+      name: quran
+      sha256: "81f7992f7323f3c1abcce8fc5d907c4df28a4cb438bcbc903ae989b02ee40d22"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.3"
   result_dart:
     dependency: transitive
     description:

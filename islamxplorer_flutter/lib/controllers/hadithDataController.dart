@@ -6,18 +6,14 @@ import 'package:http/http.dart' as http;
 class HadithDataController{
   Future<List<Hadith>> fetchAllHadiths() async {
     const url = "http://192.168.56.1:48275/hadiths";
-    print("Hello1");
     try {
-      final response = await http.get(Uri.parse(url));
-
+      final response = await http.get(Uri.parse(url)).timeout(const Duration(seconds: 30));
       if (response.statusCode == 200) {
         final List<dynamic> jsonData = json.decode(response.body)['data'];
-        print("Hello2");
         final List<Hadith> hadiths = jsonData.map((data) => Hadith.fromJson(data)).toList();
-        print("Hello3");
         return hadiths;
       }  else {
-        throw Exception('Failed to load Hadiths');
+        throw Exception('Failed to load Hadith');
       }
     } catch (e) {
       throw Exception('Error: $e');
@@ -26,8 +22,6 @@ class HadithDataController{
 
   Future<bool> addHadith(Hadith hadith) async {
     const url = "http://192.168.56.1:48275/hadiths";
-    print("Hello1");
-
     final Map<String, dynamic> requestBody = {
       "hadithID": hadith.id,
       "hadithNo": hadith.hadithNo,
@@ -45,29 +39,27 @@ class HadithDataController{
       );
 
       if (response.statusCode == 200) {
-        print("Hadith added successfully");
         return true;
       } else {
-        print("Failed to add Hadith. Status code: ${response.statusCode}");
+        // print("Failed to add Hadith. Status code: ${response.statusCode}");
         return false;
       }
     } catch (e) {
-      print("Error: $e");
+      // print("Error: $e");
       return false;
     }
   }
 
   Future<Hadith> getHadithByID(String id) async {
     var url = "http://192.168.56.1:48275/hadiths?id=$id";
-    print("Hello1");
     try {
       final response = await http.get(Uri.parse(url));
 
       if (response.statusCode == 200) {
         final List<dynamic> jsonData = json.decode(response.body)['data'];
-        print("Hello2");
+
         final List<Hadith> hadiths = jsonData.map((data) => Hadith.fromJson(data)).toList();
-        print("Hello3");
+
         return hadiths.first;
       }  else {
         throw Exception('Failed to load Hadith');
@@ -95,16 +87,14 @@ class HadithDataController{
       );
 
       if (response.statusCode == 200) {
-        print("Hadith updated successfully");
+        // print("Hadith updated successfully");
         return true;
       } else {
         throw Exception("Failed to update Hadith");
-        return true;
       }
     } catch (e) {
-      print("Error updating Hadith: $e");
+      // print("Error updating Hadith: $e");
       throw Exception("Error updating Hadith: $e");
-      return true;
     }
   }
 
@@ -118,16 +108,14 @@ class HadithDataController{
       );
 
       if (response.statusCode == 200) {
-        print("Hadith deleted successfully");
+        // print("Hadith deleted successfully");
         return true;
       } else {
         throw Exception("Failed to delete Hadith");
-        return true;
       }
     } catch (e) {
-      print("Error deleting Hadith: $e");
+      // print("Error deleting Hadith: $e");
       throw Exception("Error deleting Hadith: $e");
-      return true;
     }
   }
 }

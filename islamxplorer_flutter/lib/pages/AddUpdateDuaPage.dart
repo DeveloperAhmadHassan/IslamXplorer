@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:get/route_manager.dart';
 import 'package:islamxplorer_flutter/controllers/duaDataController.dart';
 import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/extensions/string.dart';
 import 'package:islamxplorer_flutter/models/duaType.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
+import 'package:islamxplorer_flutter/widgets/secondary_loader.dart';
 import 'package:islamxplorer_flutter/widgets/utils/custom_button.dart';
 import 'package:islamxplorer_flutter/widgets/utils/custom_text.dart';
 import 'package:islamxplorer_flutter/widgets/utils/custom_textfield.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
+// import 'package:quran/quran.dart' as quran;
 
 import '../models/dua.dart';
 
@@ -47,12 +51,14 @@ class _AddUpdateDuaPageState extends State<AddUpdateDuaPage> {
     DuaType.withName(name: "confidence"),
     DuaType.withName(name: "hope")
   ];
-  final _items = _types
+  static var _items = _types
       .map((item) => MultiSelectItem<DuaType>(item, item.name))
       .toList();
   List<Object?> _selectedTypes2 = [];
   List<DuaType> _selectedTypes5 = [];
   final _multiSelectKey = GlobalKey<FormFieldState>();
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -60,329 +66,331 @@ class _AddUpdateDuaPageState extends State<AddUpdateDuaPage> {
     super.initState();
   }
 
-  final _formKey = GlobalKey<FormState>();
-
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     DuaDataController duaDataController = DuaDataController();
 
-    return Scaffold(
-      backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch1),
-      appBar: AppBar(
-        title: Text("Add Dua"),
+    // print("${quran.getAudioURLByVerse(2, 5)}");
+    // print("${quran.getVerse(2, 5,verseEndSymbol: true)}");
+    // duaTitleTextEditingController.text = quran.getVerse(2, 5,verseEndSymbol: true);
+    // print("${quran.getVerseTranslation(2, 5,verseEndSymbol: true, translation: quran.Translation.trSaheeh)}");
+    // print("${quran.Translation}");
+
+    return SafeArea(
+      child: Scaffold(
         backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch1),
-      ),
-      body: widget.isUpdate ?
-      FutureBuilder<Dua>(
-        future: duaDataController.getDuaByID(widget.dua!.id),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator();
-          } else if (snapshot.hasError) {
-            return Text("Error: ${snapshot.error}");
-          } else{
-            Dua? dua = snapshot.data;
-            duaTitleTextEditingController.text = dua!.title;
-            oldID = dua.id;
-            duaArabicTextEditingController.text = dua!.arabicText!;
-            duaEnglishTextEditingController.text = dua.englishText;
-            duaExplanationTextEditingController.text = dua.explanation!;
-            duaTransliterationEditingController.text = dua.transliteration!;
-            duaVerseNumberTextEditingController.text = dua.verses!;
-            // selectedSurahNumber = dua.surah!;
+        appBar: AppBar(
+          systemOverlayStyle: SystemUiOverlayStyle(
+              // statusBarColor: Colors.,
+              systemNavigationBarIconBrightness: Brightness.light,
+              // systemNavigationBarColor: Colors.black.withOpacity(0.0000000000000001)
+          ),
+          title: Text("Add Dua"),
+          backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch1),
+        ),
+        body: widget.isUpdate ?
+        FutureBuilder<Dua>(
+          future: duaDataController.getDuaByID(widget.dua!.id),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return SecondaryLoader();
+            } else if (snapshot.hasError) {
+              return Text("Error: ${snapshot.error}");
+            } else{
+              Dua? dua = snapshot.data;
+              duaTitleTextEditingController.text = dua!.title;
+              oldID = dua.id;
+              duaArabicTextEditingController.text = dua!.arabicText!;
+              duaEnglishTextEditingController.text = dua.englishText;
+              duaExplanationTextEditingController.text = dua.explanation!;
+              duaTransliterationEditingController.text = dua.transliteration!;
+              duaVerseNumberTextEditingController.text = dua.verses!;
+              selectedSurahNumber = dua.surah!;
 
-            // verseNumberTextEditingController.text = verse..toString();
+              // verseNumberTextEditingController.text = verse..toString();
 
-            return SingleChildScrollView(
-              padding: EdgeInsets.all(10),
-              child: Column(
-                children:<Widget> [
-                  CustomText("Dua Title",20, bold: true,),
-                  CustomTextfield(const Icon(Icons.mosque_outlined, color: Colors.black,), "", false,duaTitleTextEditingController),
-                  Container(
-                    height: 20,
-                  ),
-                  CustomText("Surah",20, bold: true,),
-                  DropdownButtonFormField<int>(
-                    value: selectedSurahNumber,
-                    onChanged: (int? newSurahNumber) {
-                      setState(() {
-                        selectedSurahNumber = newSurahNumber!;
-                        totalVersesOfSelectedSurah = surahs[selectedSurahNumber]["totalVerses"];
-                      });
-                    },
-                    items: surahs.map((Map<String, dynamic> surah) {
-                      return DropdownMenuItem<int>(
-                        value: surah["surahNumber"],
-                        child: Text("${surah["surahNumber"]}. ${surah["surahName"]}"),
-                      );
-                    }).toList(),
-                  ),
-                  Container(
-                    height: 20,
-                  ),
-                  CustomText("Verse Number",20, bold: true,),
-                  TextFormField(
-                    controller: duaVerseNumberTextEditingController,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(Icons.mosque_outlined, color: Colors.black),
-                      hintText: "Enter Verse Number",
-                      filled: true,
-                      fillColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: const BorderSide(color: Colors.transparent),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: const BorderSide(color: Colors.white, width: 3),
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Verse number cannot be empty';
-                      }
-                      int verseNumber = int.parse(value);
-                      if (verseNumber == null || verseNumber <= 0 || verseNumber > totalVersesOfSelectedSurah) {
-                        return 'Invalid verse number';
-                      }
-                      return null;
-                    },
-                  ),
-                  Container(
-                    height: 20,
-                  ),
-                  CustomText("Arabic Text",20, bold: true,),
-                  CustomTextfield(const Icon(Icons.mosque_outlined, color: Colors.black,), "", false,duaArabicTextEditingController),
-                  Container(
-                    height: 20,
-                  ),
-                  CustomText("English Text",20, bold: true,),
-                  CustomTextfield(const Icon(Icons.mosque_outlined, color: Colors.black,), "", false,duaEnglishTextEditingController),
-                  Container(
-                    height: 20,
-                  ),
-                  CustomText("Explanation",20, bold: true,),
-                  CustomTextfield(const Icon(Icons.mosque_outlined, color: Colors.black,), "", false,duaExplanationTextEditingController),
-                  Container(
-                    height: 20,
-                  ),
-                  CustomText("Transliteration",20, bold: true,),
-                  CustomTextfield(const Icon(Icons.mosque_outlined, color: Colors.black,), "", false,duaTransliterationEditingController),
-                  Container(
-                    height: 20,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
-                      border: Border.all(
-                        color: Colors.white,
-                        width: 4,
-                      ),
-                    ),
+              return SingleChildScrollView(
+                  padding: EdgeInsets.all(10),
+                  child: Form(
+                    key: _formKey,
                     child: Column(
-                      children: <Widget>[
-                        MultiSelectBottomSheetField(
-                          initialChildSize: 0.4,
-                          listType: MultiSelectListType.CHIP,
-                          searchable: true,
-                          buttonText: Text("Dua Types"),
-                          title: Text("Types"),
-                          items: _items,
-                          onConfirm: (values) {
-                            _selectedTypes2 = values;
-                            print("${values}");
+                      children:<Widget> [
+                        CustomText("Dua Title",20, bold: true,),
+                        CustomTextfield(
+                          const Icon(Icons.mosque_outlined, color: Colors.black,),
+                          "",
+                          false,
+                          duaTitleTextEditingController,
+                          value: duaTitleTextEditingController.text,
+                          validationCallback: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Title cannot be empty!';
+                            }
+                            return null;
                           },
-                          chipDisplay: MultiSelectChipDisplay(
-                            onTap: (value) {
-                              setState(() {
-                                _selectedTypes2.remove(value);
-                              });
-                            },
-                          ),
                         ),
-                        _selectedTypes2 == null || _selectedTypes2.isEmpty
-                            ? Container(
-                            padding: EdgeInsets.all(10),
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              "None selected",
-                              style: TextStyle(color: Colors.black54),
-                            ))
-                            : Container(),
+                        Container(
+                          height: 20,
+                        ),
+                        CustomText("Surah",20, bold: true,),
+                        DropdownButtonFormField<int>(
+                          value: selectedSurahNumber,
+                          onChanged: (int? newSurahNumber) {
+                            setState(() {
+                              selectedSurahNumber = newSurahNumber!;
+                              totalVersesOfSelectedSurah = surahs[selectedSurahNumber]["totalVerses"];
+                            });
+                          },
+                          items: surahs.map((Map<String, dynamic> surah) {
+                            return DropdownMenuItem<int>(
+                              value: surah["surahNumber"],
+                              child: Text("${surah["surahNumber"]}. ${surah["surahName"]}"),
+                            );
+                          }).toList(),
+                        ),
+                        Container(
+                          height: 20,
+                        ),
+                        CustomText("Verse Number",20, bold: true,),
+                        CustomTextfield(
+                          const Icon(Icons.mosque_outlined, color: Colors.black,),
+                          "",
+                          false,
+                          duaVerseNumberTextEditingController,
+                          textInputType: TextInputType.number,
+                          value: duaVerseNumberTextEditingController.text,
+                          validationCallback: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Verse number cannot be empty!';
+                            }
+                            int verseNumber = int.parse(value);
+                            if (verseNumber == null || verseNumber <= 0 || verseNumber > totalVersesOfSelectedSurah) {
+                              return 'Invalid verse number';
+                            }
+                            return null;
+                          }),
+                        Container(
+                          height: 20,
+                        ),
+                        CustomText("Arabic Text",20, bold: true,),
+                        CustomTextfield(
+                            const Icon(Icons.mosque_outlined, color: Colors.black,),
+                            "",
+                            false,
+                            duaArabicTextEditingController,
+                            value: duaArabicTextEditingController.text,
+                            validationCallback: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Arabic Text cannot be empty!';
+                              }
+                              if(!value.isArabic()){
+                                return 'Please enter valid Arabic Text!';
+                              }
+                              return null;
+                            }),
+                        Container(
+                          height: 20,
+                        ),
+                        CustomText("English Text",20, bold: true,),
+                        CustomTextfield(
+                          const Icon(Icons.mosque_outlined, color: Colors.black,),
+                          "",
+                          false,
+                          duaEnglishTextEditingController,
+                          value: duaEnglishTextEditingController.text,
+                          validationCallback: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'English Text cannot be empty!';
+                            }
+                            if(!value.isEnglish()){
+                              return 'Please enter valid English Text!';
+                            }
+                            return null;
+                          },),
+                        Container(
+                          height: 20,
+                        ),
+                        CustomText("Explanation",20, bold: true,),
+                        CustomTextfield(
+                          const Icon(Icons.mosque_outlined, color: Colors.black,),
+                          "",
+                          false,
+                          duaExplanationTextEditingController,
+                          value: duaExplanationTextEditingController.text,
+                        ),
+                        Container(
+                          height: 20,
+                        ),
+                        CustomText("Transliteration",20, bold: true,),
+                        CustomTextfield(
+                          const Icon(Icons.mosque_outlined, color: Colors.black,),
+                          "",
+                          false,
+                          duaTransliterationEditingController,
+                          value: duaTransliterationEditingController.text,
+                        ),
+                        Container(
+                          height: 20,
+                        ),
+                        // DuaTypes(types: duaTypes),
+                        CustomButton(
+                          "Add Dua",
+                              () {
+                            if (_formKey.currentState != null && _formKey.currentState!.validate()) {
+                              addDua();
+                            }
+                          },
+                        )
                       ],
                     ),
-                  ),
-                  SizedBox(height: 15,),
-                  CustomButton("Update Dua", updateDua)
-                ],
-              ),
-            );
-          }
-          // else {
-          //
-          // }
-        },
-      ) :
-      SingleChildScrollView(
-        padding: EdgeInsets.all(10),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children:<Widget> [
-              CustomText("Dua Title",20, bold: true,),
-              CustomTextfield(
-                const Icon(Icons.mosque_outlined, color: Colors.black,),
-                "",
-                false,
-                duaTitleTextEditingController,
-                validationCallback: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Title cannot be empty!';
-                  }
-                  return null;
-                },
-              ),
-              Container(
-                height: 20,
-              ),
-              CustomText("Surah",20, bold: true,),
-              DropdownButtonFormField<int>(
-                value: selectedSurahNumber,
-                onChanged: (int? newSurahNumber) {
-                  setState(() {
-                    selectedSurahNumber = newSurahNumber!;
-                    totalVersesOfSelectedSurah = surahs[selectedSurahNumber]["totalVerses"];
-                  });
-                },
-                items: surahs.map((Map<String, dynamic> surah) {
-                  return DropdownMenuItem<int>(
-                    value: surah["surahNumber"],
-                    child: Text("${surah["surahNumber"]}. ${surah["surahName"]}"),
-                  );
-                }).toList(),
-              ),
-              Container(
-                height: 20,
-              ),
-              CustomText("Verse Number",20, bold: true,),
-              CustomTextfield(
-                const Icon(Icons.mosque_outlined, color: Colors.black,),
-                "",
-                false,
-                duaVerseNumberTextEditingController,
-                textInputType: TextInputType.number,
-                validationCallback: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Verse number cannot be empty!';
-                }
-                int verseNumber = int.parse(value);
-                if (verseNumber == null || verseNumber <= 0 || verseNumber > totalVersesOfSelectedSurah) {
-                  return 'Invalid verse number';
-                }
-                return null;
-              }),
-              Container(
-                height: 20,
-              ),
-              CustomText("Arabic Text",20, bold: true,),
-              CustomTextfield(
-                const Icon(Icons.mosque_outlined, color: Colors.black,),
-                "",
-                false,
-                duaArabicTextEditingController,
-                validationCallback: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Arabic Text cannot be empty!';
-                  }
-                  if(!value.isArabic()){
-                    return 'Please enter valid Arabic Text!';
-                  }
-                  return null;
-                }),
-              Container(
-                height: 20,
-              ),
-              CustomText("English Text",20, bold: true,),
-              CustomTextfield(
-                const Icon(Icons.mosque_outlined, color: Colors.black,),
-                "",
-                false,
-                duaEnglishTextEditingController,
-                validationCallback: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'English Text cannot be empty!';
-                  }
-                  if(!value.isEnglish()){
-                    return 'Please enter valid English Text!';
-                  }
-                  return null;
-                },),
-              Container(
-                height: 20,
-              ),
-              CustomText("Explanation",20, bold: true,),
-              CustomTextfield(const Icon(Icons.mosque_outlined, color: Colors.black,), "", false,duaExplanationTextEditingController),
-              Container(
-                height: 20,
-              ),
-              CustomText("Transliteration",20, bold: true,),
-              CustomTextfield(const Icon(Icons.mosque_outlined, color: Colors.black,), "", false,duaTransliterationEditingController),
-              Container(
-                height: 20,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
-                  border: Border.all(
-                    color: Colors.white,
-                    width: 4,
-                  ),
-                ),
-                child: Column(
-                  children: <Widget>[
-                    MultiSelectBottomSheetField(
-                      initialChildSize: 0.4,
-                      listType: MultiSelectListType.CHIP,
-                      searchable: true,
-                      buttonText: Text("Dua Types"),
-                      title: Text("Types"),
-                      items: _items,
-                      onConfirm: (values) {
-                        _selectedTypes2 = values;
-                        print("${values}");
-                      },
-                      chipDisplay: MultiSelectChipDisplay(
-                        onTap: (value) {
-                          setState(() {
-                            _selectedTypes2.remove(value);
-                          });
-                        },
-                      ),
+                  )
+              );
+            }
+            // else {
+            //
+            // }
+          },
+        ) :
+        FutureBuilder<List<DuaType>>(
+          future: duaDataController.fetchAllDuaTypes(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return SecondaryLoader(loadingText: "Loading\nPlease Wait");
+            }
+            else if (snapshot.hasError) {
+              return Text("Error: ${snapshot.error}");
+            }
+            else{
+              List<DuaType>? duaTypes = snapshot.data;
+
+              _items = duaTypes!
+                  .map((item) => MultiSelectItem<DuaType>(item, item.name))
+                  .toList();
+
+              return SingleChildScrollView(
+                  padding: EdgeInsets.all(10),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children:<Widget> [
+                        CustomText("Dua Title",20, bold: true,),
+                        CustomTextfield(
+                          const Icon(Icons.mosque_outlined, color: Colors.black,),
+                          "",
+                          false,
+                          duaTitleTextEditingController,
+                          validationCallback: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Title cannot be empty!';
+                            }
+                            return null;
+                          },
+                        ),
+                        Container(
+                          height: 20,
+                        ),
+                        CustomText("Surah",20, bold: true,),
+                        DropdownButtonFormField<int>(
+                          value: selectedSurahNumber,
+                          onChanged: (int? newSurahNumber) {
+                            setState(() {
+                              selectedSurahNumber = newSurahNumber!;
+                              totalVersesOfSelectedSurah = surahs[selectedSurahNumber]["totalVerses"];
+                            });
+                          },
+                          items: surahs.map((Map<String, dynamic> surah) {
+                            return DropdownMenuItem<int>(
+                              value: surah["surahNumber"],
+                              child: Text("${surah["surahNumber"]}. ${surah["surahName"]}"),
+                            );
+                          }).toList(),
+                        ),
+                        Container(
+                          height: 20,
+                        ),
+                        CustomText("Verse Number",20, bold: true,),
+                        CustomTextfield(
+                            const Icon(Icons.mosque_outlined, color: Colors.black,),
+                            "",
+                            false,
+                            duaVerseNumberTextEditingController,
+                            textInputType: TextInputType.number,
+                            validationCallback: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Verse number cannot be empty!';
+                              }
+                              int verseNumber = int.parse(value);
+                              if (verseNumber == null || verseNumber <= 0 || verseNumber > totalVersesOfSelectedSurah) {
+                                return 'Invalid verse number';
+                              }
+                              return null;
+                            }),
+                        Container(
+                          height: 20,
+                        ),
+                        CustomText("Arabic Text",20, bold: true,),
+                        CustomTextfield(
+                            const Icon(Icons.mosque_outlined, color: Colors.black,),
+                            "",
+                            false,
+                            duaArabicTextEditingController,
+                            validationCallback: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Arabic Text cannot be empty!';
+                              }
+                              if(!value.isArabic()){
+                                return 'Please enter valid Arabic Text!';
+                              }
+                              return null;
+                            }),
+                        Container(
+                          height: 20,
+                        ),
+                        CustomText("English Text",20, bold: true,),
+                        CustomTextfield(
+                          const Icon(Icons.mosque_outlined, color: Colors.black,),
+                          "",
+                          false,
+                          duaEnglishTextEditingController,
+                          validationCallback: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'English Text cannot be empty!';
+                            }
+                            if(!value.isEnglish()){
+                              return 'Please enter valid English Text!';
+                            }
+                            return null;
+                          },),
+                        Container(
+                          height: 20,
+                        ),
+                        CustomText("Explanation",20, bold: true,),
+                        CustomTextfield(const Icon(Icons.mosque_outlined, color: Colors.black,), "", false,duaExplanationTextEditingController),
+                        Container(
+                          height: 20,
+                        ),
+                        CustomText("Transliteration",20, bold: true,),
+                        CustomTextfield(const Icon(Icons.mosque_outlined, color: Colors.black,), "", false,duaTransliterationEditingController),
+                        Container(
+                          height: 20,
+                        ),
+                        DuaTypes(types: duaTypes),
+                        CustomButton(
+                          "Add Dua",
+                              () {
+                            if (_formKey.currentState != null && _formKey.currentState!.validate()) {
+                              addDua();
+                            }
+                          },
+                        )
+                      ],
                     ),
-                    _selectedTypes2 == null || _selectedTypes2.isEmpty
-                        ? Container(
-                        padding: EdgeInsets.all(10),
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "None selected",
-                          style: TextStyle(color: Colors.black54),
-                        ))
-                        : Container(),
-                  ],
-                ),
-              ),
-              CustomButton(
-                "Add Dua",
-                    () {
-                  if (_formKey.currentState != null && _formKey.currentState!.validate()) {
-                    addDua();
-                  }
-                },
-              )
-            ],
-          ),
+                  )
+              );
+            }
+          },
         )
+        ,
       ),
     );
   }
@@ -432,6 +440,90 @@ class _AddUpdateDuaPageState extends State<AddUpdateDuaPage> {
     );
 
     duaDataController.updateDua(dua, oldID);
+  }
+}
+
+class DuaTypes extends StatefulWidget{
+  List<DuaType> types;
+  DuaTypes({required this.types, super.key});
+
+  @override
+  State<DuaTypes> createState() => _DuaTypesState();
+}
+
+class _DuaTypesState extends State<DuaTypes> {
+  static var _items;
+  List<Object?> _selectedTypes2 = [];
+  Color _color = Colors.transparent;
+  
+  @override
+  void initState() {
+    super.initState();
+    _items = widget.types
+        .map((item) => MultiSelectItem<DuaType>(item, item.name))
+        .toList();
+  }
+  
+  
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
+        border: Border.all(
+          color: _color,
+          width: 4,
+        ),
+      ),
+      child: Column(
+        children: <Widget>[
+          MultiSelectBottomSheetField(
+            validator: (values) {
+              if (values == null || values.isEmpty) {
+                setState(() {
+                  _color = Colors.red;
+                });
+                return "Required";
+              }
+              setState(() {
+                _color = Colors.transparent;
+              });
+              return null;
+            },
+            initialChildSize: 0.4,
+            listType: MultiSelectListType.CHIP,
+            searchable: true,
+            buttonText: Text("Dua Types"),
+            title: Text("Types"),
+            items: _items,
+            onConfirm: (values) {
+              _selectedTypes2 = values;
+              print("${values}");
+              setState(() {
+
+              });
+            },
+            chipDisplay: MultiSelectChipDisplay(
+              onTap: (value) {
+                setState(() {
+                  _selectedTypes2.remove(value);
+                });
+              },
+            ),
+          ),
+          _selectedTypes2 == null || _selectedTypes2.isEmpty
+              ? Container(
+                  padding: EdgeInsets.all(10),
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "None selected",
+                    style: TextStyle(color: Colors.black54),
+                  )
+                )
+              : Container(),
+        ],
+      ),
+    );
   }
 }
 

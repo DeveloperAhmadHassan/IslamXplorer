@@ -59,6 +59,8 @@ dependencies:
   mocktail: ^1.0.3
   flutter_launcher_icons: ^0.9.0
   get_storage: ^2.1.1
+  flutter_islamic_icons: ^1.0.2
+  quran: ^1.2.3
 
 flutter_launcher_icons:
   #  image_path: "assets/images/icon-128x128.png"

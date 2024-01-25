@@ -12,7 +12,7 @@ class HadithCon:
                     MATCH (h:Hadith) 
                     RETURN h.hadithID as ID, h.source as Source, h.arabicText as ArabicText, 
                     h.englishText as EnglishText, h.hadithNo as HadithNo, h.narratedBy as NarratedBy
-                    LIMIT 15
+                    LIMIT 100
                 """
         driver = Neo4jConn.createNeo4jConnection()
         records, summary, keys = driver.execute_query(

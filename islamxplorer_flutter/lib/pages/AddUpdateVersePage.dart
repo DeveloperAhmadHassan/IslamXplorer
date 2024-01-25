@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:islamxplorer_flutter/controllers/verseDataController.dart';
 import 'package:islamxplorer_flutter/extensions/color.dart';
+import 'package:islamxplorer_flutter/extensions/string.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
+import 'package:islamxplorer_flutter/widgets/secondary_loader.dart';
 import 'package:islamxplorer_flutter/widgets/utils/custom_button.dart';
 import 'package:islamxplorer_flutter/widgets/utils/custom_text.dart';
 import 'package:islamxplorer_flutter/widgets/utils/custom_textfield.dart';
@@ -35,13 +37,15 @@ class _AddUpdateVersePageState extends State<AddUpdateVersePage> {
   int selectedSurahNumber = surahs[0]["surahNumber"];
   int totalVersesOfSelectedSurah = surahs[0]["totalVerses"];
 
+  final _formKey = GlobalKey<FormState>();
+
   Widget build(BuildContext context) {
     VerseDataController verseDataController = VerseDataController();
 
     return Scaffold(
       backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch1),
       appBar: AppBar(
-        title: Text("Add Verse"),
+        title: widget.isUpdate ? Text("Update Verse") : Text("Add Verse"),
         backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch1),
       ),
       body:  widget.isUpdate ?
@@ -49,90 +53,117 @@ class _AddUpdateVersePageState extends State<AddUpdateVersePage> {
         future: verseDataController.getVerseByID(widget.verse!.id),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator();
+            return SecondaryLoader(loadingText: "Loading Verse!\nPlease Wait",);
           } else if (snapshot.hasError) {
             return Text("Error: ${snapshot.error}");
           } else {
-            // Populate the TextEditingController with fetched data
             Verse verse = snapshot.data!;
             verseIDTextEditingController.text = verse.id;
             oldID = verse.id;
             verseArabicTextEditingController.text = verse.arabicText;
             verseEnglishTextEditingController.text = verse.englishText;
-            // verseNumberTextEditingController.text = verse..toString();
+
+            var (surahNumber, verseNumber) = verse.splitID();
+            selectedSurahNumber = surahNumber;
+            verseNumberTextEditingController.text = verseNumber.toString();
 
             return SingleChildScrollView(
               padding: EdgeInsets.all(10),
-              child: Column(
-                children: [
-                  CustomText("Surah",20, bold: true,),
-                  DropdownButtonFormField<int>(
-                    value: selectedSurahNumber,
-                    onChanged: (int? newSurahNumber) {
-                      setState(() {
-                        selectedSurahNumber = newSurahNumber!;
-                        totalVersesOfSelectedSurah = surahs[selectedSurahNumber]["totalVerses"];
-                      });
-                    },
-                    items: surahs.map((Map<String, dynamic> surah) {
-                      return DropdownMenuItem<int>(
-                        value: surah["surahNumber"],
-                        child: Text("${surah["surahNumber"]}. ${surah["surahName"]}"),
-                      );
-                    }).toList(),
-                  ),
-                  Container(
-                    height: 20,
-                  ),
-                  CustomText("Verse Number",20, bold: true,),
-                  TextFormField(
-                    controller: verseNumberTextEditingController,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(Icons.mosque_outlined, color: Colors.black),
-                      hintText: "Enter Verse Number",
-                      filled: true,
-                      fillColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
-                      // border: OutlineInputBorder(
-                      //   borderRadius: BorderRadius.circular(20),
-                      //   borderSide: const BorderSide(color: Colors.amberAccent),
-                      // ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: const BorderSide(color: Colors.transparent),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: const BorderSide(color: Colors.white, width: 3),
-                      ),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    CustomText("Surah",20, bold: true,),
+                    DropdownButtonFormField<int>(
+                      value: selectedSurahNumber,
+                      onChanged: (int? newSurahNumber) {
+                        setState(() {
+                          selectedSurahNumber = newSurahNumber!;
+                          totalVersesOfSelectedSurah = surahs[selectedSurahNumber]["totalVerses"];
+                        });
+                      },
+                      items: surahs.map((Map<String, dynamic> surah) {
+                        return DropdownMenuItem<int>(
+                          value: surah["surahNumber"],
+                          child: Text("${surah["surahNumber"]}. ${surah["surahName"]}"),
+                        );
+                      }).toList(),
                     ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Verse number cannot be empty';
-                      }
-                      int verseNumber = int.parse(value);
-                      if (verseNumber == null || verseNumber <= 0 || verseNumber > totalVersesOfSelectedSurah) {
-                        return 'Invalid verse number';
-                      }
-                      return null;
-                    },
-                  ),
-                  // CustomTextfield(const Icon(Icons.mosque_outlined, color: Colors.black,), "", false,hadithArabicTextEditingController),
-                  Container(
-                    height: 20,
-                  ),
-                  CustomText("Arabic Text",20, bold: true,),
-                  CustomTextfield(const Icon(Icons.mosque_outlined, color: Colors.black,), "", false,verseArabicTextEditingController),
-                  Container(
-                    height: 20,
-                  ),
-                  CustomText("English Text",20, bold: true,),
-                  CustomTextfield(const Icon(Icons.mosque_outlined, color: Colors.black,), "", false,verseEnglishTextEditingController),
-                  Container(
-                    height: 20,
-                  ),
-                  CustomButton("Update Verse", ()=>updateVerse(oldID))
-                ],
+                    Container(
+                      height: 20,
+                    ),
+                    CustomText("Verse Number",20, bold: true,),
+                    CustomTextfield(
+                      const Icon(Icons.mosque_outlined, color: Colors.black,),
+                      "",
+                      false,
+                      verseNumberTextEditingController,
+                      value: verseNumberTextEditingController.text,
+                      textInputType: TextInputType.number,
+                      validationCallback: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Verse number cannot be empty!';
+                        }
+                        int verseNumber = int.parse(value);
+                        if (verseNumber == null || verseNumber <= 0 || verseNumber > totalVersesOfSelectedSurah) {
+                          return 'Invalid verse number';
+                        }
+                        return null;
+                      }),
+                    Container(
+                      height: 20,
+                    ),
+                    CustomText("Arabic Text",20, bold: true,),
+                    CustomTextfield(
+                      const Icon(Icons.mosque_outlined, color: Colors.black,),
+                      "",
+                      false,
+                      verseArabicTextEditingController,
+                      value: verseArabicTextEditingController.text,
+                      validationCallback: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Arabic Text be empty!';
+                        }
+                        if (!value.isArabic()) {
+                          return 'Invalid Arabic Text!';
+                        }
+                        return null;
+                      },
+                    ),
+                    Container(
+                      height: 20,
+                    ),
+                    CustomText("English Text",20, bold: true,),
+                    CustomTextfield(
+                      const Icon(Icons.mosque_outlined, color: Colors.black,),
+                      "",
+                      false,
+                      verseEnglishTextEditingController,
+                      value: verseEnglishTextEditingController.text,
+                      validationCallback: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'English Text cannot be empty!';
+                        }
+                        if (!value.isEnglish()) {
+                          return 'Invalid English Text!';
+                        }
+                        return null;
+                      },
+                    ),
+                    Container(
+                      height: 20,
+                    ),
+                    CustomButton(
+                      "Update Verse",
+                          () {
+                        if (_formKey.currentState != null &&
+                            _formKey.currentState!.validate()) {
+                          updateVerse(oldID);
+                        }
+                      },
+                    )
+                  ],
+                ),
               ),
             );
           }
@@ -140,79 +171,100 @@ class _AddUpdateVersePageState extends State<AddUpdateVersePage> {
       ) :
       SingleChildScrollView(
         padding: EdgeInsets.all(10),
-        child: Column(
-          children: [
-            CustomText("Surah",20, bold: true,),
-            DropdownButtonFormField<int>(
-              value: selectedSurahNumber,
-              onChanged: (int? newSurahNumber) {
-                setState(() {
-                  selectedSurahNumber = newSurahNumber!;
-                  totalVersesOfSelectedSurah = surahs[selectedSurahNumber]["totalVerses"];
-                });
-              },
-              items: surahs.map((Map<String, dynamic> surah) {
-                return DropdownMenuItem<int>(
-                  value: surah["surahNumber"],
-                  child: Text("${surah["surahNumber"]}. ${surah["surahName"]}"),
-                );
-              }).toList(),
-            ),
-            Container(
-              height: 20,
-            ),
-            CustomText("Verse Number",20, bold: true,),
-            TextFormField(
-              controller: verseNumberTextEditingController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.mosque_outlined, color: Colors.black),
-                hintText: "Enter Verse Number",
-                filled: true,
-                fillColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
-                // border: OutlineInputBorder(
-                //   borderRadius: BorderRadius.circular(20),
-                //   borderSide: const BorderSide(color: Colors.amberAccent),
-                // ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  borderSide: const BorderSide(color: Colors.transparent),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  borderSide: const BorderSide(color: Colors.white, width: 3),
-                ),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              CustomText("Surah",20, bold: true,),
+              DropdownButtonFormField<int>(
+                value: selectedSurahNumber,
+                onChanged: (int? newSurahNumber) {
+                  setState(() {
+                    selectedSurahNumber = newSurahNumber!;
+                    totalVersesOfSelectedSurah = surahs[selectedSurahNumber]["totalVerses"];
+                  });
+                },
+                items: surahs.map((Map<String, dynamic> surah) {
+                  return DropdownMenuItem<int>(
+                    value: surah["surahNumber"],
+                    child: Text("${surah["surahNumber"]}. ${surah["surahName"]}"),
+                  );
+                }).toList(),
               ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Verse number cannot be empty';
-                }
-                int verseNumber = int.parse(value);
-                if (verseNumber == null || verseNumber <= 0 || verseNumber > totalVersesOfSelectedSurah) {
-                  return 'Invalid verse number';
-                }
-                return null;
-              },
-            ),
-            // CustomTextfield(const Icon(Icons.mosque_outlined, color: Colors.black,), "", false,hadithArabicTextEditingController),
-            Container(
-              height: 20,
-            ),
-            CustomText("Arabic Text",20, bold: true,),
-            CustomTextfield(const Icon(Icons.mosque_outlined, color: Colors.black,), "", false,verseArabicTextEditingController),
-            Container(
-              height: 20,
-            ),
-            CustomText("English Text",20, bold: true,),
-            CustomTextfield(const Icon(Icons.mosque_outlined, color: Colors.black,), "", false,verseEnglishTextEditingController),
-            Container(
-              height: 20,
-            ),
-            CustomButton("Add Verse", addVerse)
-          ],
+              Container(
+                height: 20,
+              ),
+              CustomText("Verse Number",20, bold: true,),
+              CustomTextfield(
+                  const Icon(Icons.mosque_outlined, color: Colors.black,),
+                  "",
+                  false,
+                  verseNumberTextEditingController,
+                  textInputType: TextInputType.number,
+                  validationCallback: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Verse number cannot be empty!';
+                    }
+                    int verseNumber = int.parse(value);
+                    if (verseNumber == null || verseNumber <= 0 || verseNumber > totalVersesOfSelectedSurah) {
+                      return 'Invalid verse number';
+                    }
+                    return null;
+                  }),
+              Container(
+                height: 20,
+              ),
+              CustomText("Arabic Text",20, bold: true,),
+              CustomTextfield(
+                const Icon(Icons.mosque_outlined, color: Colors.black,),
+                "",
+                false,
+                verseArabicTextEditingController,
+                validationCallback: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Arabic Text be empty!';
+                  }
+                  if (!value.isArabic()) {
+                    return 'Invalid Arabic Text!';
+                  }
+                  return null;
+                },
+              ),
+              Container(
+                height: 20,
+              ),
+              CustomText("English Text",20, bold: true,),
+              CustomTextfield(
+                const Icon(Icons.mosque_outlined, color: Colors.black,),
+                "",
+                false,
+                verseEnglishTextEditingController,
+                validationCallback: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'English Text cannot be empty!';
+                  }
+                  if (!value.isEnglish()) {
+                    return 'Invalid English Text!';
+                  }
+                  return null;
+                },
+              ),
+              Container(
+                height: 20,
+              ),
+              CustomButton(
+                "Add Verse",
+                    () {
+                  if (_formKey.currentState != null &&
+                      _formKey.currentState!.validate()) {
+                    addVerse();
+                  }
+                },
+              )
+            ],
+          ),
         ),
       ),
-
     );
   }
   void addVerse(){

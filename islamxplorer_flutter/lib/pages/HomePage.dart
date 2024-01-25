@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
     _firstController.forward();
 
-    Future.delayed(const Duration(milliseconds: 0), () {
+    Future.delayed(const Duration(milliseconds: 100), () {
       _secondController.forward();
     });
   }
@@ -70,6 +70,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     }
 
     return Scaffold(
+      backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
          systemOverlayStyle: SystemUiOverlayStyle(
               statusBarColor: Colors.transparent,
@@ -78,9 +80,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           ),
         backgroundColor: Colors.transparent,
       ),
-      backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
-      extendBodyBehindAppBar: true,
-
       body: Stack(
         children: [
           Positioned(
@@ -108,7 +107,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               animation: _secondController,
               builder: (context, child){
                return Container(
-                 width: _secondHeightAnimation.value,
+                 width: _secondWidthAnimation.value,
                  height: _secondHeightAnimation.value,
                  padding: const EdgeInsets.all(0),
                  decoration: BoxDecoration(
@@ -144,7 +143,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               animation: _secondController,
               builder: (context, child){
                 return Container(
-                  width: _secondHeightAnimation.value,
+                  width: _secondWidthAnimation.value,
                   height: _secondHeightAnimation.value,
                   padding: const EdgeInsets.all(0),
                   decoration: BoxDecoration(

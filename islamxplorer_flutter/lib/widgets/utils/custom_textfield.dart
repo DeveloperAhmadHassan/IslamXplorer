@@ -63,7 +63,6 @@ class _CustomTextfieldState extends State<CustomTextfield> {
       autocorrect: !widget.isPassword,
       cursorColor: Colors.white,
       keyboardType: widget.textInputType,
-      // initialValue: widget.value ?? "",
       style: const TextStyle(
         fontFamily: "IBMPlexMono",
         fontSize: 16,
@@ -73,9 +72,12 @@ class _CustomTextfieldState extends State<CustomTextfield> {
       decoration: InputDecoration(
         focusColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
         isDense: true,
-        hintText: "${widget.hintText}",
         filled: true,
         fillColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
+        hintText: "${widget.hintText}",
+        hintStyle: TextStyle(
+          color: Colors.black.withOpacity(0.3)
+        ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
           borderSide: const BorderSide(color: Colors.transparent),

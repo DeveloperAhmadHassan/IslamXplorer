@@ -4,6 +4,7 @@ import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/models/hadith.dart';
 import 'package:islamxplorer_flutter/pages/AddUpdateHadithPage.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
+import 'package:islamxplorer_flutter/widgets/secondary_loader.dart';
 import 'package:islamxplorer_flutter/widgets/utils/custom_button.dart';
 import 'package:islamxplorer_flutter/widgets/utils/custom_error_widget.dart';
 
@@ -25,9 +26,7 @@ class HadithListPage extends StatelessWidget {
         future: hadithDataController.fetchAllHadiths(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
+            return SecondaryLoader(loadingText: "Loading Hadiths!\nPlease Wait!",);
           } else if (snapshot.hasError) {
             return CustomErrorWidget(errorMessage: "Error!!!!!",);
           } else {

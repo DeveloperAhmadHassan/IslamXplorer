@@ -54,6 +54,18 @@ class Verse implements SearchResultItem{
     );
   }
 
+  (int, int) splitID() {
+    List<String> parts = id.split(':');
+    if (parts.length == 2) {
+      int firstNumber = int.tryParse(parts[0]) ?? 0;
+      int secondNumber = int.tryParse(parts[1]) ?? 0;
+
+      return (firstNumber, secondNumber);
+    } else {
+      return (0, 0);
+    }
+  }
+
   @override
   void updateBookmarkStatus(bool isBookmarked) {
     this.isBookmarked = isBookmarked;

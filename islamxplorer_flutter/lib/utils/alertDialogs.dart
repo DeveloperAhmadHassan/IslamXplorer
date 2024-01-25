@@ -102,4 +102,49 @@ class AlertDialogs{
       },
     );
   }
+
+  static Future<bool> deleteItemAlertDialog (BuildContext context) async{
+    return await showDialog(
+      barrierColor: Colors.black.withOpacity(0.2),
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          // surfaceTintColor: Colors.red,
+          title: Text('Delete Item'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text('Are you sure you want to delete this item?\nThis action cannot be undone'),
+            ],
+          ),
+          actions: [
+            TextButton(
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.black,
+              ),
+              onPressed: () {
+                Navigator.of(dialogContext).pop(false);
+              },
+              child: Text('No', style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600
+              )),
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                  foregroundColor: Colors.green
+              ),
+              onPressed: () {
+                Navigator.of(dialogContext).pop(true);
+              },
+              child: Text('Yes', style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600
+              )),
+            ),
+          ],
+        );
+      },
+    );
+  }
 }

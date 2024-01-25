@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget{
   String? text;
+  final bool isEnabled;
   final Function? onTap;
 
-  CustomButton(this.text, this.onTap, {super.key});
+  CustomButton(this.text, this.onTap, {this.isEnabled = true, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class CustomButton extends StatelessWidget{
           borderRadius: BorderRadius.circular(30)
       ),
       child: ElevatedButton(
-        onPressed: () async {
+        onPressed: isEnabled ? () async {
           if (onTap != null) {
             final result = onTap!();
 
@@ -24,17 +25,22 @@ class CustomButton extends StatelessWidget{
               await result;
             }
           }
-        },
+        } : null,
         style: ButtonStyle(
             backgroundColor: MaterialStateProperty.resolveWith((states)
+            /// Add animations for change in button states
             {
               if(states.contains(MaterialState.pressed)){
+                return Colors.black26;
+              }
+              if(states.contains(MaterialState.disabled)){
                 return Colors.black26;
               }
               return Colors.white;
             }),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)))),
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)))
+        ),
         child: Text("$text", style: const TextStyle(
           fontSize: 18,
           fontFamily: "IBMPlexMono",

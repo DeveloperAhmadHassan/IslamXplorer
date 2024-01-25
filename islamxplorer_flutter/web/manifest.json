@@ -1,11 +1,11 @@
 {
-    "name": "islamxplorer_flutter",
-    "short_name": "islamxplorer_flutter",
+    "name": "islamXplorer",
+    "short_name": "islamXplorer",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Easily Searchable Quran O Hadith using Knowledge Graphs",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
