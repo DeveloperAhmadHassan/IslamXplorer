@@ -104,6 +104,14 @@ class AuthController{
     }
   }
 
+  Future resetPassword(String email) async{
+    try{
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (e){
+      print(e);
+    }
+  }
+
   (String, String) getRememberMeDetails(){
     email = localStorage.read("REMEMBER_ME_EMAIL_OR_CONTACT") ?? "";
     password = localStorage.read("REMEMBER_ME_PASSWORD") ?? "";

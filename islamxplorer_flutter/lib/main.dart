@@ -12,6 +12,7 @@ import 'package:islamxplorer_flutter/pages/DuaPage.dart';
 import 'package:islamxplorer_flutter/pages/HomePage.dart';
 import 'package:islamxplorer_flutter/pages/ProfilePage.dart';
 import 'package:islamxplorer_flutter/pages/authPages/SignInPage.dart';
+import 'package:islamxplorer_flutter/utils/dataLoaders.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
 import 'package:islamxplorer_flutter/widgets/custom_tab_bar.dart';
 import 'package:islamxplorer_flutter/widgets/nav_bar.dart';

@@ -7,6 +7,7 @@ import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/extensions/string.dart';
 import 'package:islamxplorer_flutter/models/duaType.dart';
 import 'package:islamxplorer_flutter/pages/DuaListPage.dart';
+import 'package:islamxplorer_flutter/utils/dataLoaders.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
 import 'package:islamxplorer_flutter/widgets/utils/custom_error_widget.dart';
 import 'package:islamxplorer_flutter/widgets/new_tag.dart';
@@ -15,6 +16,9 @@ import 'package:islamxplorer_flutter/widgets/new_tag.dart';
 class DuaPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    print("Started!");
+    DataLoader.loadTermsAndConditions();
+    print("Finished!");
     return Scaffold(
       backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
       appBar: AppBar(

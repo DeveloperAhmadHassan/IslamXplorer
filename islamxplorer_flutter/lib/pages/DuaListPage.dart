@@ -201,7 +201,7 @@ class _DuaCardState extends State<DuaCard> {
   void deleteDua(String id, BuildContext context) async {
     DuaDataController duaDataController = DuaDataController();
 
-    bool confirmDelete = await AlertDialogs.deleteItemAlertDialog(context);
+    bool confirmDelete = await AlertDialogs.showDeleteItemAlertDialog(context);
 
     if (confirmDelete == true) {
       SnackBars.showWaitingSnackBar(context, "Deleting Item.....");

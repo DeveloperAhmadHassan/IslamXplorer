@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:get/get.dart';
+import 'package:islamxplorer_flutter/utils/dataLoaders.dart';
 
 class AlertDialogs{
-  static Future<bool> reportAlertDialog (BuildContext context, TextEditingController reportMessageTextEditingController, String itemType) async{
+  static Future<bool> showReportAlertDialog (BuildContext context, TextEditingController reportMessageTextEditingController, String itemType) async{
     return await showDialog(
       barrierColor: Colors.black.withOpacity(0.2),
       context: context,
@@ -58,7 +61,7 @@ class AlertDialogs{
     );
   }
 
-  static Future<bool> removeReportAlertDialog (BuildContext context) async{
+  static Future<bool> showRemoveReportAlertDialog (BuildContext context) async{
     return await showDialog(
       barrierColor: Colors.black.withOpacity(0.2),
       context: context,
@@ -103,7 +106,7 @@ class AlertDialogs{
     );
   }
 
-  static Future<bool> deleteItemAlertDialog (BuildContext context) async{
+  static Future<bool> showDeleteItemAlertDialog (BuildContext context) async{
     return await showDialog(
       barrierColor: Colors.black.withOpacity(0.2),
       context: context,
@@ -138,6 +141,48 @@ class AlertDialogs{
                 Navigator.of(dialogContext).pop(true);
               },
               child: Text('Yes', style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600
+              )),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  static Future<bool> showTermsAndConditionsDialog() async {
+    String content = await DataLoader.loadTermsAndConditions();
+    return await showDialog(
+      context: Get.overlayContext!,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: Text('Terms and Conditions'),
+          content: Container(
+            width: double.maxFinite,
+            child: Markdown(data: content),
+          ),
+          actions: [
+            TextButton(
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.black,
+              ),
+              onPressed: () {
+                Navigator.of(dialogContext).pop(false);
+              },
+              child: const Text("I Don't", style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600
+              )),
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                  foregroundColor: Colors.green
+              ),
+              onPressed: () {
+                Navigator.of(dialogContext).pop(true);
+              },
+              child: Text('I Agree', style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600
               )),

@@ -76,27 +76,6 @@ class _SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin{
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch1),
-      // appBar: AppBar(
-      //   backgroundColor: Colors.red.withOpacity(0.002),
-      //   systemOverlayStyle: SystemUiOverlayStyle(
-      //     statusBarColor: Colors.transparent,
-      //     systemNavigationBarColor: Colors.black.withOpacity(0.00002),
-      //   ),
-      //   toolbarHeight: 50,
-      //   elevation: 0.0,
-      //   shadowColor: Colors.transparent,
-      //   title: Row(
-      //     children: [
-      //       const SizedBox(width: 30,),
-      //       Container(
-      //         margin: EdgeInsets.only(top: 25),
-      //         child: const Text("Sign Up", style: TextStyle(
-      //           fontSize: 25,
-      //         )),
-      //       )
-      //     ],
-      //   ),
-      // ),
       body: Stack(
         children: [
           Positioned(

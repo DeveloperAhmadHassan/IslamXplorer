@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:islamxplorer_flutter/controllers/authController.dart';
 import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/main.dart';
+import 'package:islamxplorer_flutter/pages/authPages/ForgetPasswordPage.dart';
 import 'package:islamxplorer_flutter/pages/authPages/SignUpPage.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
 import 'package:islamxplorer_flutter/values/strings.dart';
@@ -241,7 +242,7 @@ class _SignInPageState extends State<SignInPage> with TickerProviderStateMixin{
                             underline: true,
                             color: Colors.blue,
                             alignment: Alignment.center,
-                            onTap: (){},
+                            onTap: (){ Navigator.push(context, MaterialPageRoute(builder: (context)=>ForgetPasswordPage()));},
                           ),
                         ],
                       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:islamxplorer_flutter/controllers/authController.dart';
 import 'package:islamxplorer_flutter/extensions/color.dart';
+import 'package:islamxplorer_flutter/utils/alertDialogs.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
 import 'package:islamxplorer_flutter/widgets/utils/custom_text.dart';
 
@@ -57,7 +58,21 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
           underline: true,
           color: Colors.blue,
           alignment: Alignment.center,
-          onTap: () {},
+          onTap: () async {
+            var result = AlertDialogs.showTermsAndConditionsDialog();
+            if(await result){
+              setState(() {
+                _value = true;
+                widget.onChanged(_value);
+              });
+            }
+            else{
+              setState(() {
+                _value = false;
+                widget.onChanged(_value);
+              });
+            }
+          },
         ),
       ],
     );

@@ -61,6 +61,8 @@ dependencies:
   get_storage: ^2.1.1
   flutter_islamic_icons: ^1.0.2
   quran: ^1.2.3
+  flutter_markdown: ^0.6.18+3
+  badges: ^3.1.2
 
 flutter_launcher_icons:
   #  image_path: "assets/images/icon-128x128.png"
@@ -106,6 +108,7 @@ flutter:
   assets:
     - assets/
     - assets/logos/
+    - assets/res/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

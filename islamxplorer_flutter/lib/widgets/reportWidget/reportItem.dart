@@ -45,7 +45,7 @@ class _ReportItemState extends State<ReportItem> {
     UserDataController userDataController = UserDataController();
 
     if (widget.item.sIsReported) {
-      bool confirmDeleteReport = await AlertDialogs.removeReportAlertDialog(context);
+      bool confirmDeleteReport = await AlertDialogs.showRemoveReportAlertDialog(context);
       if (confirmDeleteReport == true) {
         SnackBars.showWaitingSnackBar(context, "Deleting Report.....");
         var result = await userDataController.removeReport(widget.item.sID);
@@ -67,7 +67,7 @@ class _ReportItemState extends State<ReportItem> {
       }
     }
     else {
-      bool confirmReport = await AlertDialogs.reportAlertDialog(context, reportMessageTextEditingController, "Dua");
+      bool confirmReport = await AlertDialogs.showReportAlertDialog(context, reportMessageTextEditingController, "Dua");
 
       if (confirmReport == true) {
         SnackBars.showWaitingSnackBar(context, "Reporting Item.....");
