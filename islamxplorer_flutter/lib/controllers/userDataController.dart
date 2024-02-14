@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:islamxplorer_flutter/models/user.dart';
 
 class UserDataController{
@@ -40,6 +44,7 @@ class UserDataController{
         print('Email: ${userData['email']}');
         print('Username: ${userData['userName']}');
         print('Type: ${userData['type']}');
+        print('Image: ${userData['profileImage']}');
 
         appUser = AppUser(uid: userId,
             userName: userData['userName'],
@@ -47,6 +52,7 @@ class UserDataController{
             birthdate: userData['birthdate'],
             phone: userData['phone'],
             type: userData['type']??"U",
+            profilePicUrl: userData['profileImage'] ?? "",
             gender: userData['gender']);
 
         return appUser;
@@ -191,6 +197,35 @@ class UserDataController{
     } catch (e) {
       print('Error checking if report exists in Firestore: $e');
       return false;
+    }
+  }
+
+  Future<String> uploadProfileImage(String path, XFile image) async{
+    try {
+      // final ref = FirebaseAuth.instance.currentUser;
+
+      print("Hello 4");
+      Reference reference = FirebaseStorage.instance.ref(path).child(image.name);
+      await reference.putFile(File(image.path));
+      String url = await reference.getDownloadURL();
+      return url;
+
+    } catch (e) {
+      print('Error checking if report exists in Firestore: $e');
+      return 'Error checking if report exists in Firestore: $e';
+    }
+  }
+
+  Future<void> updateSingleField(Map<String, dynamic> json) async{
+    try {
+      UserDataController userDataController = UserDataController();
+      AppUser user = await userDataController.getUserData();
+
+      DocumentReference userDoc = FirebaseFirestore.instance.collection('Users').doc(user.uid);
+      await userDoc.update(json);
+    } catch (e) {
+      print('Error checking if report exists in Firestore: $e');
+      // return 'Error checking if report exists in Firestore: $e';
     }
   }
 }
