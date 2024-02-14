@@ -63,6 +63,7 @@ dependencies:
   quran: ^1.2.3
   flutter_markdown: ^0.6.18+3
   badges: ^3.1.2
+  shimmer: ^3.0.0
 
 flutter_launcher_icons:
   #  image_path: "assets/images/icon-128x128.png"

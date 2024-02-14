@@ -3,10 +3,12 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:islamxplorer_flutter/controllers/duaDataController.dart';
 import 'package:islamxplorer_flutter/controllers/userDataController.dart';
 import 'package:islamxplorer_flutter/extensions/color.dart';
+import 'package:islamxplorer_flutter/utils/alertDialogs.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
 import 'package:islamxplorer_flutter/values/strings.dart';
 import 'package:islamxplorer_flutter/widgets/bookmarkWidget/bookmarkItem.dart';
 import 'package:islamxplorer_flutter/widgets/curved_edges.dart';
+import 'package:islamxplorer_flutter/widgets/secondary_loader.dart';
 import 'package:islamxplorer_flutter/widgets/utils/custom_text.dart';
 import 'package:islamxplorer_flutter/widgets/reportWidget/reportItem.dart';
 import 'package:islamxplorer_flutter/widgets/shareWidget/shareItem.dart';
@@ -32,33 +34,7 @@ class _DuaItemPageState extends State<DuaItemPage> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Scaffold(
-            body: Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                  color: HexColor.fromHexStr(AppColor.primaryThemeSwatch2)
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SpinKitWave(
-                    itemBuilder: (BuildContext context, int index) {
-                      return DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: HexColor.fromHexStr(AppColor.secondaryThemeSwatch1),
-                        ),
-                      );
-                    },
-                  ),
-                  SizedBox(height: 30,),
-                  Text("Loading Item. Please Wait", style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600
-                  ))
-                ],
-              ),
-            ),
+            body: SecondaryLoader(loadingText: "Loading Item\nPlease Wait"),
           );
         } else if (snapshot.hasError) {
           return Center(
@@ -67,7 +43,7 @@ class _DuaItemPageState extends State<DuaItemPage> {
         } else {
           final Dua dua = snapshot.data?? widget.dua;
           return Scaffold(
-            backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch4),
+            // backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch4),
             body: SingleChildScrollView(
               child: Stack(
                 children: [
@@ -80,7 +56,7 @@ class _DuaItemPageState extends State<DuaItemPage> {
                       padding: const EdgeInsets.all(0),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(400),
-                          color: HexColor.fromHexStr(AppColor.primaryThemeSwatch3).withOpacity(0.3)
+                          color: Theme.of(context).colorScheme.primaryContainer
                       ),
                     ),
                   ),
@@ -93,7 +69,7 @@ class _DuaItemPageState extends State<DuaItemPage> {
                       padding: const EdgeInsets.all(0),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(400),
-                          color: HexColor.fromHexStr(AppColor.primaryThemeSwatch3).withOpacity(0.3)
+                          color: Theme.of(context).colorScheme.primaryContainer
                       ),
                     ),
                   ),
@@ -106,7 +82,7 @@ class _DuaItemPageState extends State<DuaItemPage> {
                       padding: const EdgeInsets.all(0),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(400),
-                          color: HexColor.fromHexStr(AppColor.primaryThemeSwatch3).withOpacity(0.3)
+                          color: Theme.of(context).colorScheme.primaryContainer
                       ),
                     ),
                   ),
@@ -119,7 +95,7 @@ class _DuaItemPageState extends State<DuaItemPage> {
                       padding: const EdgeInsets.all(0),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(400),
-                          color: HexColor.fromHexStr(AppColor.primaryThemeSwatch3).withOpacity(0.3)
+                          color: Theme.of(context).colorScheme.primaryContainer
                       ),
                     ),
                   ),
@@ -132,7 +108,7 @@ class _DuaItemPageState extends State<DuaItemPage> {
                       padding: const EdgeInsets.all(0),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(400),
-                          color: HexColor.fromHexStr(AppColor.primaryThemeSwatch3).withOpacity(0.3)
+                          color: Theme.of(context).colorScheme.primaryContainer
                       ),
                     ),
                   ),
@@ -211,6 +187,7 @@ class _DuaItemPageState extends State<DuaItemPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Card(
+                              color: Theme.of(context).colorScheme.secondaryContainer,
                               elevation: 7,
                               child: Container(
                                 width: MediaQuery.of(context).size.width,
@@ -226,6 +203,9 @@ class _DuaItemPageState extends State<DuaItemPage> {
                             ),
                             Card(
                               elevation: 7,
+                              color: Theme.of(context).brightness == Brightness.dark
+                                  ? HexColor.fromHexStr(AppColor.secondaryThemeSwatch4)
+                                  : HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
                               child: Container(
                                 width: MediaQuery.of(context).size.width,
                                 child: Padding(
@@ -252,6 +232,9 @@ class _DuaItemPageState extends State<DuaItemPage> {
                             // ),
                             Card(
                               elevation: 7,
+                              color: Theme.of(context).brightness == Brightness.dark
+                                  ? HexColor.fromHexStr(AppColor.secondaryThemeSwatch4)
+                                  : HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
                               child: Container(
                                 width: MediaQuery.of(context).size.width,
                                 child: Padding(
@@ -266,6 +249,9 @@ class _DuaItemPageState extends State<DuaItemPage> {
                             ),
                             Card(
                               elevation: 7,
+                              color: Theme.of(context).brightness == Brightness.dark
+                                  ? HexColor.fromHexStr(AppColor.secondaryThemeSwatch4)
+                                  : HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
                               child: Container(
                                 width: MediaQuery.of(context).size.width,
                                 child: Padding(
@@ -299,28 +285,7 @@ class _DuaItemPageState extends State<DuaItemPage> {
   }
 
   void seeExp(BuildContext context, String? exp) {
-    showDialog(
-      context: context,
-      builder: (BuildContext dialogContext) {
-        return AlertDialog(
-          title: Text('Explanation'),
-          content: exp != null && exp.isNotEmpty
-              ? Text(exp, style: const TextStyle(
-            fontSize: 17,
-            fontWeight: FontWeight.w600
-          ))
-              : Text('No explanation for this Dua.'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(dialogContext).pop();
-              },
-              child: Text('OK'),
-            ),
-          ],
-        );
-      },
-    );
+    AlertDialogs.showDuaExplanationDialog(exp ?? "No Explanation Found!");
   }
 
   void toggleBookmarks(String id, BuildContext context) async{

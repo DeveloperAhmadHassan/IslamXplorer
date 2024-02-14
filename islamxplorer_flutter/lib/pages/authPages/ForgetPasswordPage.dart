@@ -23,11 +23,10 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch1),
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         title: Text("Forget Password"),
-        backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch1),
+
       ),
       body: SingleChildScrollView(
         child: Column(

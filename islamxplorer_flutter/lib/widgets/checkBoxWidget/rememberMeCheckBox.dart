@@ -42,7 +42,6 @@ class _RememberMeState extends State<RememberMe> {
         CustomText(
           "Remember Me",
           16,
-          color: Colors.black,
           alignment: Alignment.center,
           onTap: (){},
         ),

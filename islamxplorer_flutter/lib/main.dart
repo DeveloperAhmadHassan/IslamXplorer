@@ -14,6 +14,7 @@ import 'package:islamxplorer_flutter/pages/ProfilePage.dart';
 import 'package:islamxplorer_flutter/pages/authPages/SignInPage.dart';
 import 'package:islamxplorer_flutter/utils/dataLoaders.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
+import 'package:islamxplorer_flutter/values/themes/appTheme.dart';
 import 'package:islamxplorer_flutter/widgets/custom_tab_bar.dart';
 import 'package:islamxplorer_flutter/widgets/nav_bar.dart';
 import 'dart:math' as math;
@@ -42,28 +43,26 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'IslamXplorer',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      themeMode: ThemeMode.system,
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
       home: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (BuildContext context, AsyncSnapshot<User?> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                  color: HexColor.fromHexStr(AppColor.primaryThemeSwatch2)
-              ),
-              child: SpinKitCircle(
-                itemBuilder: (BuildContext context, int index) {
-                  return DecoratedBox(
-                    decoration: BoxDecoration(
-                      color: HexColor.fromHexStr(AppColor.secondaryThemeSwatch1),
-                    ),
-                  );
-                },
+            return Scaffold(
+              body: SizedBox(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                child: SpinKitCircle(
+                  itemBuilder: (BuildContext context, int index) {
+                    return DecoratedBox(
+                      decoration: BoxDecoration(
+                        color: HexColor.fromHexStr(AppColor.secondaryThemeSwatch1),
+                      ),
+                    );
+                  },
+                ),
               ),
             );
           } else if (snapshot.hasError) {
@@ -73,20 +72,22 @@ class MyApp extends StatelessWidget {
               future: userDataController.getUserData(),
               builder: (BuildContext context, AsyncSnapshot<AppUser> userSnapshot) {
                 if (userSnapshot.connectionState == ConnectionState.waiting) {
-                  return Container(
-                    height: MediaQuery.of(context).size.height,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                        color: HexColor.fromHexStr(AppColor.primaryThemeSwatch2)
-                    ),
-                    child: SpinKitCircle(
-                      itemBuilder: (BuildContext context, int index) {
-                        return DecoratedBox(
-                          decoration: BoxDecoration(
-                            color: HexColor.fromHexStr(AppColor.secondaryThemeSwatch1),
-                          ),
-                        );
-                      },
+                  return Scaffold(
+                    body: SizedBox(
+                      height: MediaQuery.of(context).size.height,
+                      width: MediaQuery.of(context).size.width,
+                      // decoration: BoxDecoration(
+                      //     color: HexColor.fromHexStr(AppColor.primaryThemeSwatch2)
+                      // ),
+                      child: SpinKitCircle(
+                        itemBuilder: (BuildContext context, int index) {
+                          return DecoratedBox(
+                            decoration: BoxDecoration(
+                              color: HexColor.fromHexStr(AppColor.secondaryThemeSwatch1),
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   );
                 } else if (userSnapshot.hasError) {

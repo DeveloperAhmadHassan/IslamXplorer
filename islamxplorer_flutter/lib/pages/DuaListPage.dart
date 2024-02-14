@@ -10,6 +10,7 @@ import 'package:islamxplorer_flutter/pages/DuaItemPage.dart';
 import 'package:islamxplorer_flutter/utils/alertDialogs.dart';
 import 'package:islamxplorer_flutter/utils/snackBars.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
+import 'package:islamxplorer_flutter/widgets/secondary_loader.dart';
 import 'package:islamxplorer_flutter/widgets/utils/custom_button.dart';
 import 'package:islamxplorer_flutter/widgets/utils/custom_error_widget.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
@@ -35,15 +36,17 @@ class _DuaListPageState extends State<DuaListPage> {
 
 
     return Scaffold(
-      backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
+      // backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle(
             statusBarColor: Colors.transparent,
             systemNavigationBarIconBrightness: Brightness.light,
             systemNavigationBarColor: Colors.black.withOpacity(0.0002)
         ),
-          title: Text("Duas"),
-          backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2)
+          title: Text("Duas", style: TextStyle(
+              color: Theme.of(context).brightness == Brightness.light ? Colors.black : Colors.white
+          )),
+          // backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2)
       ),
       body: Stack(
         children: [
@@ -51,33 +54,7 @@ class _DuaListPageState extends State<DuaListPage> {
             future: widget.type == "A" ? duaDataController.fetchAllDuas() : duaDataController.fetchDuasFromTypes(widget.title),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Container(
-                    height: MediaQuery.of(context).size.height,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                        color: HexColor.fromHexStr(AppColor.primaryThemeSwatch2)
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SpinKitWave(
-                          itemBuilder: (BuildContext context, int index) {
-                            return DecoratedBox(
-                              decoration: BoxDecoration(
-                                color: HexColor.fromHexStr(AppColor.secondaryThemeSwatch1),
-                              ),
-                            );
-                          },
-                        ),
-                        SizedBox(height: 30,),
-                        Text("Loading Item. Please Wait", style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600
-                        ))
-                      ],
-                    ),
-                  );
+                return SecondaryLoader(loadingText: "Loading Items\nPlease Wait");
               }
               else if (snapshot.hasError) {
                 return CustomErrorWidget(errorMessage: "Error!!!!!",);
@@ -150,15 +127,22 @@ class _DuaCardState extends State<DuaCard> {
           ),
           child: Card(
             elevation: 7,
-            color: HexColor.fromHexStr(AppColor.secondaryThemeSwatch1),
+            color: Theme.of(context).brightness == Brightness.dark
+                ? HexColor.fromHexStr(AppColor.secondaryThemeSwatch4)
+                : HexColor.fromHexStr(AppColor.secondaryThemeSwatch2),
             child: ListTile(
-              leading: Icon(Icons.mosque_outlined),
+              leading: Icon(
+                  Icons.mosque_outlined,
+                  color: Theme.of(context).brightness == Brightness.light ? Colors.black : Colors.white
+              ),
               title: Text(widget.dua.title, style: TextStyle(
-                fontWeight: FontWeight.w600
+                fontWeight: FontWeight.w900,
+                color: Theme.of(context).brightness == Brightness.light ? Colors.black : Colors.white
               )),
               subtitle: Text(widget.dua.englishText, overflow: TextOverflow.ellipsis, style: TextStyle(
                 fontWeight: FontWeight.w600,
-                fontSize: 17
+                fontSize: 17,
+                color: Theme.of(context).brightness == Brightness.light ? Colors.black : Colors.white
               )),
               trailing: widget.type == "A"
                 ? Row(

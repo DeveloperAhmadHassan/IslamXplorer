@@ -78,7 +78,6 @@ class _SignInPageState extends State<SignInPage> with TickerProviderStateMixin{
 
     return Scaffold(
       extendBodyBehindAppBar: true,
-      backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch1),
       appBar: AppBar(
           backgroundColor: Colors.transparent,
           systemOverlayStyle: SystemUiOverlayStyle(
@@ -113,7 +112,8 @@ class _SignInPageState extends State<SignInPage> with TickerProviderStateMixin{
                   padding: const EdgeInsets.all(0),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(400),
-                      color: HexColor.fromHexStr(AppColor.primaryThemeSwatch3).withOpacity(0.3)
+                      color: Theme.of(context).colorScheme.primaryContainer
+                      // color: HexColor.fromHexStr(AppColor.primaryThemeSwatch3).withOpacity(0.3)
                   ),
                 );
               },
@@ -131,7 +131,7 @@ class _SignInPageState extends State<SignInPage> with TickerProviderStateMixin{
                     padding: const EdgeInsets.all(0),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(400),
-                        color: HexColor.fromHexStr(AppColor.primaryThemeSwatch3).withOpacity(0.3)
+                        color: Theme.of(context).colorScheme.primaryContainer
                     ),
                   );
                 }
@@ -149,7 +149,7 @@ class _SignInPageState extends State<SignInPage> with TickerProviderStateMixin{
                     padding: const EdgeInsets.all(0),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(400),
-                        color: HexColor.fromHexStr(AppColor.primaryThemeSwatch3).withOpacity(0.3)
+                        color: Theme.of(context).colorScheme.primaryContainer
                     ),
                   );
                 }
@@ -167,7 +167,7 @@ class _SignInPageState extends State<SignInPage> with TickerProviderStateMixin{
                     padding: const EdgeInsets.all(0),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(400),
-                        color: HexColor.fromHexStr(AppColor.primaryThemeSwatch3).withOpacity(0.3)
+                        color: Theme.of(context).colorScheme.primaryContainer
                     ),
                   );
                 }
@@ -184,15 +184,13 @@ class _SignInPageState extends State<SignInPage> with TickerProviderStateMixin{
             child: Padding(
               padding: const EdgeInsets.all(18.0),
               child: SingleChildScrollView(
+                physics: NeverScrollableScrollPhysics(),
                 child: Form(
                   key: _formKey,
                   child: Column(
                     children: <Widget>[
                       const SizedBox(height: 100,),
                       const PrimaryLogo(),
-                      Container(
-                        height: 40,
-                      ),
                       // CustomText(_errorText, 20, color: Colors.red, bold: true,),
                       // SizedBox(height: 20,),
                       CustomText(AppString.usernameOrEmailLabel,20, bold: true,),
@@ -281,7 +279,7 @@ class _SignInPageState extends State<SignInPage> with TickerProviderStateMixin{
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          CustomText(AppString.signUpLabel, 18, bold: true,color: Colors.black54),
+                          CustomText(AppString.signUpLabel, 18, bold: true),
                           Container(width: 10,),
                           CustomText(
                             AppString.signUpHint,

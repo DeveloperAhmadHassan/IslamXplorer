@@ -48,7 +48,6 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
         CustomText(
           "Agree with ",
           14,
-          color: Colors.black,
           alignment: Alignment.center,
         ),
         CustomText(

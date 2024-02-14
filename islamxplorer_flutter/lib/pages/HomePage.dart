@@ -70,7 +70,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     }
 
     return Scaffold(
-      backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
       extendBodyBehindAppBar: true,
       appBar: AppBar(
          systemOverlayStyle: SystemUiOverlayStyle(
@@ -94,7 +93,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   padding: const EdgeInsets.all(0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(400),
-                    color: HexColor.fromHexStr(AppColor.primaryThemeSwatch3).withOpacity(0.3)
+                      color: Theme.of(context).colorScheme.primaryContainer
                   ),
                 );
               },
@@ -112,7 +111,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                  padding: const EdgeInsets.all(0),
                  decoration: BoxDecoration(
                      borderRadius: BorderRadius.circular(400),
-                     color: HexColor.fromHexStr(AppColor.primaryThemeSwatch3).withOpacity(0.3)
+                     color: Theme.of(context).colorScheme.primaryContainer
                  ),
                );
               }
@@ -130,7 +129,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   padding: const EdgeInsets.all(0),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(400),
-                      color: HexColor.fromHexStr(AppColor.primaryThemeSwatch3).withOpacity(0.3)
+                      color: Theme.of(context).colorScheme.primaryContainer
                   ),
                 );
               }
@@ -148,7 +147,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   padding: const EdgeInsets.all(0),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(400),
-                      color: HexColor.fromHexStr(AppColor.primaryThemeSwatch3).withOpacity(0.3)
+                      color: Theme.of(context).colorScheme.primaryContainer
                   ),
                 );
               }

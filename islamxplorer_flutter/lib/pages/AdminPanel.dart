@@ -12,10 +12,7 @@ class AdminPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
         appBar: AppBar(
-          backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
-
           toolbarHeight: 70,
           title: Row(
             children: [
@@ -39,13 +36,14 @@ class AdminPanel extends StatelessWidget {
                   crossAxisCellCount: 4,
                   mainAxisCellCount: 2,
                   child: Card(
-                    color: Colors.red.shade200,
+                    color: Colors.red.shade300,
                     elevation: 7,
                     child: Badge(
                       badgeContent: Container(
                         padding: EdgeInsets.all(8.0),
                         child: const Text("4", style: TextStyle(
                           fontSize: 34,
+                          color: Colors.black,
                         )),
                       ),
                       position: BadgePosition.topStart(top: -30),
@@ -73,7 +71,7 @@ class AdminPanel extends StatelessWidget {
                                 ),
                               )
                           ),
-                          Center(child: CustomText("Reports", 40, alignment: Alignment.center,)),
+                          Center(child: CustomText("Reports", 40, alignment: Alignment.center,color: Colors.black,)),
                         ],
                       ),
                     ),
@@ -91,7 +89,7 @@ class AdminPanel extends StatelessWidget {
                         children: [
                           Positioned(
                               top: 80,
-                              left: -70,
+                              right: -70,
                               child: SizedBox(
                                   height: 200,
                                   width: 200,
@@ -100,17 +98,17 @@ class AdminPanel extends StatelessWidget {
                           ),
                           Positioned(
                               bottom: 90,
-                              right: -100,
+                              left: -100,
                               child: Container(
                                 height: 200,
                                 width: 200,
                                 decoration: BoxDecoration(
-                                    color: Colors.blue.shade100,
+                                    color: Colors.blue.shade50,
                                     borderRadius: BorderRadius.circular(100)
                                 ),
                               )
                           ),
-                          Center(child: CustomText("Duas", 40, alignment: Alignment.center,)),
+                          Center(child: CustomText("Duas", 40, alignment: Alignment.center, color: Colors.black,)),
                         ],
                       ),
                     ),
@@ -147,7 +145,7 @@ class AdminPanel extends StatelessWidget {
                                 ),
                               )
                           ),
-                          Center(child: CustomText("Verses", 40, alignment: Alignment.center,)),
+                          Center(child: CustomText("Verses", 40, alignment: Alignment.center, color: Colors.black,)),
                         ],
                       ),
                     ),
@@ -182,7 +180,7 @@ class AdminPanel extends StatelessWidget {
                               ),
                             )
                         ),
-                        Center(child: CustomText("DuaType", 30, alignment: Alignment.center,bold: true,)),
+                        Center(child: CustomText("DuaType", 30, alignment: Alignment.center,bold: true, color: Colors.black,)),
                       ],
                     ),
                   ),
@@ -201,7 +199,7 @@ class AdminPanel extends StatelessWidget {
                           children: [
                             Positioned(
                                 top: 120,
-                                left: -40,
+                                right: -40,
                                 child: SizedBox(
                                     height: 200,
                                     width: 200,
@@ -210,7 +208,7 @@ class AdminPanel extends StatelessWidget {
                             ),
                             Positioned(
                                 bottom: 130,
-                                right: -100,
+                                left: -100,
                                 child: Container(
                                   height: 200,
                                   width: 200,
@@ -220,7 +218,7 @@ class AdminPanel extends StatelessWidget {
                                   ),
                                 )
                             ),
-                            Center(child: CustomText("Hadiths", 40, alignment: Alignment.center,)),
+                            Center(child: CustomText("Hadiths", 40, alignment: Alignment.center, color: Colors.black,)),
                           ],
                         ),
                       ),
@@ -258,7 +256,7 @@ class AdminPanel extends StatelessWidget {
                                 ),
                               )
                           ),
-                          Center(child: CustomText("Surah", 40, alignment: Alignment.center,)),
+                          Center(child: CustomText("Surahs", 40, alignment: Alignment.center, color: Colors.black,)),
                         ],
                       ),
                     ),
@@ -272,7 +270,7 @@ class AdminPanel extends StatelessWidget {
                     elevation: 7,
                     child: Container(
                       height: 200,
-                      child: Center(child: CustomText("Ontology", 30, alignment: Alignment.center,)),
+                      child: Center(child: CustomText("Ontology", 30, alignment: Alignment.center, color: Colors.black,)),
                     ),
                   ),
                 ),

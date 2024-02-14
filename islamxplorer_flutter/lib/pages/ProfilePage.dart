@@ -38,9 +38,9 @@ class ProfilePage extends StatelessWidget{
         : const Image(image: AssetImage('assets/profile.png'),);
 
     return Scaffold(
-      backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
+      // backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
       appBar: AppBar(
-        backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
+        // backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
           systemNavigationBarIconBrightness: Brightness.light,
@@ -89,19 +89,19 @@ class ProfilePage extends StatelessWidget{
               ),
               const SizedBox(height: 10,),
               CustomText(userName, 25, alignment: Alignment.center,bold: true,),
-              CustomText(userEmail, 20, alignment: Alignment.center, color: Colors.black54,),
+              CustomText(userEmail, 20, alignment: Alignment.center,),
               const SizedBox(height: 20,),
               CustomButton("Edit Profile", () => Get.to(UpdateProfilePage())),
               const SizedBox(height: 10,),
               const Divider(),
               const SizedBox(height: 10,),
-              ProfileMenuWidget(icon:LineAwesomeIcons.cog, text: "Settings", onTap: (){}),
-              ProfileMenuWidget(icon:LineAwesomeIcons.bookmark, text: "Bookmarks", onTap: (){}),
-              ProfileMenuWidget(icon: LineAwesomeIcons.history, text: "Search History", onTap: (){}),
+              ProfileMenuWidget(icon:LineAwesomeIcons.cog, text: "Settings", onTap: (){}, textColor: Colors.blue,),
+              ProfileMenuWidget(icon:LineAwesomeIcons.bookmark, text: "Bookmarks", onTap: (){}, textColor: Colors.blue,),
+              ProfileMenuWidget(icon: LineAwesomeIcons.history, text: "Search History", onTap: (){}, textColor: Colors.blue,),
               const SizedBox(height: 20,),
               const Divider(),
               const SizedBox(height: 20,),
-              ProfileMenuWidget(icon:LineAwesomeIcons.file, text: "Documentation", onTap: (){}),
+              ProfileMenuWidget(icon:LineAwesomeIcons.file, text: "Documentation", onTap: (){}, textColor: Colors.blue,),
               ProfileMenuWidget(icon:LineAwesomeIcons.alternate_sign_out, text: "Logout", onTap: ()=>signOut(context), textColor: Colors.red,endIcon: false,),
               const SizedBox(height: 100,)
             ],
@@ -128,15 +128,15 @@ class ProfileMenuWidget extends StatelessWidget {
   final String text;
   final VoidCallback onTap;
   final bool endIcon;
-  final Color textColor;
+  Color? textColor;
 
-  const ProfileMenuWidget({
+  ProfileMenuWidget({
     super.key,
     required this.icon,
     required this.text,
     required this.onTap,
     this.endIcon = true,
-    this.textColor = Colors.black
+    this.textColor
   });
 
   @override

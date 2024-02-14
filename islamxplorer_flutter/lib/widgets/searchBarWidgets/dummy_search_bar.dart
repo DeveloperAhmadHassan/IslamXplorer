@@ -33,7 +33,7 @@ class _DummySearchBarState extends State<DummySearchBar> {
         width: MediaQuery.of(context).size.width-30,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: isClicked ? Colors.grey : HexColor.fromHexStr(AppColor.primaryThemeSwatch4),
+          color: isClicked ? Colors.grey: Theme.of(context).colorScheme.secondaryContainer,
           borderRadius: BorderRadius.all(Radius.circular(100)),
         ),
         child: Row(

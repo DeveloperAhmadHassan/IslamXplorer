@@ -192,4 +192,33 @@ class AlertDialogs{
       },
     );
   }
+
+  static void showDuaExplanationDialog(String exp) async {
+    return await showDialog(
+      context: Get.overlayContext!,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: Text('Dua Explanation'),
+          content: Container(
+            width: double.maxFinite,
+            child: Markdown(data: exp),
+          ),
+          actions: [
+            TextButton(
+              style: TextButton.styleFrom(
+                  foregroundColor: Colors.green
+              ),
+              onPressed: () {
+                Navigator.of(dialogContext).pop(true);
+              },
+              child: Text('OK', style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600
+              )),
+            ),
+          ],
+        );
+      },
+    );
+  }
 }

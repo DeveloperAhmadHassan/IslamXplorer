@@ -13,7 +13,7 @@ class SecondaryLoader extends StatelessWidget{
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-          color: HexColor.fromHexStr(AppColor.primaryThemeSwatch2)
+          // color: HexColor.fromHexStr(AppColor.primaryThemeSwatch2)
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

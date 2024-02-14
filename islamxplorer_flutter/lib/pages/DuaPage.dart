@@ -9,6 +9,7 @@ import 'package:islamxplorer_flutter/models/duaType.dart';
 import 'package:islamxplorer_flutter/pages/DuaListPage.dart';
 import 'package:islamxplorer_flutter/utils/dataLoaders.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
+import 'package:islamxplorer_flutter/widgets/secondary_loader.dart';
 import 'package:islamxplorer_flutter/widgets/utils/custom_error_widget.dart';
 import 'package:islamxplorer_flutter/widgets/new_tag.dart';
 
@@ -16,17 +17,14 @@ import 'package:islamxplorer_flutter/widgets/new_tag.dart';
 class DuaPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    print("Started!");
-    DataLoader.loadTermsAndConditions();
-    print("Finished!");
     return Scaffold(
-      backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
+      // backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
       appBar: AppBar(
-        backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
+        // backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
         systemOverlayStyle: SystemUiOverlayStyle(
             statusBarColor: Colors.transparent,
             systemNavigationBarIconBrightness: Brightness.light,
-            systemNavigationBarColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
+            // systemNavigationBarColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
         ),
         toolbarHeight: 65,
         title: Row(
@@ -34,8 +32,9 @@ class DuaPage extends StatelessWidget {
             const SizedBox(width: 70,),
             Container(
               margin: EdgeInsets.only(top: 25),
-              child: const Text("Duas", style: TextStyle(
+              child: Text("Duas", style: TextStyle(
                 fontSize: 35,
+                color: Theme.of(context).brightness == Brightness.light ? Colors.black : Colors.white
               )),
             )
           ],
@@ -58,33 +57,7 @@ class DuaGrid extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Scaffold(
-            body: Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                  color: HexColor.fromHexStr(AppColor.primaryThemeSwatch2)
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SpinKitWave(
-                    itemBuilder: (BuildContext context, int index) {
-                      return DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: HexColor.fromHexStr(AppColor.secondaryThemeSwatch1),
-                        ),
-                      );
-                    },
-                  ),
-                  SizedBox(height: 30,),
-                  Text("Loading Item. Please Wait", style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600
-                  ))
-                ],
-              ),
-            ),
+            body: SecondaryLoader(loadingText: "Loading Items\nPlease wait",),
           );
         }
         else if (snapshot.hasError) {
@@ -127,7 +100,7 @@ class DuaItemCard extends StatelessWidget {
         child: Container(
           width: 190,
           height: duaType.height.toDouble(),
-          color: HexColor.fromHexStr(AppColor.primaryThemeSwatch4),
+          // color: HexColor.fromHexStr(AppColor.primaryThemeSwatch4),
           child: Padding(
             padding: const EdgeInsets.only(right: 10, left: 10, top: 8),
             child: Column(
@@ -161,7 +134,7 @@ class DuaItemCard extends StatelessWidget {
                     duaType.name.capitalizeFirstLetter,
                     style: TextStyle(
                       fontSize: 18,
-                      color: Colors.deepPurple,
+                      // color: Colors.deepPurple,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'IBMPlexMono',
                     ),
@@ -178,13 +151,13 @@ class DuaItemCard extends StatelessWidget {
                           "$duaNum Duas",
                           style: TextStyle(
                             fontSize: 17,
-                            color: Colors.indigo,
+                            // color: Colors.indigo,
                             fontWeight: FontWeight.bold,
                             fontFamily: 'IBMPlexMono',
                           ),
                         ),
                       ),
-                      Icon(Icons.share_outlined, color: Colors.indigo),
+                      Icon(Icons.share_outlined),
                     ],
                   ),
                 )

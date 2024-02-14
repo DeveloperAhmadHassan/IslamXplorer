@@ -6,6 +6,7 @@ import 'package:islamxplorer_flutter/controllers/userDataController.dart';
 import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/models/user.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
+import 'package:islamxplorer_flutter/widgets/profile_photo.dart';
 import 'package:islamxplorer_flutter/widgets/utils/custom_button.dart';
 import 'package:islamxplorer_flutter/widgets/utils/custom_text.dart';
 import 'package:islamxplorer_flutter/widgets/utils/custom_textfield.dart';
@@ -73,9 +74,8 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
         : const Image(image: AssetImage('assets/profile.png'),);
 
     return Scaffold(
-      backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch4),
       appBar: AppBar(
-        backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch4),
+
         title: const Text("Edit Profile"),
         actions: [
           IconButton(onPressed: (){}, icon: const Icon(LineAwesomeIcons.moon))
@@ -90,18 +90,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
             children: [
               Stack(
                 children: [
-                  Container(
-                    width: 140,
-                    height: 140,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      border: Border.all(width: 7, color: HexColor.fromHexStr(AppColor.primaryThemeSwatch2))
-                    ),
-                    child: ClipRRect(
-                        borderRadius: BorderRadius.circular(100),
-                        child: profileImage
-                    )
-                  ),
+                  ProfilePhoto(profileImage: profileImage, size: 140),
                   Positioned(
                     bottom: 4,
                     right: 10,
@@ -110,7 +99,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                       height: 35,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
-                        color: HexColor.fromHexStr(AppColor.primaryThemeSwatch2)
+                        color: HexColor.fromHexStr(AppColor.secondaryThemeSwatch3),
                       ),
                       child: GestureDetector(
                         onTap: _pickImage,

@@ -31,7 +31,6 @@ class _SearchingPageState extends State<SearchingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch1),
       body: Column(
         children: [
           SizedBox(height: 50,),
@@ -40,8 +39,7 @@ class _SearchingPageState extends State<SearchingPage> {
             child: Container(
               margin: EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: HexColor.fromHexStr(AppColor.primaryThemeSwatch4),
-                borderRadius: BorderRadius.circular(30.0),
+                color: Theme.of(context).colorScheme.primaryContainer
               ),
               child: Padding(
                 padding: EdgeInsets.zero,
@@ -50,9 +48,14 @@ class _SearchingPageState extends State<SearchingPage> {
                   children: List.generate(
                     20, // Increase the number of items to 100
                         (index) => ListTile(
-                      leading: Icon(LineAwesomeIcons.history),
-                      title: Text("This is the Search History Item ${index+1}. This is very long", overflow: TextOverflow.ellipsis,),
-                      trailing: Icon(LineAwesomeIcons.arrow_right),
+                      leading: Icon(LineAwesomeIcons.history, color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black),
+                      title: Text(
+                        "This is the Search History Item ${index+1}. This is very long",
+                        style: TextStyle(
+                            color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black
+                        ),
+                        overflow: TextOverflow.ellipsis,),
+                      trailing: Icon(LineAwesomeIcons.arrow_right,color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black),
                     ),
                   ),
                 ),

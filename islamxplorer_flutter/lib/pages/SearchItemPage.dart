@@ -32,7 +32,7 @@ class _SearchItemPageState extends State<SearchItemPage> {
       imageUrl = AppString.verseBGUrl;
     }
     return Scaffold(
-      backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch4),
+      // backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch4),
       body: SingleChildScrollView(
         child: Container(
           child: Stack(
@@ -109,7 +109,7 @@ class _SearchItemPageState extends State<SearchItemPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Card(
-                          color: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
+                          color: Theme.of(context).colorScheme.secondaryContainer,
                           elevation: 7,
                           child: Container(
                             width: MediaQuery.of(context).size.width,
@@ -127,22 +127,12 @@ class _SearchItemPageState extends State<SearchItemPage> {
                           ),
                         ),
                         Card(
-                          color: HexColor.fromHexStr(AppColor.secondaryThemeSwatch1),
+                          color: Theme.of(context).brightness == Brightness.dark
+                            ? HexColor.fromHexStr(AppColor.secondaryThemeSwatch4)
+                            : HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
                           elevation: 7,
                           child: Container(
                             width: MediaQuery.of(context).size.width,
-                            // decoration: BoxDecoration(
-                            //   gradient: LinearGradient(
-                            //     begin: Alignment.topLeft,
-                            //     end: Alignment.bottomRight,
-                            //     colors: [Colors.blue, Colors.lightBlueAccent.shade100],
-                            //   ),
-                            //   border: Border.all(
-                            //     width: 7,
-                            //     color: Colors.white
-                            //   ),
-                            //   borderRadius: BorderRadius.circular(25),
-                            // ),
                             child: Padding(
                               padding: const EdgeInsets.all(17.0),
                               child: Text(widget.searchResultItem is Hadith ?
@@ -155,20 +145,10 @@ class _SearchItemPageState extends State<SearchItemPage> {
                             ),
                           ),
                         ),
-                        // Container(
-                        //   width: MediaQuery.of(context).size.width,
-                        //   // color: Colors.deepOrange,
-                        //   padding: EdgeInsets.all(15),
-                        //   child: Row(
-                        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //     children: [
-                        //       Text("Surah Name", style: TextStyle(fontSize: 18),),
-                        //       Text("Verse ID", style: TextStyle(fontSize: 18),),
-                        //     ],
-                        //   ),
-                        // ),
                         Card(
-                          color: HexColor.fromHexStr(AppColor.secondaryThemeSwatch1),
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? HexColor.fromHexStr(AppColor.secondaryThemeSwatch4)
+                              : HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
                           elevation: 7,
                           child: Container(
                             width: MediaQuery.of(context).size.width,

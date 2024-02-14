@@ -13,6 +13,8 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 
 class SearchResultsPage extends StatefulWidget {
+  const SearchResultsPage({super.key});
+
   @override
   State<SearchResultsPage> createState() => _SearchResultsPageState();
 }
@@ -26,7 +28,6 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
   @override
   void initState() {
     super.initState();
-    print("Init");
     fetchResults();
   }
 
@@ -45,6 +46,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
 
   @override
   Widget build(BuildContext context) {
+
     List<SearchResultItem> filteredResults;
 
     switch (filterSelectedIndex) {
@@ -60,7 +62,8 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
     }
 
     return Scaffold(
-      backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch1),
+      // backgroundColor: Colors.transparent,
+      // backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch1),
       appBar: SecondaryAppBar(""),
       body: SingleChildScrollView(
         padding: EdgeInsets.only(top: 25),
@@ -81,7 +84,9 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                       child: CustomText(
                         filterItems[index],
                         18,
-                        color: index == filterSelectedIndex ? Colors.black : Colors.black45,
+                        color: index == filterSelectedIndex
+                            ? Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black
+                            : Theme.of(context).brightness == Brightness.dark ? Colors.white54 : Colors.black45,
                         underline: index == filterSelectedIndex,
                       ),
                     ),
@@ -99,7 +104,6 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
               Padding(
                 padding: EdgeInsets.only(bottom: 7),
                 child: Card(
-                  color: HexColor.fromHexStr(AppColor.secondaryThemeSwatch1),
                   elevation: 7,
                   child: ListTile(
                     title: Text("${result.sTitle}", style: TextStyle(

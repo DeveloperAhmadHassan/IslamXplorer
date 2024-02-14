@@ -66,6 +66,7 @@ class _AddUpdateDuaPageState extends State<AddUpdateDuaPage> {
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     DuaDataController duaDataController = DuaDataController();
@@ -78,15 +79,12 @@ class _AddUpdateDuaPageState extends State<AddUpdateDuaPage> {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch1),
         appBar: AppBar(
           systemOverlayStyle: SystemUiOverlayStyle(
-              // statusBarColor: Colors.,
-              systemNavigationBarIconBrightness: Brightness.light,
-              // systemNavigationBarColor: Colors.black.withOpacity(0.0000000000000001)
+              systemNavigationBarIconBrightness: Theme.of(context).brightness == Brightness.dark ? Brightness.dark : Brightness.light,
+
           ),
           title: Text("Add Dua"),
-          backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch1),
         ),
         body: widget.isUpdate ?
         FutureBuilder<Dua>(
@@ -292,6 +290,9 @@ class _AddUpdateDuaPageState extends State<AddUpdateDuaPage> {
                         CustomText("Surah",20, bold: true,),
                         DropdownButtonFormField<int>(
                           value: selectedSurahNumber,
+                          style: TextStyle(
+                            color: Theme.of(context).brightness == Brightness.light ? Colors.black : Colors.white
+                          ),
                           onChanged: (int? newSurahNumber) {
                             setState(() {
                               selectedSurahNumber = newSurahNumber!;
@@ -469,7 +470,9 @@ class _DuaTypesState extends State<DuaTypes> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
+        color: Theme.of(context).brightness == Brightness.dark
+            ? HexColor.fromHexStr(AppColor.secondaryThemeSwatch3)
+            : HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
         border: Border.all(
           color: _color,
           width: 4,
@@ -490,6 +493,18 @@ class _DuaTypesState extends State<DuaTypes> {
               });
               return null;
             },
+            backgroundColor: Colors.blue.withOpacity(0.3),
+            checkColor: Colors.black,
+            selectedColor: Colors.yellow.shade100,
+            selectedItemsTextStyle: TextStyle(
+                color: Colors.black
+            ),
+            decoration: BoxDecoration(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? HexColor.fromHexStr(AppColor.secondaryThemeSwatch3)
+                  : HexColor.fromHexStr(AppColor.primaryThemeSwatch2)
+            ),
+
             initialChildSize: 0.4,
             listType: MultiSelectListType.CHIP,
             searchable: true,
@@ -515,9 +530,13 @@ class _DuaTypesState extends State<DuaTypes> {
               ? Container(
                   padding: EdgeInsets.all(10),
                   alignment: Alignment.centerLeft,
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                    // border: Border.all(color: Colors.blue)
+                  ),
                   child: Text(
                     "None selected",
-                    style: TextStyle(color: Colors.black54),
+                    style: Theme.of(context).brightness == Brightness.dark ? TextStyle(color: Colors.white54) : TextStyle(color: Colors.black54),
                   )
                 )
               : Container(),

@@ -75,7 +75,7 @@ class _SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin{
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     return Scaffold(
       extendBodyBehindAppBar: true,
-      backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch1),
+      // backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch1),
       body: Stack(
         children: [
           Positioned(
@@ -90,7 +90,7 @@ class _SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin{
                   padding: const EdgeInsets.all(0),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(400),
-                      color: HexColor.fromHexStr(AppColor.primaryThemeSwatch3).withOpacity(0.3)
+                      color: Theme.of(context).colorScheme.primaryContainer
                   ),
                 );
               },
@@ -108,7 +108,7 @@ class _SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin{
                     padding: const EdgeInsets.all(0),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(400),
-                        color: HexColor.fromHexStr(AppColor.primaryThemeSwatch3).withOpacity(0.3)
+                        color: Theme.of(context).colorScheme.primaryContainer
                     ),
                   );
                 }
@@ -256,7 +256,7 @@ class _SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin{
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          CustomText("Already have an account?", 18, bold: true,color: Colors.black54),
+                          CustomText("Already have an account?", 18, bold: true),
                           Container(width: 10,),
                           CustomText(
                             "Log In",
