@@ -4,83 +4,39 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b725d72-cbff-48c8-89dd-d50a571af1ef" name="Changes" comment="&quot;Improved Code&quot;">
+    <list default="true" id="4c9427cc-2fc4-443d-bbe1-cbcfd473cea1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/islamXplorer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/islamXplorer.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/dua.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/dua.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/surah.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/surah.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/verse.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/verse.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/AdminPanel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/AdminPanel.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/DuaItemPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/DuaItemPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/DuaListPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/DuaListPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/DuaPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/DuaPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/HomePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/HomePage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/ProfilePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/ProfilePage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/SearchItemPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/SearchItemPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/SearchResultsPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/SearchResultsPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/SearchingPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/SearchingPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/authPages/ForgetPasswordPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/authPages/ForgetPasswordPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/authPages/SignInPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/authPages/SignInPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/authPages/SignUpPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/authPages/SignUpPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/utils/alertDialogs.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/utils/alertDialogs.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/values/colors.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/values/colors.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/widgets/checkBoxWidget/rememberMeCheckBox.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/widgets/checkBoxWidget/rememberMeCheckBox.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/widgets/checkBoxWidget/termsAndConditionsCheckBox.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/widgets/checkBoxWidget/termsAndConditionsCheckBox.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/widgets/searchBarWidgets/dummy_search_bar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/widgets/searchBarWidgets/dummy_search_bar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/widgets/searchBarWidgets/search_bar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/widgets/searchBarWidgets/search_bar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/widgets/secondary_loader.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/widgets/secondary_loader.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/widgets/utils/custom_text.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/widgets/utils/custom_text.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/widgets/utils/custom_textfield.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/widgets/utils/custom_textfield.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/widgets/utils/secondary_appbar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/widgets/utils/secondary_appbar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Python Script" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$/.." value="api_branch" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
-  </component>
-  <component name="ProjectId" id="2Y9nKV3bog34DsdZhCAFSEtgWs5" />
+  <component name="ProjectId" id="2cM0cBalCdTZ2R4Ht2Z6P7Kpa5G" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/Ahmad/FYP/islamXplorer/models"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Ahmad/FYP/islamXplorer/main.py&quot;
   }
-}]]></component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Ahmad\FYP\islamXplorer\models" />
-      <recent name="C:\Users\Ahmad\FYP\islamXplorer\controllers" />
-      <recent name="C:\Users\Ahmad\FYP\islamXplorer\dummies" />
-      <recent name="C:\Users\Ahmad\FYP\islamXplorer" />
-    </key>
-  </component>
-  <component name="RunManager" selected="Python.main">
+}</component>
+  <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="islamXplorer" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -88,9 +44,10 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="C:\Users\Ahmad\FYP\islamXplorer\venv\Scripts\python.exe" />
+      <option name="SDK_NAME" value="Python 3.11 (islamXplorer)" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
@@ -102,137 +59,16 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="mongodb_testing" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="islamXplorer" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/dummies" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/dummies/mongodb_testing.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Python.mongodb_testing" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="5b725d72-cbff-48c8-89dd-d50a571af1ef" name="Changes" comment="" />
-      <created>1699946600154</created>
+      <changelist id="4c9427cc-2fc4-443d-bbe1-cbcfd473cea1" name="Changes" comment="" />
+      <created>1707906218151</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1699946600154</updated>
+      <updated>1707906218151</updated>
     </task>
-    <task id="LOCAL-00001" summary="Further learning in Flask + Connection with Neo4j">
-      <option name="closed" value="true" />
-      <created>1700023035475</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1700023035475</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Further learning in Flask + Connection with Neo4j">
-      <option name="closed" value="true" />
-      <created>1700023519857</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1700023519857</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Further learning in Flask + Connection with Neo4j">
-      <option name="closed" value="true" />
-      <created>1700023928812</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1700023928812</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Further learning in Flask + Connection with Neo4j">
-      <option name="closed" value="true" />
-      <created>1700024441789</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1700024441789</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Further learning in Flask + Connection with Neo4j">
-      <option name="closed" value="true" />
-      <created>1700024903583</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1700024903583</updated>
-    </task>
-    <task id="LOCAL-00006" summary="&quot;Improved Code&quot;">
-      <option name="closed" value="true" />
-      <created>1702893637352</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1702893637352</updated>
-    </task>
-    <option name="localTasksCounter" value="7" />
     <servers />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="OPEN_GENERIC_TABS">
-      <map>
-        <entry key="ea12da83-f12d-4360-a736-601c3269697e" value="TOOL_WINDOW" />
-      </map>
-    </option>
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-        <entry key="ea12da83-f12d-4360-a736-601c3269697e">
-          <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="HEAD" />
-                      </list>
-                    </value>
-                  </entry>
-                  <entry key="structure">
-                    <value>
-                      <list>
-                        <option value="dir:C:/Users/Ahmad/FYP/islamXplorer/dummies" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
-            </State>
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="Further learning in Flask + Connection with Neo4j" />
-    <MESSAGE value="&quot;Improved Code&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="&quot;Improved Code&quot;" />
   </component>
 </project>

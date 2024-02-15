@@ -1,5 +1,5 @@
 class Verse:
-    def __init__(self, verseID, englishText, arabicText, surah, surahNumber):
+    def __init__(self, verseID, englishText, arabicText, surah=None, surahNumber=None):
         self.id = verseID
         self.englishText = englishText
         self.arabicText = arabicText
@@ -14,11 +14,14 @@ class Verse:
         return self.__str__
 
     def to_dict(self):
-        return {
+        verse_dict = {
             "type": "verse",
             "id": self.id,
             "arabicText": self.arabicText,
             "englishText": self.englishText,
-            "source": self.surah,
-            "surahNumber": self.surahNumber
         }
+        if self.surah is not None:
+            verse_dict["source"] = self.surah
+        if self.surahNumber is not None:
+            verse_dict["surahNumber"] = self.surahNumber
+        return verse_dict

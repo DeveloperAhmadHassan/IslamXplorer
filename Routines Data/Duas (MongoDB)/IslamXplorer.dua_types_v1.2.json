@@ -1,0 +1,80 @@
+[{
+  "_id": {
+    "$oid": "65806b1bc20f1983d283301b"
+  },
+  "name": "hope",
+  "url": "https://developerahmadhassan.github.io/images/dua_hope.jpeg",
+  "height": 280
+},
+{
+  "_id": {
+    "$oid": "65806bfbc20f1983d2833021"
+  },
+  "name": "repentance",
+  "url": "https://developerahmadhassan.github.io/images/dua_repentance.jpeg",
+  "height": 220
+},
+{
+  "_id": {
+    "$oid": "65806c4ec20f1983d2833027"
+  },
+  "name": "worship",
+  "url": "https://developerahmadhassan.github.io/images/dua_worship.jpeg",
+  "height": 230
+},
+{
+  "_id": {
+    "$oid": "658519c3cee6f1441660d19b"
+  },
+  "name": "adoration",
+  "url": "https://developerahmadhassan.github.io/images/dua_adoration.jpeg",
+  "height": 260
+},
+{
+  "_id": {
+    "$oid": "658519d6cee6f1441660d19c"
+  },
+  "name": "blessing",
+  "url": "https://developerahmadhassan.github.io/images/dua_blessing.jpg",
+  "height": 220
+},
+{
+  "_id": {
+    "$oid": "658519e0cee6f1441660d19d"
+  },
+  "name": "gratitude",
+  "url": "https://developerahmadhassan.github.io/images/dua_gratitude.jpg",
+  "height": 220
+},
+{
+  "_id": {
+    "$oid": "658519eacee6f1441660d19e"
+  },
+  "name": "confidence",
+  "url": "https://developerahmadhassan.github.io/images/dua_confidence.jpeg",
+  "height": 230
+},
+{
+  "_id": {
+    "$oid": "65851a10cee6f1441660d19f"
+  },
+  "name": "protection",
+  "url": "https://developerahmadhassan.github.io/images/dua_protection.jpg",
+  "height": 220
+},
+{
+  "_id": {
+    "$oid": "65851a2ccee6f1441660d1a0"
+  },
+  "name": "communication",
+  "url": "https://developerahmadhassan.github.io/images/dua_communication.jpg",
+  "height": 220
+},
+{
+  "_id": {
+    "$oid": "65851a65cee6f1441660d1a3"
+  },
+  "name": "travel",
+  "url": "https://developerahmadhassan.github.io/images/dua_travel.jpg",
+  "height": 220
+}]

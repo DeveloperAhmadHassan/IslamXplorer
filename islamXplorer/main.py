@@ -17,6 +17,7 @@ from controllers.dua_con import DuaCon
 from controllers.hadith_con import HadithCon
 from controllers.verse_con import VerseCon
 from controllers.surah_con import SurahCon
+from controllers.topic_con import TopicCon
 
 from flask_cors import CORS
 
@@ -212,6 +213,49 @@ def getSurahs():
                             mimetype="text/json"), 500
         else:
             return Response(jsonData, mimetype="text/json"), 200
+
+
+@app.route('/types', methods=["GET"])
+def getTypes():
+    # surahID = request.args.get('id')
+    # duaType = request.args.get('type')
+
+    jsonData = TopicCon.getAllTypes()
+    return Response(jsonData, mimetype="text/json"), 200
+
+
+@app.route('/concepts', methods=["GET"])
+def getConcepts():
+    # surahID = request.args.get('id')
+    typeID = request.args.get('type')
+
+    print(typeID)
+
+    jsonData = TopicCon.getAllConceptsByType(typeID)
+    return Response(jsonData, mimetype="text/json"), 200
+
+    # if surahID:
+    #     jsonData = SurahCon.getSurahByID(surahID)
+    #     if 'error' in jsonData:
+    #         return Response(json.dumps({'status': 500, 'totalResults': 0, 'error': jsonData['error']}),
+    #                         mimetype="text/json"), 500
+    #     else:
+    #         return Response(jsonData, mimetype="text/json"), 200
+    # elif duaType is not None:
+    #     print(duaType)
+    #     jsonData = DuaCon.getDuasFromType(duaType)
+    #     if 'error' in jsonData:
+    #         return Response(json.dumps({'status': 500, 'totalResults': 0, 'error': jsonData['error']}),
+    #                         mimetype="text/json"), 500
+    #     else:
+    #         return Response(jsonData, mimetype="text/json"), 200
+    # else:
+    #     jsonData = SurahCon.getAllSurahs()
+    #     if 'error' in jsonData:
+    #         return Response(json.dumps({'status': 500, 'totalResults': 0, 'error': jsonData['error']}),
+    #                         mimetype="text/json"), 500
+    #     else:
+    #         return Response(jsonData, mimetype="text/json"), 200
 
 
 @app.route('/hadiths', methods=["GET"])

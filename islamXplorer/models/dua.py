@@ -30,4 +30,4 @@ class Dua:
             "types": self.types,
         }
 
-    # TODO:Setters and Getters for attributes
+    # TODO: Setters and Getters for attributes
