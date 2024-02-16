@@ -18,7 +18,8 @@ class UserDataController{
         'userName': user.userName,
         'phone': user.phone,
         'gender': user.gender,
-        'birthdate': user.birthdate
+        'birthdate': user.birthdate,
+
       });
 
       print('User updated!');
@@ -202,21 +203,17 @@ class UserDataController{
 
   Future<String> uploadProfileImage(String path, XFile image) async{
     try {
-      // final ref = FirebaseAuth.instance.currentUser;
-
-      print("Hello 4");
       Reference reference = FirebaseStorage.instance.ref(path).child(image.name);
       await reference.putFile(File(image.path));
       String url = await reference.getDownloadURL();
       return url;
 
     } catch (e) {
-      print('Error checking if report exists in Firestore: $e');
       return 'Error checking if report exists in Firestore: $e';
     }
   }
 
-  Future<void> updateSingleField(Map<String, dynamic> json) async{
+  Future<void> updateUser(Map<String, dynamic> json) async{
     try {
       UserDataController userDataController = UserDataController();
       AppUser user = await userDataController.getUserData();
@@ -225,7 +222,6 @@ class UserDataController{
       await userDoc.update(json);
     } catch (e) {
       print('Error checking if report exists in Firestore: $e');
-      // return 'Error checking if report exists in Firestore: $e';
     }
   }
 }

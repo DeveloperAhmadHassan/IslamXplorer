@@ -43,7 +43,7 @@ class _ProfilePhotoState extends State<ProfilePhoto> {
       Map<String, dynamic> json = {
         'profileImage': imageUrl
       };
-      await widget.userDataController.updateSingleField(json);
+      await widget.userDataController.updateUser(json);
 
       setState(() {
 
@@ -57,18 +57,18 @@ class _ProfilePhotoState extends State<ProfilePhoto> {
     getUser();
   }
 
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder<AppUser>(
       future: widget.userDataController.getUserData(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          // Return a loading indicator while waiting for data
+
           return CircularProgressIndicator();
         } else if (snapshot.hasError) {
-          // Return an error message if an error occurs
+
           return Text('Error: ${snapshot.error}');
         } else {
-          // Once data is fetched, update the UI
           AppUser? appUser = snapshot.data;
           return InkWell(
             onTap: onTap,
@@ -83,7 +83,7 @@ class _ProfilePhotoState extends State<ProfilePhoto> {
                 borderRadius: BorderRadius.circular(100),
                 child: appUser != null && appUser.profilePicUrl != null
                     ? Image.network(appUser.profilePicUrl!)
-                    : Placeholder(), // Placeholder image if appUser or profilePicUrl is null
+                    : Placeholder(),
               ),
             ),
           );

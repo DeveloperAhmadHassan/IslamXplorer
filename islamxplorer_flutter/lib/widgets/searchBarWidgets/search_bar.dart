@@ -27,14 +27,6 @@ class CustomSearchBar extends StatelessWidget {
           decoration: InputDecoration(
             hintText: "Search",
             filled: true,
-            // fillColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
-            // border: OutlineInputBorder(
-            //   borderRadius: BorderRadius.circular(100),
-            //   borderSide: const BorderSide(
-            //     color: Color.fromRGBO(255, 249, 197, 1),
-            //     width: 10,
-            //   ),
-            // ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(100),
               borderSide: const BorderSide(

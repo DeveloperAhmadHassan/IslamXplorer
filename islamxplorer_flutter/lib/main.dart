@@ -18,6 +18,7 @@ import 'package:islamxplorer_flutter/values/themes/appTheme.dart';
 import 'package:islamxplorer_flutter/widgets/custom_tab_bar.dart';
 import 'package:islamxplorer_flutter/widgets/nav_bar.dart';
 import 'dart:math' as math;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 
 import 'package:firebase_core/firebase_core.dart';
@@ -26,7 +27,8 @@ import 'package:rive/rive.dart' hide LinearGradient;
 import 'firebase_options.dart';
 
 
-void main() async {
+Future main() async {
+  await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -40,6 +42,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     UserDataController userDataController = UserDataController();
+    print("${dotenv.env['API_URL']}");
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'IslamXplorer',

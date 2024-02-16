@@ -6,7 +6,9 @@ __pycache__
 
 # Virtual environment directories (if you're using virtual environments)
 venv/
+dummies/
 .env
+requirements.txt
 
 # IDE specific files
 .vscode/
@@ -17,3 +19,5 @@ venv/
 
 # Dependency management files
 pip-wheel-metadata/
+
+islamXplorer/

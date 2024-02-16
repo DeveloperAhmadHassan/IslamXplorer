@@ -32,6 +32,12 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   AppUser user = AppUser();
   late File? pickedImage;
 
+  String userEmail = "";
+  String userName = "";
+  String userPhone = "";
+
+  String? photoUrl;
+
   @override
   void initState() {
     super.initState();
@@ -42,35 +48,9 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    // user = userDataController.getUserData() as AppUser;
-    // String? photoUrl = user?.profilePic as String?;
-    // String? email = user?.email;
-    //
-    // String userEmail = email != null
-    //     ? email.toString()
-    //     : "john123@gmail.com";
-    // emailTextEditingController.text = userEmail;
-    //
-    // String? name = user?.userName;
-    // String userName = name != null
-    //     ? name.toString()
-    //     : "John Doe";
-    // userNameTextEditingController.text = userName;
-    //
-    // String? phone = user?.phone;
-    // String userPhone = phone != null
-    //     ? phone.toString()
-    //     : "0331 4477744";
-    // phoneTextEditingController.text = userPhone;
-
-    String userEmail = "";
-    String userName = "";
-    String userPhone = "";
-
-    String? photoUrl;
 
     Widget profileImage = photoUrl != null
-        ? Image.network(photoUrl, fit: BoxFit.fill,)
+        ? Image.network(photoUrl!, fit: BoxFit.fill,)
         : const Image(image: AssetImage('assets/profile.png'),);
 
     return Scaffold(
@@ -84,7 +64,6 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
       body: SingleChildScrollView(
         child: Container(
           width: MediaQuery.of(context).size.width,
-          // color: const Color.fromRGBO(255, 200, 62, 1.0),
           padding: const EdgeInsets.all(20),
           child: Column(
             children: [
@@ -181,14 +160,15 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   }
 
   void updateProfile(){
-    String userName = userNameTextEditingController.text;
-    String phone = phoneTextEditingController.text;
-    String email = emailTextEditingController.text;
-    String birthdate = dateInput.text;
-    String? uid = user?.uid;
+    Map<String, dynamic> json = {
+      'profileImage': user.profilePicUrl,
+      'email': emailTextEditingController.text,
+      'phone': phoneTextEditingController.text,
+      'birthdate': dateInput.text,
+      'userName': userNameTextEditingController.text
+    };
 
-    AppUser appUser = AppUser(uid: uid, email: email, phone: phone, userName: userName, birthdate: birthdate);
-    userDataController.addUserToFirestore(appUser);
+    userDataController.updateUser(json);
     Navigator.pop(context);
   }
 
@@ -208,6 +188,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     userNameTextEditingController.text = user.userName!;
     phoneTextEditingController.text = user.phone!;
     dateInput.text = user.birthdate!;
+    photoUrl = user.profilePicUrl;
   }
 
   Future<void> _pickImage() async {

@@ -2,10 +2,11 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:islamxplorer_flutter/models/verse.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class VerseDataController{
   Future<List<Verse>> fetchAllVerses() async {
-    const url = "http://192.168.56.1:48275/verses";
+    var url = "${dotenv.env['API_URL']}/verses";
     print("Hello1");
     try {
       final response = await http.get(Uri.parse(url));
@@ -25,7 +26,7 @@ class VerseDataController{
   }
 
   Future<bool> addVerse(Verse verse) async {
-    const url = "http://192.168.56.1:48275/verses";
+    var url = "${dotenv.env['API_URL']}/verses";
     print("Hello1");
 
     final Map<String, dynamic> requestBody = {
@@ -57,7 +58,7 @@ class VerseDataController{
   }
 
   Future<Verse> getVerseByID(String id) async {
-    var url = "http://192.168.56.1:48275/verses?id=$id";
+    var url = "${dotenv.env['API_URL']}/verses?id=$id";
     print("Hello1");
     try {
       final response = await http.get(Uri.parse(url));
@@ -77,7 +78,7 @@ class VerseDataController{
   }
 
   Future<bool> updateVerse(Verse verse, String oldID) async {
-    String url = "http://192.168.56.1:48275/verses?id=$oldID";
+    var url = "${dotenv.env['API_URL']}/verses?id=$oldID";
 
     try {
       final response = await http.put(
@@ -107,7 +108,7 @@ class VerseDataController{
   }
 
   Future<bool> deleteVerse(String verseID) async {
-    String url = "http://192.168.56.1:48275/verses?id=$verseID";
+    String url = "${dotenv.env['API_URL']}/verses?id=$verseID";
 
     try {
       final response = await http.delete(

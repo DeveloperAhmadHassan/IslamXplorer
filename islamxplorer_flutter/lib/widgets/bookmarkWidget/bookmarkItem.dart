@@ -52,7 +52,7 @@ class _BookmarkItemState extends State<BookmarkItem> {
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
-            backgroundColor: Colors.red.withOpacity(0.5),
+            backgroundColor: Colors.red,
             textColor: Colors.black,
             fontSize: 16.0
         );
@@ -70,7 +70,7 @@ class _BookmarkItemState extends State<BookmarkItem> {
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
-            backgroundColor: Colors.blue.withOpacity(0.5),
+            backgroundColor: Colors.blue,
             textColor: Colors.black,
             fontSize: 16.0
         );

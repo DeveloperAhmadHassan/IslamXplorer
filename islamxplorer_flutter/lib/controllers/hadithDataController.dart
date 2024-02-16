@@ -2,10 +2,11 @@ import 'dart:convert';
 
 import 'package:islamxplorer_flutter/models/hadith.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class HadithDataController{
   Future<List<Hadith>> fetchAllHadiths() async {
-    const url = "http://192.168.56.1:48275/hadiths";
+    var url = "${dotenv.env['API_URL']}/hadiths";
     try {
       final response = await http.get(Uri.parse(url)).timeout(const Duration(seconds: 30));
       if (response.statusCode == 200) {
@@ -21,7 +22,7 @@ class HadithDataController{
   }
 
   Future<bool> addHadith(Hadith hadith) async {
-    const url = "http://192.168.56.1:48275/hadiths";
+    var url = "${dotenv.env['API_URL']}/hadiths";
     final Map<String, dynamic> requestBody = {
       "hadithID": hadith.id,
       "hadithNo": hadith.hadithNo,
@@ -51,7 +52,7 @@ class HadithDataController{
   }
 
   Future<Hadith> getHadithByID(String id) async {
-    var url = "http://192.168.56.1:48275/hadiths?id=$id";
+    var url = "${dotenv.env['API_URL']}/hadiths?id=$id";
     try {
       final response = await http.get(Uri.parse(url));
 
@@ -70,7 +71,7 @@ class HadithDataController{
   }
 
   Future<bool> updateHadith(Hadith hadith, String oldID) async {
-    String url = "http://192.168.56.1:48275/hadiths?id=$oldID";
+    var url = "${dotenv.env['API_URL']}/hadiths?id=$oldID";
 
     try {
       final response = await http.put(
@@ -99,7 +100,7 @@ class HadithDataController{
   }
 
   Future<bool> deleteHadith(String hadithID) async {
-    String url = "http://192.168.56.1:48275/hadiths?id=$hadithID";
+    var url = "${dotenv.env['API_URL']}/hadiths?id=$hadithID";
 
     try {
       final response = await http.delete(
