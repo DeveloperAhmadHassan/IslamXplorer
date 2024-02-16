@@ -36,6 +36,9 @@ jobs:
       - name: Create Keystore File
         run: echo "${{ secrets.KEYSTORE_FILE_CONTENT }}" | base64 --decode > islamxplorer_flutter/android/app/upload-keystore.jks
 
+      - name: Echo Keystore File Contents
+        run: cat islamxplorer_flutter/android/app/upload-keystore.jks
+        
       - name: Debug STORE_FILE
         run: echo "STORE_FILE=$(pwd)/islamxplorer_flutter/android/app/upload-keystore.jks"
 
