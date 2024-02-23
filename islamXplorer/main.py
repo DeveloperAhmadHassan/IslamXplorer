@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 import os
 import json
 
-from flask import Flask, redirect, url_for, request, Response
+from flask import Flask, redirect, url_for, request, Response, jsonify
 
 from models.surah import Surah
 from models.verse import Verse
@@ -21,27 +21,82 @@ from controllers.topic_con import TopicCon
 
 from flask_cors import CORS
 
+from functools import wraps
+import jwt
+from datetime import datetime, timedelta
+
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 load_dotenv()
 
-# print("TOTAL UNIQUE VERSES: " + str(len(unique_verse_list)))
-# print("TOTAL UNIQUE HADITHS: " + str(len(unique_hadith_list)))
-# # for item in unique_list:
-# #     print(item)
-#
-#
-# print()
-# # Summary information
-# print("The query `{query}` returned {records_count} records in {time} ms.".format(
-#     query=summary.query, records_count=len(records),
-#     time=summary.result_available_after,
-# ))
-# print(summary.result_available_after)
+app.config['SECRET_KEY'] = 'your_secret_key_here'  # Change this to a secure secret key
+
+# Mock user database
+users = {
+    'admin': {'username': 'admin', 'password': 'admin', 'role': 'admin'},
+    'scholar': {'username': 'scholar', 'password': 'scholar', 'role': 'scholar'},
+    'user1': {'username': 'user1', 'password': 'user1', 'role': 'user'},
+    'user2': {'username': 'user2', 'password': 'user2', 'role': 'user'}
+}
 
 
-# session.close()
-# driver.close()
+# Function to authenticate and authorize the user
+def authenticate(username, password):
+    if username in users and users[username]['password'] == password:
+        return users[username]
+    return None
+
+
+# Function to generate JWT token upon successful authentication
+def generate_jwt_token(user):
+    payload = {
+        'username': user['username'],
+        'role': user['role'],
+        'exp': datetime.utcnow() + timedelta(minutes=2)
+    }
+    token = jwt.encode(payload, "your_secret_key_here", algorithm='HS256')
+    return token
+
+
+# Decorator to check user role
+def role_required(role):
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            token = request.headers.get('Authorization')
+            token = str.replace(str(token), 'Bearer ', '')
+            print(token)
+            if not token:
+                return jsonify({'error': 'Token is missing'}), 401
+
+            try:
+                payload = jwt.decode(token, "your_secret_key_here", algorithms=['HS256'])
+                print(payload)
+            except jwt.ExpiredSignatureError:
+                return jsonify({'error': 'Token has expired'}), 401
+            except jwt.InvalidTokenError:
+                # print("payload: " +str(payload))
+                return jsonify({'error': 'Invalid token'}), 401
+
+            user_role = payload.get('role')
+
+            if user_role == 'admin':
+                # Allow access for admin to all routes
+                return func(*args, **kwargs)
+            elif user_role == 'scholar':
+                # Allow access for scholar to user and scholar routes
+                if role in ['user', 'scholar']:
+                    return func(*args, **kwargs)
+            elif user_role == 'user':
+                # Allow access for user to user routes only
+                if role == 'user':
+                    return func(*args, **kwargs)
+
+            return jsonify({'error': 'Unauthorized access'}), 403
+
+        return wrapper
+
+    return decorator
 
 
 methodNotAllowedJson = json.dumps(
@@ -353,14 +408,48 @@ def results():
     return Response(queryResults, mimetype="text/json"), 200
 
 
-@app.route('/login', methods=['POST', 'GET'])
+# @app.route('/login', methods=['POST', 'GET'])
+# def login():
+#     if request.method == 'POST':
+#         user = request.form['nm']
+#         return redirect(url_for('success', name=user))
+#     else:
+#         user = request.args.get('nm')
+#         return redirect(url_for('success', name=user))
+
+
+@app.route('/admin')
+@role_required('admin')
+def admin_route():
+    return jsonify({'message': 'Welcome Admin!'})
+
+
+@app.route('/scholar', methods=['GET'])
+@role_required('scholar')
+def scholar_route():
+    return jsonify({'message': 'Welcome Scholar!'})
+
+
+@app.route('/user')
+@role_required('user')
+def user_route():
+    return jsonify({'message': 'Welcome User!'})
+
+
+# Login route to authenticate users and generate JWT token
+@app.route('/login', methods=['POST'])
 def login():
-    if request.method == 'POST':
-        user = request.form['nm']
-        return redirect(url_for('success', name=user))
+    data = request.json
+    print(data)
+    username = data.get('username')
+    password = data.get('password')
+
+    user = authenticate(username, password)
+    if user:
+        token = generate_jwt_token(user)
+        return jsonify({'token': token})
     else:
-        user = request.args.get('nm')
-        return redirect(url_for('success', name=user))
+        return jsonify({'error': 'Invalid username or password'}), 401
 
 
 def extractNeo4jResults(records, summary):
