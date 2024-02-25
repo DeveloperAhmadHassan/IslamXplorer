@@ -4,6 +4,9 @@ import 'package:islamxplorer_flutter/models/hadith.dart';
 import 'package:islamxplorer_flutter/models/searchResultItem.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
 import 'package:islamxplorer_flutter/values/strings.dart';
+import 'package:islamxplorer_flutter/widgets/bookmarkWidget/bookmarkItem.dart';
+import 'package:islamxplorer_flutter/widgets/reportWidget/reportItem.dart';
+import 'package:islamxplorer_flutter/widgets/shareWidget/shareItem.dart';
 
 import '../models/dua.dart';
 import '../models/verse.dart';
@@ -65,36 +68,12 @@ class _SearchItemPageState extends State<SearchItemPage> {
                         ),
                         Row(
                           children: [
-                            Container(
-                              // color: Colors.white,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(Radius.circular(100)),
-                                  color: Colors.white.withOpacity(0.7)
-                              ),
-                              // color: Colors.white,
-                              child: IconButton(icon: Icon(Icons.bookmark_border_rounded), onPressed: () {  },),
-                            ),
-                            SizedBox(width: 15,),
-                            Container(
-                              // color: Colors.white,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(Radius.circular(100)),
-                                  color: Colors.white.withOpacity(0.7)
-                              ),
-                              // color: Colors.white,
-                              child: IconButton(icon: Icon(Icons.share_outlined), onPressed: () {  },),
-                            ),
-                            SizedBox(width: 15,),
-                            Container(
-                              // color: Colors.white,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(Radius.circular(100)),
-                                  color: Colors.white.withOpacity(0.7)
-                              ),
-                              // color: Colors.white,
-                              child: IconButton(icon: Icon(Icons.report_gmailerrorred_outlined), onPressed: () {  },),
-                            ),
-                            SizedBox(width: 10,),
+                            BookmarkItem(item: widget.searchResultItem),
+                            const SizedBox(width: 15,),
+                            ShareItem(),
+                            const SizedBox(width: 15,),
+                            ReportItem(item: widget.searchResultItem),
+                            const SizedBox(width: 10,),
                           ],
                         )
                       ],

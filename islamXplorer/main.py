@@ -40,14 +40,12 @@ users = {
 }
 
 
-# Function to authenticate and authorize the user
 def authenticate(username, password):
     if username in users and users[username]['password'] == password:
         return users[username]
     return None
 
 
-# Function to generate JWT token upon successful authentication
 def generate_jwt_token(user):
     payload = {
         'username': user['username'],
@@ -58,7 +56,6 @@ def generate_jwt_token(user):
     return token
 
 
-# Decorator to check user role
 def role_required(role):
     def decorator(func):
         @wraps(func)
@@ -130,7 +127,8 @@ def root():
 @app.route('/duas', methods=["GET"])
 def getDuas():
     duaID = request.args.get('id')
-    duaType = request.args.get('type')
+    duaTypeTitle = request.args.get('typeTitle')
+    duaTypeID = request.args.get('typeID')
 
     if duaID:
         jsonData = DuaCon.getDuaByID(duaID)
@@ -139,9 +137,9 @@ def getDuas():
                             mimetype="text/json"), 500
         else:
             return Response(jsonData, mimetype="text/json"), 200
-    elif duaType is not None:
-        print(duaType)
-        jsonData = DuaCon.getDuasFromType(duaType)
+    elif duaTypeID is not None:
+        print(duaTypeID)
+        jsonData = DuaCon.getDuasFromType(duaTypeID)
         if 'error' in jsonData:
             return Response(json.dumps({'status': 500, 'totalResults': 0, 'error': jsonData['error']}),
                             mimetype="text/json"), 500

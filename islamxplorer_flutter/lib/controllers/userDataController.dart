@@ -124,7 +124,7 @@ class UserDataController{
     }
   }
 
-  Future<bool> addReport(String id, String message) async {
+  Future<bool> addReport(String id, String message, {String type = ""}) async {
     try {
       var user = FirebaseAuth.instance.currentUser;
 
@@ -136,7 +136,7 @@ class UserDataController{
         await newReportDocumentRef.set({
           'userId': user.uid,
           'reportedItemID': id,
-          'reportedItemType': message,
+          'reportedItemType': type,
           'reportedTime': timestamp,
           'reportedMessage': message
         });
@@ -146,7 +146,7 @@ class UserDataController{
           'reports': FieldValue.arrayUnion([{ 'reportID': newReportDocumentRef.id, 'itemID': id }])
         });
 
-        print('Randomly generated document ID: ${newReportDocumentRef.id}');
+        // print('Randomly generated document ID: ${newReportDocumentRef.id}');
         return true;
       } else {
         return false;

@@ -33,15 +33,11 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
 
   Future<void> fetchResults() async {
     ResultsDataController resultsDataController = ResultsDataController();
-    // try {
-      final results = await resultsDataController.fetchAllResults();
-      setState(() {
-        searchResults = results;
-      });
-    // } catch (e) {
-    //   // Handle errors if necessary
-    //   print('Error fetching results: $e');
-    // }
+
+    final results = await resultsDataController.fetchAllResults();
+    setState(() {
+      searchResults = results;
+    });
   }
 
   @override
@@ -51,10 +47,10 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
 
     switch (filterSelectedIndex) {
       case 1: // Verses
-        filteredResults = searchResults.where((result) => result is Verse).toList();
+        filteredResults = searchResults.whereType<Verse>().toList();
         break;
       case 2: // Hadiths
-        filteredResults = searchResults.where((result) => result is Hadith).toList();
+        filteredResults = searchResults.whereType<Hadith>().toList();
         break;
       default: // All
         filteredResults = List.from(searchResults);

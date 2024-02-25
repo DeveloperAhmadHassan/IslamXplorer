@@ -19,7 +19,7 @@ class DuaListPage extends StatefulWidget {
   String title;
   String type;
 
-  DuaListPage({this.title = "worship", this.type = "U"});
+  DuaListPage({super.key, this.title = "worship", this.type = "U"});
 
   @override
   State<DuaListPage> createState() => _DuaListPageState();
@@ -34,9 +34,9 @@ class _DuaListPageState extends State<DuaListPage> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
+    print(widget.title);
 
     return Scaffold(
-      // backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle(
             statusBarColor: Colors.transparent,
@@ -46,7 +46,6 @@ class _DuaListPageState extends State<DuaListPage> {
           title: Text("Duas", style: TextStyle(
               color: Theme.of(context).brightness == Brightness.light ? Colors.black : Colors.white
           )),
-          // backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2)
       ),
       body: Stack(
         children: [

@@ -5,6 +5,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/pages/DuaListPage.dart';
 import 'package:islamxplorer_flutter/pages/HadithListPage.dart';
+import 'package:islamxplorer_flutter/pages/ReportListPage.dart';
 import 'package:islamxplorer_flutter/pages/VerseListPage.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
 import 'package:islamxplorer_flutter/widgets/utils/custom_text.dart';
@@ -34,7 +35,7 @@ class AdminPanel extends StatelessWidget {
           child: StaggeredGrid.count(
               crossAxisCount: 4,
               children: [
-                DynamicBadgeExample(),
+                ReportTile(),
                 StaggeredGridTile.count(
                   crossAxisCellCount: 2,
                   mainAxisCellCount: 2,
@@ -260,7 +261,7 @@ class AdminPanel extends StatelessWidget {
   }
 }
 
-class DynamicBadgeExample extends StatelessWidget {
+class ReportTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -284,54 +285,57 @@ class DynamicBadgeExample extends StatelessWidget {
         return StaggeredGridTile.count(
           crossAxisCellCount: 4,
           mainAxisCellCount: 2,
-          child: Card(
-            color: Colors.red.shade300,
-            elevation: 7,
-            child: Badge(
-              badgeContent: Container(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  documentCount.toString(),
-                  style: TextStyle(
-                    fontSize: 34,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-              position: BadgePosition.topStart(top: -30),
-              badgeAnimation: const BadgeAnimation.scale(),
-              child: Stack(
-                children: [
-                  Positioned(
-                    top: 60,
-                    left: -60,
-                    child: SizedBox(
-                      height: 200,
-                      width: 200,
-                      child: Image.asset('assets/quran_v1.png'),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 90,
-                    right: -100,
-                    child: Container(
-                      height: 200,
-                      width: 200,
-                      decoration: BoxDecoration(
-                        color: Colors.red.shade100,
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: CustomText(
-                      "Reports",
-                      40,
-                      alignment: Alignment.center,
+          child: GestureDetector(
+            onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>ReportListPage() )),
+            child: Card(
+              color: Colors.red.shade300,
+              elevation: 7,
+              child: Badge(
+                badgeContent: Container(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    documentCount.toString(),
+                    style: TextStyle(
+                      fontSize: 34,
                       color: Colors.black,
                     ),
                   ),
-                ],
+                ),
+                position: BadgePosition.topStart(top: -30),
+                badgeAnimation: const BadgeAnimation.scale(),
+                child: Stack(
+                  children: [
+                    Positioned(
+                      top: 60,
+                      left: -60,
+                      child: SizedBox(
+                        height: 200,
+                        width: 200,
+                        child: Image.asset('assets/quran_v1.png'),
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 90,
+                      right: -100,
+                      child: Container(
+                        height: 200,
+                        width: 200,
+                        decoration: BoxDecoration(
+                          color: Colors.red.shade100,
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                      ),
+                    ),
+                    Center(
+                      child: CustomText(
+                        "Reports",
+                        40,
+                        alignment: Alignment.center,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

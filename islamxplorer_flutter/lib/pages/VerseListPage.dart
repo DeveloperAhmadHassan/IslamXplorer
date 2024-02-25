@@ -27,11 +27,13 @@ class VerseListPage extends StatelessWidget {
             return Center(
               child: CircularProgressIndicator(),
             );
-          } else if (snapshot.hasError) {
+          }
+          else if (snapshot.hasError) {
             return Center(
               child: Text('Error: ${snapshot}'),
             );
-          } else {
+          }
+          else {
             final List<Verse> verses = snapshot.data ?? []; // Use empty list if data is null
             return SingleChildScrollView(
               child: Padding(

@@ -25,7 +25,7 @@ class DuaDataController{
   }
 
   Future<List<DuaType>> fetchAllDuaTypes() async {
-    var url = '${dotenv.env['API_URL']}/getAllDuaTypes';
+    var url = 'http://192.168.56.1:48275/getAllDuaTypes';
 
     try {
       final response = await http.get(Uri.parse(url));
@@ -45,7 +45,7 @@ class DuaDataController{
   }
 
   Future<List<Dua>> fetchDuasFromTypes(String type) async {
-    var url = '${dotenv.env['API_URL']}/duas?type=$type';
+    var url = 'http://192.168.56.1:48275/duas?typeID=$type';
 
     try {
       final response = await http.get(Uri.parse(url));

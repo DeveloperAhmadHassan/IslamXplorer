@@ -15,23 +15,22 @@ import 'package:islamxplorer_flutter/widgets/new_tag.dart';
 
 
 class DuaPage extends StatelessWidget {
+  const DuaPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
       appBar: AppBar(
-        // backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
-        systemOverlayStyle: SystemUiOverlayStyle(
+        systemOverlayStyle: const SystemUiOverlayStyle(
             statusBarColor: Colors.transparent,
             systemNavigationBarIconBrightness: Brightness.light,
-            // systemNavigationBarColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
         ),
         toolbarHeight: 65,
         title: Row(
           children: [
             const SizedBox(width: 70,),
             Container(
-              margin: EdgeInsets.only(top: 25),
+              margin: const EdgeInsets.only(top: 25),
               child: Text("Duas", style: TextStyle(
                 fontSize: 35,
                 color: Theme.of(context).brightness == Brightness.light ? Colors.black : Colors.white
@@ -49,7 +48,10 @@ class DuaPage extends StatelessWidget {
 }
 
 class DuaGrid extends StatelessWidget {
-  DuaDataController duaDataController = DuaDataController();
+  final DuaDataController duaDataController = DuaDataController();
+
+  DuaGrid({super.key});
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<DuaType>>(
@@ -89,7 +91,7 @@ class DuaItemCard extends StatelessWidget {
     var duaNum = 0;
     var newDua = false;
     return InkWell(
-      onTap: () => {Navigator.push(context, MaterialPageRoute(builder: (context) => DuaListPage(title: duaType.name,)))},
+      onTap: () => {Navigator.push(context, MaterialPageRoute(builder: (context) => DuaListPage(title: duaType.id,)))},
       child: Card(
         elevation: 12,
         shadowColor: Colors.black,
@@ -97,10 +99,9 @@ class DuaItemCard extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
-        child: Container(
+        child: SizedBox(
           width: 190,
           height: duaType.height.toDouble(),
-          // color: HexColor.fromHexStr(AppColor.primaryThemeSwatch4),
           child: Padding(
             padding: const EdgeInsets.only(right: 10, left: 10, top: 8),
             child: Column(
@@ -108,7 +109,6 @@ class DuaItemCard extends StatelessWidget {
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
-                    // color: Colors.amberAccent,
                   ),
                   child: Column(
                     children: [
@@ -118,11 +118,9 @@ class DuaItemCard extends StatelessWidget {
                           newDua ? const NewTag() : Container(),
                         ],
                       ),
-                      Container(
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(15),
-                          child: Image.network(duaType.url, fit: BoxFit.cover),
-                        ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(15),
+                        child: Image.network(duaType.url, fit: BoxFit.cover),
                       ),
                     ],
                   ),
@@ -132,16 +130,15 @@ class DuaItemCard extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     duaType.name.capitalizeFirstLetter,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 18,
-                      // color: Colors.deepPurple,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'IBMPlexMono',
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  padding: const EdgeInsets.only(right: 10, left: 10, top: 8),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -149,7 +146,7 @@ class DuaItemCard extends StatelessWidget {
                         alignment: Alignment.centerLeft,
                         child: Text(
                           "$duaNum Duas",
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 17,
                             // color: Colors.indigo,
                             fontWeight: FontWeight.bold,
@@ -157,7 +154,7 @@ class DuaItemCard extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Icon(Icons.share_outlined),
+                      const Icon(Icons.share_outlined),
                     ],
                   ),
                 )

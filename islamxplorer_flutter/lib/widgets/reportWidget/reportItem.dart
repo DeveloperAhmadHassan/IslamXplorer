@@ -30,15 +30,10 @@ class _ReportItemState extends State<ReportItem> {
   TextEditingController reportMessageTextEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: IconButton(icon: Icon(widget.icon, color: widget.color), onPressed: () {
-        if(widget.isReported){
-          reportDua(widget.item.sID, context);
-        } else {
-          reportDua(widget.item.sID, context);
-        }
-      }),
-    );
+    print("Item Type: ${widget.item.runtimeType}");
+    return IconButton(icon: Icon(widget.icon, color: widget.color), onPressed: () {
+      reportDua(widget.item.sID, context);
+    });
   }
 
   void reportDua(String id, BuildContext context) async {
@@ -72,7 +67,7 @@ class _ReportItemState extends State<ReportItem> {
       if (confirmReport == true) {
         SnackBars.showWaitingSnackBar(context, "Reporting Item.....");
         String message = reportMessageTextEditingController.text ?? "";
-        var result = await userDataController.addReport(widget.item.sID, message);
+        var result = await userDataController.addReport(widget.item.sID, message,type: widget.item.runtimeType.toString());
 
         if (result) {
           setState(() {
