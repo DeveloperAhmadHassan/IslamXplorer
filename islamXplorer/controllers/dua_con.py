@@ -71,13 +71,16 @@ class DuaCon:
             return {'error': f'Unexpected error: {str(other_error)}'}
 
     @staticmethod
-    def getDuasFromType(duaType: str):
+    def getDuasFromType(duaTypeID: str):
         try:
+            duaTypeID = ObjectId(duaTypeID)
             mongoClient = MongoDBConn.createMongoDBConnection()
             duaMongoDB = MongoDBConn.getDuaMongoDB(mongoClient)
             quranicDuaCollection = MongoDBConn.getQuranicDuaCollection(duaMongoDB)
 
-            cursor = quranicDuaCollection.find({"types": duaType})
+            print("Type: "+str(duaTypeID))
+
+            cursor = quranicDuaCollection.find({"types": duaTypeID})
             jsonData = setMongoDBJson(cursor, ["_id", "title", "englishText", "arabicText", "transliteration", "surah"])
 
             MongoDBConn.closeClient(mongoClient)
