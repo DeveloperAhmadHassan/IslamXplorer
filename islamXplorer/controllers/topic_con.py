@@ -33,7 +33,7 @@ class TopicCon:
         query = """
                     MATCH (t:Type)-[:OF]-(c:Concept)
                     WHERE t.identifier = $id 
-                    RETURN t.name as TypeName, t.identifier as TypeIdentifier, c.name as ConceptName, c.identifier as ConceptIdentifier
+                    RETURN t.name as TypeName, t.id as TypeIdentifier, c.name as ConceptName, c.identifier as ConceptIdentifier
                     ORDER BY c.name
                 """
         parameters = {"id": str(id)}
@@ -44,18 +44,44 @@ class TopicCon:
             database_="neo4j",
         )
 
-        mainTypeItem = Topic(records[0]['TypeName'], records[0]['TypeIdentifier'])
+        print(records)
+        mainTypeItem = Topic(name=records[0]['TypeName'], identifier=records[0]['TypeIdentifier'])
 
         concepts = []
         for record in records:
             conceptItem = Topic(
-                record['ConceptName'],
-                record['ConceptIdentifier'],
+                name=record['ConceptName'],
+                identifier=record['ConceptIdentifier'],
             )
             concepts.append(conceptItem)
 
         mainTypeItem.setConcepts(concepts)
         return createDataJSON(summary.query, summary.result_available_after, [mainTypeItem])
+
+    @staticmethod
+    def getConceptByID(id: str):
+        query = """
+                    MATCH (c:Concept)
+                    WHERE c.identifier = $id 
+                    RETURN c.name as ConceptName, c.identifier as ConceptIdentifier
+                """
+        parameters = {"id": str(id)}
+        driver = Neo4jConn.createNeo4jConnection()
+        records, summary, keys = driver.execute_query(
+            query,
+            parameters,
+            database_="neo4j",
+        )
+
+        concepts = []
+        for record in records:
+            conceptItem = Topic(
+                name=record['ConceptName'],
+                identifier=record['ConceptIdentifier'],
+            )
+            concepts.append(conceptItem)
+
+            return createDataJSON(summary.query, summary.result_available_after, [conceptItem])
 
 
 def createDataJSON(query, time, records):

@@ -4,12 +4,15 @@ import json
 
 from flask import Flask, redirect, url_for, request, Response, jsonify
 
+from controllers.ontology_con import OntologyCon
+from models.ontology import Ontology, DataType, NodeType
 from models.surah import Surah
+from models.topic import Topic
 from models.verse import Verse
 from models.hadith import Hadith
 from models.dua import Dua
 from utils.utils import getUniqueSurahs, getUniqueVerses, getUniqueHadiths, groupVerses, setSurahAndVerseJson, \
-    setSurahJson, createDataJSON
+    setSurahJson, createDataJSON, createResultsJSON
 
 from conn.mongodb_conn import MongoDBConn
 from conn.neo4j_conn import Neo4jConn
@@ -26,12 +29,11 @@ import jwt
 from datetime import datetime, timedelta
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+CORS(app)
 load_dotenv()
 
-app.config['SECRET_KEY'] = 'your_secret_key_here'  # Change this to a secure secret key
+app.config['SECRET_KEY'] = 'your_secret_key_here'
 
-# Mock user database
 users = {
     'admin': {'username': 'admin', 'password': 'admin', 'role': 'admin'},
     'scholar': {'username': 'scholar', 'password': 'scholar', 'role': 'scholar'},
@@ -270,22 +272,22 @@ def getSurahs():
 
 @app.route('/types', methods=["GET"])
 def getTypes():
-    # surahID = request.args.get('id')
-    # duaType = request.args.get('type')
-
     jsonData = TopicCon.getAllTypes()
     return Response(jsonData, mimetype="text/json"), 200
 
 
 @app.route('/concepts', methods=["GET"])
 def getConcepts():
-    # surahID = request.args.get('id')
     typeID = request.args.get('type')
+    conceptID = request.args.get('id')
 
-    print(typeID)
+    if typeID is not None:
+        jsonData = TopicCon.getAllConceptsByType(typeID)
+        return Response(jsonData, mimetype="text/json"), 200
 
-    jsonData = TopicCon.getAllConceptsByType(typeID)
-    return Response(jsonData, mimetype="text/json"), 200
+    elif conceptID is not None:
+        jsonData = TopicCon.getConceptByID(conceptID)
+        return Response(jsonData, mimetype="text/json"), 200
 
     # if surahID:
     #     jsonData = SurahCon.getSurahByID(surahID)
@@ -335,7 +337,6 @@ def addHadith():
 
 @app.route('/hadiths', methods=["PUT"])
 def updateHadith():
-    # print(id)
     oldID = request.args.get('id')
     params = request.json
     hadith = Hadith(**params)
@@ -369,7 +370,6 @@ def addVerse():
     if request.method == "POST":
         params = request.json
         verse = Verse(**params)
-        # print(dua.types)
         VerseCon.addVerse(verse)
     return 'Done!!!!'
 
@@ -398,22 +398,189 @@ def deleteVerse(id):
 def results():
     records, summary, keys = Neo4jConn.executeNeo4jQuery()
     queryResults = extractNeo4jResults(records, summary)
-    # queryResults.headers.add('Access-Control-Allow-Origin', '*')
-    # queryResults.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
-    # queryResults.headers.add('Access-Control-Allow-Headers', 'Content-Type')
-    # queryResults.headers.add('Access-Control-Allow-Credentials', 'true')
 
     return Response(queryResults, mimetype="text/json"), 200
 
 
-# @app.route('/login', methods=['POST', 'GET'])
-# def login():
-#     if request.method == 'POST':
-#         user = request.form['nm']
-#         return redirect(url_for('success', name=user))
-#     else:
-#         user = request.args.get('nm')
-#         return redirect(url_for('success', name=user))
+@app.route('/testDataRoute', methods=["GET"])
+def testData():
+    records, summary, keys = Neo4jConn.executeNeo4jQuery(query="""
+        MATCH (start)-[r:MENTIONED_IN|DESCRIBES|OF]->(end)
+RETURN 
+  CASE WHEN 'Verse' IN labels(start) THEN "Verse"
+       WHEN 'Hadith' IN labels(start) THEN "Hadith"
+       WHEN 'Surah' IN labels(start) THEN "Surah"
+       WHEN 'Concept' IN labels(start) THEN "Concept"
+       WHEN 'Type' IN labels(start) THEN "Type"
+       ELSE labels(start)
+  END AS STARTLABELTYPE,
+  CASE WHEN 'Verse' IN labels(start) THEN start.verseID
+       WHEN 'Hadith' IN labels(start) THEN start.hadithID
+       WHEN 'Surah' IN labels(start) THEN start.surah_number
+       WHEN 'Concept' IN labels(start) THEN start.identifier
+       WHEN 'Type' IN labels(start) THEN start.identifier
+       ELSE labels(start)
+  END AS STARTLABELID,
+  CASE WHEN 'Verse' IN labels(start) THEN start.englishText
+       WHEN 'Hadith' IN labels(start) THEN start.englishText
+       WHEN 'Surah' IN labels(start) THEN start.name
+       WHEN 'Concept' IN labels(start) THEN start.name
+       WHEN 'Type' IN labels(start) THEN start.name
+       ELSE labels(start)
+  END AS STARTLABELNAME,
+  type(r) AS RELNAME,
+  CASE WHEN 'Verse' IN labels(end) THEN "Verse"
+       WHEN 'Hadith' IN labels(end) THEN "Hadith"
+       WHEN 'Surah' IN labels(end) THEN "Surah"
+       WHEN 'Concept' IN labels(end) THEN "Concept"
+       WHEN 'Type' IN labels(end) THEN "Type"
+       ELSE labels(end)
+  END AS ENDLABELTYPE,
+  CASE WHEN 'Verse' IN labels(end) THEN end.verseID
+       WHEN 'Hadith' IN labels(end) THEN end.hadithID
+       WHEN 'Surah' IN labels(end) THEN end.surah_number
+       WHEN 'Concept' IN labels(end) THEN end.identifier
+       WHEN 'Type' IN labels(end) THEN end.identifier
+       ELSE labels(end)
+  END AS ENDLABELID,
+  CASE WHEN 'Verse' IN labels(end) THEN end.englishText
+       WHEN 'Hadith' IN labels(end) THEN end.englishText
+       WHEN 'Surah' IN labels(end) THEN end.name
+       WHEN 'Concept' IN labels(end) THEN end.name
+       WHEN 'Type' IN labels(end) THEN end.name
+       ELSE labels(end)
+  END AS ENDLABELNAME
+
+    """)
+
+    dataObj = {
+        "topics": [],
+        "concepts": [],
+        "hadiths": [],
+        "verses": []
+    }
+
+    of_records = []
+    mentioned_or_describes_records = []
+
+    # Iterate over records and categorize them into respective lists
+    for record in records:
+        if record["RELNAME"] == 'OF':
+            of_records.append(record)
+        elif record["RELNAME"] == 'MENTIONED_IN' or record["RELNAME"] == 'DESCRIBES':
+            mentioned_or_describes_records.append(record)
+
+    for record in of_records:
+        dataObj = addConcept(record, dataObj)
+    for record in mentioned_or_describes_records:
+        dataObj = addRelation(record, dataObj)
+
+    dataObj_dict = {
+        key: [topic.to_dict() if isinstance(topic, Topic) else topic for topic in value]
+        for key, value in dataObj.items()
+    }
+
+    response = createResultsJSON(dataObj_dict, summary.query, len(records), summary.result_available_after)
+
+    return Response(response, mimetype="application/json"), 200
+
+
+def addConcept(record, dataObj):
+    newCon = Topic(identifier=record['STARTLABELID'], name=record['STARTLABELNAME'])
+    newTop = Topic(identifier="DefaultID", name="DefaultName")
+
+    if record['ENDLABELTYPE'] == 'Type':
+        newTop = Topic(identifier=record['ENDLABELID'], name=record['ENDLABELNAME'])
+        if not any(top.id == record['ENDLABELID'] for top in dataObj.get('topics', [])):
+            dataObj.setdefault('topics', []).append(newTop)
+
+    if not any(con.id == record['STARTLABELID'] for con in dataObj.get('concepts', [])):
+        if newTop.id != 'DefaultID':
+            for topic in dataObj['topics']:
+                if topic.id == record['ENDLABELID']:
+                    topic.concepts.append(newCon)
+                    break
+    return dataObj
+
+
+def addRelation(record, dataObj):
+    if record["RELNAME"] == "MENTIONED_IN":
+        dataObj = addVerseRelation(record, dataObj)
+    dataObj = addHadithRelation(record, dataObj)
+
+    return dataObj
+
+
+def addVerseRelation(record, dataObj):
+    ont = Ontology.from_relationship(
+        relationshipName=record["RELNAME"],
+        startNode=Topic(record['STARTLABELID']),
+        endNode=Verse(verseID=record["ENDLABELID"], englishText="something English", arabicText="something Arabic"),
+        uid="23324"
+    )
+    if len(record['STARTLABELID']) <= 2:
+        for topic in dataObj['topics']:
+            if topic.id == record['STARTLABELID']:
+                topic.relationships.append(ont)
+                break
+    for topic in dataObj['topics']:
+        for con in topic.concepts:
+            if con.id == record['STARTLABELID']:
+                con.relationships.append(ont)
+                break
+    return dataObj
+
+
+def addHadithRelation(record, dataObj):
+    ont = Ontology.from_relationship(
+        relationshipName=record["RELNAME"],
+        endNode=Topic(record['ENDLABELID']),
+        startNode=Hadith(hadithID=record["STARTLABELID"], englishText="something English", arabicText="something Arabic"),
+        uid="23324"
+    )
+    if len(record['ENDLABELID']) <= 2:
+        for topic in dataObj['topics']:
+            if topic.id == record['ENDLABELID']:
+                topic.relationships.append(ont)
+                break
+    for topic in dataObj['topics']:
+        for con in topic.concepts:
+            if con.id == record['ENDLABELID']:
+                con.relationships.append(ont)
+                break
+    return dataObj
+
+
+@app.route('/ontologies', methods=["POST"])
+def addOntology():
+    dummyJson = {
+        "dataType": "verse OR hadith",
+        "dataID": "verseID OR hadithID",
+        "mainTheme": "TypeID",
+        "concept": "ConceptID",
+        "userID": "111"
+    }
+    if request.method == "POST":
+        params = request.json
+        print(params)
+        dataTypeStr = params.get("dataType")
+        print(dataTypeStr)
+
+        if dataTypeStr not in DataType.__members__:
+            raise ValueError("Invalid dataType provided")
+
+        dataTypeEnum = DataType[dataTypeStr]  # Convert string to enum
+        print(dataTypeEnum)
+        params["dataType"] = dataTypeEnum
+
+        print(params["dataType"])
+
+        ontology = Ontology(**params)
+        OntologyCon.addOntology(ontology)
+
+        print(params)
+
+    return jsonify({'message': 'create Ontology'}), 201
 
 
 @app.route('/admin')
@@ -478,21 +645,13 @@ def extractNeo4jResults(records, summary):
 
     return createDataJSON(summary.query, summary.result_available_after, verses, hadiths)
 
-    # print("TOTAL HADITHS: " + str(len(hadiths)))
-    # print("TOTAL VERSES: " + str(len(verses)))
-    # for hadith in hadiths:
-    #     print(hadith)
-
-    # unique_hadith_list = []
-    # for item in dummy_hadiths:
-    #     if item not in unique_hadith_list:
-    #         unique_hadith_list.append(item)
-    #
-    # unique_verse_list = []
-    # for item in dummy_verses:
-    #     if item not in unique_verse_list:
-    #         unique_verse_list.append(item)
-
 
 if __name__ == '__main__':
+    # ont = Ontology.from_relationship(relationshipName="MENTIONED_IN", startNode=Topic(identifier="ZK"),
+    #                                  endNode=Verse(verseID="2:83", englishText="English Text",
+    #                                                arabicText="Arabic Text"), uid=111)
+    # print(ont.startNode.id)
+    # print(ont.relationshipName)
+    # print(ont.endNode.id)
+
     app.run(debug=True, port=48275, host="192.168.56.1")

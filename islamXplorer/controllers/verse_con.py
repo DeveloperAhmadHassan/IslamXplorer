@@ -92,7 +92,7 @@ class VerseCon:
         session = driver.session(database="neo4j")
 
         try:
-            result: Transaction = session.run(query, parameters)
+            result = session.run(query, parameters)
             # records = result.records()
             summary = result.consume()
             keys = result.keys()

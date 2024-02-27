@@ -68,3 +68,28 @@ Results {
         }
     ]
 }
+
+data = [
+    // CHANGE "topics" TO "data"
+    "topics":[
+        {
+            "id": "topic Identifier"
+            "name": "topic Name"
+            "concepts":[
+               {
+                    "id": "concept Identifier"
+                    "name": "concept Name" ,
+                    "relationships": [
+                        {
+                            "relationshipName": "MENTIONED_IN" OR "DESCRIBES",
+                            "dataType": "Verse OR Hadith OR Surah",
+                            "dataTypeID": "ID OF DATA"
+                            "externalUserID": "euid"
+                        },{...},{...} //More ONTOLOGY Objects inside RELATIONSHIPS Property
+
+                    ]
+               }, {...}, {...} //More CONCEPT Objects inside CONCEPTS Property
+            ]
+        }, {...}, {...} //More TOPIC Objects inside TOPICS Property
+    ]
+]

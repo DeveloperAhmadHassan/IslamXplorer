@@ -1,5 +1,5 @@
 class Hadith:
-    def __init__(self, hadithID, hadithNo, englishText, arabicText, source, narratedBy):
+    def __init__(self, hadithID, hadithNo=None, englishText=None, arabicText=None, source=None, narratedBy=None):
         self.id = hadithID
         self.hadithNo = hadithNo
         self.englishText = englishText
