@@ -339,8 +339,8 @@ def results():
     return Response(queryResults, mimetype="text/json"), 200
 
 
-@app.route('/testDataRoute', methods=["GET"])
-def testData():
+@app.route('/ontologies', methods=["GET"])
+def getOntologies():
     records, summary, keys = Neo4jConn.executeNeo4jQuery(query="""
         MATCH (start)-[r:MENTIONED_IN|DESCRIBES|OF]->(end)
 RETURN 
@@ -407,7 +407,6 @@ RETURN
         dataObj = addConcept(record, dataObj)
     for record in mentioned_or_describes_records:
         dataObj = addRelation(record, dataObj)
-
 
     dataObjDict = {
         key: [topic.to_dict() if isinstance(topic, Topic) else topic for topic in value]

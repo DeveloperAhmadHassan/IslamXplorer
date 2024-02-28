@@ -47,7 +47,7 @@ def createResultsJSON(data, query, total_results, time, status):
         "cipher": query,
         "totalResults": total_results,
         "timeTaken": time,
-        "data": data
+        "data": data['topics']
     }
     return json.dumps(results, ensure_ascii=False, default=obj_dict, indent=4)
 
