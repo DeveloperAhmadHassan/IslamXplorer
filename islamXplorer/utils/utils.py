@@ -41,11 +41,12 @@ def createDataJSON(query, time, verse_objects, hadith_objects):
     return json.dumps(results, ensure_ascii=False, default=obj_dict, indent=4)
 
 
-def createResultsJSON(data, query, total_results, time):
+def createResultsJSON(data, query, total_results, time, status):
     results = {
-        "Cipher": query,
-        "TotalResults": total_results,
-        "TimeTaken": time,
+        "status": status,
+        "cipher": query,
+        "totalResults": total_results,
+        "timeTaken": time,
         "data": data
     }
     return json.dumps(results, ensure_ascii=False, default=obj_dict, indent=4)

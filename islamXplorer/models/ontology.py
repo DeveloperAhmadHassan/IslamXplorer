@@ -20,7 +20,7 @@ class NodeType(Enum):
 
 
 class Ontology:
-    def __init__(self, dataType, dataID, topic, concept, uid, startNode=None, endNode=None, relationshipName=None):
+    def __init__(self, dataType, dataID, topic, concept, uid, startNode=None, endNode=None, relationshipName=None, flag=False):
         if not isinstance(dataType, DataType) and dataType is not None:
             raise ValueError("Invalid dataType")
         self.dataType = dataType
@@ -31,6 +31,7 @@ class Ontology:
         self.startNode = startNode
         self.endNode = endNode
         self.relationshipName = relationshipName
+        self.flag = flag
 
     @classmethod
     def from_relationship(cls, relationshipName, startNode, endNode, uid):
@@ -44,6 +45,7 @@ class Ontology:
     def to_dict(self):
         ontDict = {
             "externalUserID": self.uid,
+            "flag": self.flag
         }
 
         if self.relationshipName:
