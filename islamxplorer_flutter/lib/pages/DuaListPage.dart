@@ -33,9 +33,6 @@ class _DuaListPageState extends State<DuaListPage> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-
-    print(widget.title);
-
     return Scaffold(
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle(

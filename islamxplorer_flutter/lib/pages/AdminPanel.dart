@@ -5,6 +5,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/pages/DuaListPage.dart';
 import 'package:islamxplorer_flutter/pages/HadithListPage.dart';
+import 'package:islamxplorer_flutter/pages/QuranHomePage.dart';
 import 'package:islamxplorer_flutter/pages/ReportListPage.dart';
 import 'package:islamxplorer_flutter/pages/VerseListPage.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
@@ -187,36 +188,39 @@ class AdminPanel extends StatelessWidget {
                 StaggeredGridTile.count(
                   crossAxisCellCount: 2,
                   mainAxisCellCount: 2,
-                  child: Card(
-                    color: Colors.orange.shade100,
-                    elevation: 7,
-                    child: Container(
-                      height: 200,
-                      child: Stack(
-                        children: [
-                          Positioned(
-                              top: 40,
-                              left: -60,
-                              child: SizedBox(
+                  child: GestureDetector(
+                    onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>const QuranHomePage() )),
+                    child: Card(
+                      color: Colors.orange.shade100,
+                      elevation: 7,
+                      child: Container(
+                        height: 200,
+                        child: Stack(
+                          children: [
+                            Positioned(
+                                top: 40,
+                                left: -60,
+                                child: SizedBox(
+                                    height: 200,
+                                    width: 200,
+                                    child: Image.asset('assets/man_praying_v2.png')
+                                )
+                            ),
+                            Positioned(
+                                bottom: 130,
+                                right: -100,
+                                child: Container(
                                   height: 200,
                                   width: 200,
-                                  child: Image.asset('assets/man_praying_v2.png')
-                              )
-                          ),
-                          Positioned(
-                              bottom: 130,
-                              right: -100,
-                              child: Container(
-                                height: 200,
-                                width: 200,
-                                decoration: BoxDecoration(
-                                    color: Colors.yellow.shade50,
-                                    borderRadius: BorderRadius.circular(100)
-                                ),
-                              )
-                          ),
-                          Center(child: CustomText("Surahs", 40, alignment: Alignment.center, color: Colors.black,)),
-                        ],
+                                  decoration: BoxDecoration(
+                                      color: Colors.yellow.shade50,
+                                      borderRadius: BorderRadius.circular(100)
+                                  ),
+                                )
+                            ),
+                            Center(child: CustomText("Surahs", 40, alignment: Alignment.center, color: Colors.black,)),
+                          ],
+                        ),
                       ),
                     ),
                   ),

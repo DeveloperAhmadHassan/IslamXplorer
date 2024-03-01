@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:islamxplorer_flutter/controllers/duaDataController.dart';
 import 'package:islamxplorer_flutter/controllers/reportDataController.dart';
 import 'package:islamxplorer_flutter/controllers/userDataController.dart';
 import 'package:islamxplorer_flutter/extensions/color.dart';
@@ -14,6 +12,7 @@ import 'package:islamxplorer_flutter/values/colors.dart';
 import 'package:islamxplorer_flutter/widgets/secondary_loader.dart';
 import 'package:islamxplorer_flutter/widgets/utils/custom_button.dart';
 import 'package:islamxplorer_flutter/widgets/utils/custom_error_widget.dart';
+import 'package:islamxplorer_flutter/widgets/utils/custom_text.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 import 'dart:math';
@@ -71,38 +70,47 @@ class _ReportListPageState extends State<ReportListPage> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(35)
                 ),
-                child: Container(
-                  margin: EdgeInsets.all(10),
-                  height: 120,
-                  width: 350,
-                  child: LineChart(
-                    LineChartData(
-                      borderData: FlBorderData(show: false),
-                      lineBarsData: [
-                        // The red line
-                        LineChartBarData(
-                          spots: dummyData1,
-                          isCurved: true,
-                          barWidth: 3,
-                          color: Colors.indigo,
-                        ),
-                        // The orange line
-                        LineChartBarData(
-                          spots: dummyData2,
-                          isCurved: true,
-                          barWidth: 3,
-                          color: Colors.red,
-                        ),
-                        // The blue line
-                        LineChartBarData(
-                          spots: dummyData3,
-                          isCurved: false,
-                          barWidth: 3,
-                          color: Colors.blue,
-                        )
-                      ],
+                child: Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      child: CustomText("Total Reports",24, alignment: Alignment.center,bold: true,),
                     ),
-                  ),
+                    Container(
+                      margin: EdgeInsets.all(10),
+                      height: 250,
+                      width: 350,
+                      child: LineChart(
+                        LineChartData(
+                          borderData: FlBorderData(show: false),
+                          lineTouchData: LineTouchData(enabled: true),
+                          lineBarsData: [
+                            // The red line
+                            LineChartBarData(
+                              spots: dummyData1,
+                              isCurved: true,
+                              barWidth: 3,
+                              color: Colors.indigo,
+                            ),
+                            // The orange line
+                            LineChartBarData(
+                              spots: dummyData2,
+                              isCurved: true,
+                              barWidth: 3,
+                              color: Colors.red,
+                            ),
+                            // The blue line
+                            LineChartBarData(
+                              spots: dummyData3,
+                              isCurved: false,
+                              barWidth: 3,
+                              color: Colors.blue,
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(
