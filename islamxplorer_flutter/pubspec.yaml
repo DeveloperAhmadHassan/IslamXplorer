@@ -67,6 +67,7 @@ dependencies:
   firebase_storage: ^11.5.2
   flutter_dotenv: ^5.1.0
   fl_chart: ^0.65.0
+  audioplayers: ^5.2.1
 
 
 #flutter_launcher_icons:
@@ -143,6 +144,19 @@ flutter:
     - family: IBMPlexMono
       fonts:
         - asset: assets/fonts/IBMPlexMono-Medium.ttf
+    - family: AlQuran
+      fonts:
+        - asset: assets/fonts/Al-Quran-Normal.ttf
+    - family: UthmaniScript
+      fonts:
+        - asset: assets/fonts/Uthmani-Normal.ttf
+    - family: UthmaniScriptBold
+      fonts:
+        - asset: assets/fonts/Uthmani-Bold.ttf
+
+    - family: UthmaniScriptSemiBold
+      fonts:
+        - asset: assets/fonts/Uthmani-SemiBold.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

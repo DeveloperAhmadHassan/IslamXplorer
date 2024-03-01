@@ -6,6 +6,9 @@ import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
 import 'package:quran/quran.dart' as quran;
 
+import '../models/surah.dart';
+import 'SurahHomePage.dart';
+
 class QuranHomePage extends StatefulWidget {
   const QuranHomePage({super.key});
 
@@ -106,6 +109,8 @@ class _QuranHomePageState extends State<QuranHomePage> {
                       children: [
                         GestureDetector(
                           onTap: () {
+                            Surah surah = Surah(id: index+1, totalVerses: quran.getVerseCount(index+1));
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>SurahHomePage(surah: surah)));
                             print('Tapped on Surah ${index + 1}');
                           },
 
