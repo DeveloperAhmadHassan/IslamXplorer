@@ -36,12 +36,12 @@ class HadithCon:
     def getHadithByID(id: str):
         query = """
             MATCH (h:Hadith)
-            WHERE h.hadithID = $id  
+            WHERE h.hadithID = $verseID  
             RETURN h.hadithID as ID, h.source as Source, h.arabicText as ArabicText, 
             h.englishText as EnglishText, h.hadithNo as HadithNo, h.narratedBy as NarratedBy
             LIMIT 1
         """
-        parameters = {"id": id}
+        parameters = {"verseID": id}
 
         try:
             driver = Neo4jConn.createNeo4jConnection()
@@ -77,7 +77,7 @@ class HadithCon:
     def addHadith(hadith: Hadith):
         query = """
             CREATE (:Hadith:EXTERNAL {
-                hadithID: $id,
+                hadithID: $verseID,
                 hadithNo: $hadithNo,
                 arabicText: $arabicText,
                 englishText: $englishText,
@@ -87,7 +87,7 @@ class HadithCon:
         """
 
         parameters = {
-            "id": hadith.id,
+            "verseID": hadith.id,
             "hadithNo": hadith.hadithNo,
             "arabicText": hadith.arabicText,
             "englishText": hadith.englishText,
@@ -111,7 +111,7 @@ class HadithCon:
     @staticmethod
     def updateHadithByID(hadith: Hadith, id: str):
         query = """
-                    MATCH (h:Hadith {hadithID: $id})
+                    MATCH (h:Hadith {hadithID: $verseID})
                     SET h.hadithID = $newHadithID,
                         h.hadithNo = $newHadithNo,
                         h.arabicText = $newArabicText,
@@ -123,7 +123,7 @@ class HadithCon:
                 """
 
         parameters = {
-            "id": id,
+            "verseID": id,
             "newHadithID": hadith.id,
             "newHadithNo": hadith.hadithNo,
             "newArabicText": hadith.arabicText,
@@ -167,12 +167,12 @@ class HadithCon:
     @staticmethod
     def deleteHadithByID(id: str):
         query = """
-            MATCH (h:Hadith {hadithID: $id})
+            MATCH (h:Hadith {hadithID: $verseID})
             DELETE h;
         """
 
         parameters = {
-            "id": id,
+            "verseID": id,
         }
 
         try:

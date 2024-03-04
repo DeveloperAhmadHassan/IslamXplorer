@@ -33,18 +33,17 @@ class VerseCon:
         return createDataJSON(summary.query, summary.result_available_after, verses)
 
     @staticmethod
-    def getVerseByID(id: str):
+    def getVerseByID(verseID: str):
         query = """
             MATCH (v:Verse)-[:VERSE_OF]->(s:Surah)
-            WHERE v.verseID = $id  
+            WHERE v.verseID = $verseID  
             RETURN v.verseID as ID, v.arabicText as ArabicText, v.englishText as EnglishText, s.name as SurahName,
                     s.surah_number as SurahNumber
             LIMIT 1
         """
-        parameters = {"id": id}
-
+        parameters = {"verseID": verseID}
+        driver = Neo4jConn.createNeo4jConnection()
         try:
-            driver = Neo4jConn.createNeo4jConnection()
             records, summary, keys = driver.execute_query(
                 query,
                 parameters,
@@ -76,14 +75,14 @@ class VerseCon:
     def addVerse(verse: Verse):
         query = """
             CREATE (:Verse:EXTERNAL {
-                verseID: $id,
+                verseID: $verseID,
                 arabicText: $arabicText,
                 englishText: $englishText
             })
         """
 
         parameters = {
-            "id": verse.id,
+            "verseID": verse.id,
             "arabicText": verse.arabicText,
             "englishText": verse.englishText,
         }
@@ -104,7 +103,7 @@ class VerseCon:
     @staticmethod
     def updateVerseByID(verse: Verse, id:str):
         query = """
-                    MATCH (v:Verse {verseID: $id})
+                    MATCH (v:Verse {verseID: $verseID})
                     SET v.verseID = $newVerseID,
                         v.arabicText = $newArabicText,
                         v.englishText = $newEnglishText
@@ -113,7 +112,7 @@ class VerseCon:
                 """
 
         parameters = {
-            "id": id,
+            "verseID": id,
             "newVerseID": verse.id,
             "newArabicText": verse.arabicText,
             "newEnglishText": verse.englishText,
@@ -150,12 +149,12 @@ class VerseCon:
     @staticmethod
     def deleteVerseByID(id: str):
         query = """
-            MATCH (v:Verse {verseID: $id})
+            MATCH (v:Verse {verseID: $verseID})
             DELETE v;
         """
 
         parameters = {
-            "id": id,
+            "verseID": id,
         }
 
         try:

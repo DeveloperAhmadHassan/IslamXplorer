@@ -9,7 +9,7 @@ class Hadith:
 
     @property
     def __str__(self):
-        return "id: " + self.id
+        return "verseID: " + self.id
 
     def __repr__(self):
         return self.__str__
@@ -17,7 +17,7 @@ class Hadith:
     def to_dict(self):
         return {
             "type": "hadith",
-            "id": self.id,
+            "verseID": self.id,
             "hadithNo": self.hadithNo,
             "arabicText": self.arabicText,
             "englishText": self.englishText,

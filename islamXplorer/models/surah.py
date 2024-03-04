@@ -1,9 +1,11 @@
 class Surah:
-    def __init__(self, name, number, revealedIn=None, verses=None,):
+    def __init__(self, name, number, revealedIn=None, verses=None, totalVerses=None, euid=None):
         self.name = name
         self.number = number
         self.revealedIn = revealedIn
         self.verses = verses or []
+        self.totalVerses = totalVerses
+        self.euid = euid
 
     def setVerses(self, verses):
         self.verses = verses
@@ -17,12 +19,12 @@ class Surah:
 
     def to_dict(self):
         surah_dict = {
-            "id": self.number,
+            "surahID": self.number,
             "name": self.name,
         }
         if self.revealedIn is not None:
             surah_dict["revealedIn"] = self.revealedIn
-        if self.verses:  # Check if the list is not empty
+        if self.verses:
             surah_dict["verses"] = [verse.to_dict() for verse in self.verses]
         return surah_dict
 

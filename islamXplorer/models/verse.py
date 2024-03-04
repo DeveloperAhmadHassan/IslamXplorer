@@ -8,7 +8,7 @@ class Verse:
 
     @property
     def __str__(self):
-        return "id: " + self.id
+        return "verseID: " + self.id
 
     def __repr__(self):
         return self.__str__
@@ -16,7 +16,7 @@ class Verse:
     def to_dict(self):
         verse_dict = {
             "type": "verse",
-            "id": self.id,
+            "verseID": self.id,
             "arabicText": self.arabicText,
             "englishText": self.englishText,
         }

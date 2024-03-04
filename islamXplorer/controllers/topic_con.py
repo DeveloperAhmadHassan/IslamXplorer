@@ -32,11 +32,11 @@ class TopicCon:
     def getAllConceptsByType(id: str):
         query = """
                     MATCH (t:Type)-[:OF]-(c:Concept)
-                    WHERE t.identifier = $id 
-                    RETURN t.name as TypeName, t.id as TypeIdentifier, c.name as ConceptName, c.identifier as ConceptIdentifier
+                    WHERE t.identifier = $verseID 
+                    RETURN t.name as TypeName, t.verseID as TypeIdentifier, c.name as ConceptName, c.identifier as ConceptIdentifier
                     ORDER BY c.name
                 """
-        parameters = {"id": str(id)}
+        parameters = {"verseID": str(id)}
         driver = Neo4jConn.createNeo4jConnection()
         records, summary, keys = driver.execute_query(
             query,
@@ -62,10 +62,10 @@ class TopicCon:
     def getConceptByID(id: str):
         query = """
                     MATCH (c:Concept)
-                    WHERE c.identifier = $id 
+                    WHERE c.identifier = $verseID 
                     RETURN c.name as ConceptName, c.identifier as ConceptIdentifier
                 """
-        parameters = {"id": str(id)}
+        parameters = {"verseID": str(id)}
         driver = Neo4jConn.createNeo4jConnection()
         records, summary, keys = driver.execute_query(
             query,

@@ -55,6 +55,14 @@ duaParameters = {
     'types': ["required", "list"],
 }
 
+surahParameters = {
+    'number': ["required", "int"],
+    'name': ["required", "str"],
+    'revealedIn': ["required", "str"],
+    'totalVerses': ["required", "int"],
+    'euid': ['required', 'int']
+}
+
 
 @app.route('/')
 def root():
@@ -65,7 +73,7 @@ def root():
 
 @app.route('/duas', methods=["GET"])
 def getDuas():
-    duaID = request.args.get('id')
+    duaID = request.args.get('verseID')
     duaTypeTitle = request.args.get('typeTitle')
     duaTypeID = request.args.get('typeID')
 
@@ -95,7 +103,7 @@ def getDuas():
 
 @app.route('/duas', methods=["DELETE"])
 def deleteDua():
-    duaID = str(request.args.get('id'))
+    duaID = str(request.args.get('verseID'))
     if duaID is not None:
         jsonData = DuaCon.deleteDuaByID(duaID)
         if 'error' in jsonData:
@@ -110,7 +118,7 @@ def deleteDua():
 
 @app.route('/duas', methods=["PUT"])
 def updateDua():
-    oldID = request.args.get('id')
+    oldID = request.args.get('verseID')
     params = request.json
     dua = Dua(**params)
     jsonData = DuaCon.updateDuaByID(oldID, dua)
@@ -184,6 +192,7 @@ def getSurahs():
     duaType = request.args.get('type')
 
     if surahID:
+        print(surahID)
         jsonData = SurahCon.getSurahByID(surahID)
         if 'error' in jsonData:
             return Response(json.dumps({'status': 500, 'totalResults': 0, 'error': jsonData['error']}),
@@ -207,6 +216,41 @@ def getSurahs():
             return Response(jsonData, mimetype="text/json"), 200
 
 
+@app.route('/surahs', methods=["POST"])
+def addSurah():
+    if request.method == "POST":
+        params = request.json
+        print(params)
+        errors = []
+
+        for param, [required, expected_type] in surahParameters.items():
+            if required == 'required' and param not in params:
+                errors.append(param.__str__())
+            elif param in params and not isinstance(params[param], eval(expected_type)):
+                errors.append(
+                    f'Invalid data type for parameter {param}. Expected {expected_type}, got {type(params[param])}')
+
+        if errors:
+            return Response(
+                json.dumps({
+                    'status': 400,
+                    'requiredParameters': {", ".join(errors)}
+                },
+                    ensure_ascii=False, default=str, indent=2
+                ),
+                mimetype="text/json"
+            ), 400
+        else:
+            surah = Surah(**params)
+            jsonData = SurahCon.addSurah(surah)
+
+            if 'error' in jsonData:
+                return Response(json.dumps({'status': 500, 'error': jsonData['error']}),
+                                mimetype="text/json"), 500
+            else:
+                return jsonData, 201
+
+
 @app.route('/types', methods=["GET"])
 def getTypes():
     jsonData = TopicCon.getAllTypes()
@@ -216,7 +260,7 @@ def getTypes():
 @app.route('/concepts', methods=["GET"])
 def getConcepts():
     typeID = request.args.get('type')
-    conceptID = request.args.get('id')
+    conceptID = request.args.get('verseID')
 
     if typeID is not None:
         jsonData = TopicCon.getAllConceptsByType(typeID)
@@ -252,7 +296,7 @@ def getConcepts():
 
 @app.route('/hadiths', methods=["GET"])
 def getHadiths():
-    hadithID = request.args.get('id')
+    hadithID = request.args.get('verseID')
     if hadithID:
         # print(hadithID)
         jsonData = HadithCon.getHadithByID(hadithID)
@@ -274,7 +318,7 @@ def addHadith():
 
 @app.route('/hadiths', methods=["PUT"])
 def updateHadith():
-    oldID = request.args.get('id')
+    oldID = request.args.get('verseID')
     params = request.json
     hadith = Hadith(**params)
     jsonData = HadithCon.updateHadithByID(hadith, oldID)
@@ -286,14 +330,14 @@ def updateHadith():
 
 @app.route('/hadiths', methods=["DELETE"])
 def deleteHadith():
-    hadithID = request.args.get('id')
+    hadithID = request.args.get('verseID')
     jsonData = HadithCon.deleteHadithByID(hadithID)
     return Response(jsonData, mimetype="text/json", ), 200
 
 
 @app.route('/verses', methods=["GET"])
 def getVerses():
-    verseID = request.args.get('id')
+    verseID = request.args.get('verseID')
     if verseID:
         jsonData = VerseCon.getVerseByID(verseID)
         return Response(jsonData, mimetype="text/json", ), 200
@@ -314,7 +358,7 @@ def addVerse():
 @app.route('/verses', methods=["PUT"])
 def updateVerse():
     print(id)
-    oldID = request.args.get('id')
+    oldID = request.args.get('verseID')
     params = request.json
     verse = Verse(**params)
     jsonData = VerseCon.updateVerseByID(verse, oldID)
@@ -324,7 +368,7 @@ def updateVerse():
     return Response(jsonData, mimetype="text/json", ), 200
 
 
-@app.route('/verses/<id>', methods=["DELETE"])
+@app.route('/verses/<verseID>', methods=["DELETE"])
 def deleteVerse(id):
     print(id)
     jsonData = VerseCon.deleteVerseByID(id)
@@ -473,7 +517,8 @@ def addHadithRelation(record, dataObj):
     ont = Ontology.from_relationship(
         relationshipName=record["RELNAME"],
         endNode=Topic(record['ENDLABELID']),
-        startNode=Hadith(hadithID=record["STARTLABELID"], englishText="something English", arabicText="something Arabic"),
+        startNode=Hadith(hadithID=record["STARTLABELID"], englishText="something English",
+                         arabicText="something Arabic"),
         uid="23324"
     )
     if len(record['ENDLABELID']) <= 2:
@@ -590,8 +635,8 @@ if __name__ == '__main__':
     # ont = Ontology.from_relationship(relationshipName="MENTIONED_IN", startNode=Topic(identifier="ZK"),
     #                                  endNode=Verse(verseID="2:83", englishText="English Text",
     #                                                arabicText="Arabic Text"), uid=111)
-    # print(ont.startNode.id)
+    # print(ont.startNode.verseID)
     # print(ont.relationshipName)
-    # print(ont.endNode.id)
+    # print(ont.endNode.verseID)
 
     app.run(debug=True, port=48275, host="192.168.56.1")

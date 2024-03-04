@@ -13,7 +13,7 @@ class OntologyCon:
     def addOntology(ont: Ontology):
         # Define the base Cypher query
         base_query = """
-            MATCH (c:Concept {id: $conceptIdentifier})
+            MATCH (c:Concept {verseID: $conceptIdentifier})
             """
 
         # Define a function to construct Cypher pattern and relationship type

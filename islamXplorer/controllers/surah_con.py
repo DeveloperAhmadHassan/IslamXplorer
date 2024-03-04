@@ -32,12 +32,12 @@ class SurahCon:
     def getSurahByID(id: str):
         query = """
             MATCH (v:Verse)-[:VERSE_OF]->(s:Surah)
-            WHERE s.surah_number = $id
+            WHERE s.surah_number = $verseID
             RETURN v.verseID as ID, v.arabicText as ArabicText, v.englishText as EnglishText, s.name as SurahName,
                     s.surah_number as SurahNumber, s.revelation_place as RevelationPlace
             ORDER BY v.verseID
         """
-        parameters = {"id": int(id)}
+        parameters = {"verseID": int(id)}
 
         try:
             driver = Neo4jConn.createNeo4jConnection()
@@ -77,14 +77,14 @@ class SurahCon:
     # def addVerse(verse: Verse):
     #     query = """
     #         CREATE (:Verse:EXTERNAL {
-    #             verseID: $id,
+    #             verseID: $verseID,
     #             arabicText: $arabicText,
     #             englishText: $englishText
     #         })
     #     """
     #
     #     parameters = {
-    #         "id": verse.id,
+    #         "verseID": verse.verseID,
     #         "arabicText": verse.arabicText,
     #         "englishText": verse.englishText,
     #     }
@@ -103,9 +103,9 @@ class SurahCon:
     #         Neo4jConn.closeConnection(driver)
     #
     # @staticmethod
-    # def updateVerseByID(verse: Verse, id:str):
+    # def updateVerseByID(verse: Verse, verseID:str):
     #     query = """
-    #                 MATCH (v:Verse {verseID: $id})
+    #                 MATCH (v:Verse {verseID: $verseID})
     #                 SET v.verseID = $newVerseID,
     #                     v.arabicText = $newArabicText,
     #                     v.englishText = $newEnglishText
@@ -114,8 +114,8 @@ class SurahCon:
     #             """
     #
     #     parameters = {
-    #         "id": id,
-    #         "newVerseID": verse.id,
+    #         "verseID": verseID,
+    #         "newVerseID": verse.verseID,
     #         "newArabicText": verse.arabicText,
     #         "newEnglishText": verse.englishText,
     #     }
@@ -149,14 +149,14 @@ class SurahCon:
     #         Neo4jConn.closeConnection(driver)
     #
     # @staticmethod
-    # def deleteVerseByID(id: str):
+    # def deleteVerseByID(verseID: str):
     #     query = """
-    #         MATCH (v:Verse {verseID: $id})
+    #         MATCH (v:Verse {verseID: $verseID})
     #         DELETE v;
     #     """
     #
     #     parameters = {
-    #         "id": id,
+    #         "verseID": verseID,
     #     }
     #
     #     try:
@@ -176,6 +176,41 @@ class SurahCon:
     #
     #     finally:
     #         Neo4jConn.closeConnection(driver)
+    @staticmethod
+    def addSurah(surah: Surah):
+        query = """
+                CREATE (:Surah:EXTERNAL {
+                    surah_number: $surah_number,
+                    revelation_place: $revealedIn,
+                    name: $name,
+                    totalAyahs: $totalVerses,
+                    euid: $euid
+                })
+            """
+
+        parameters = {
+            "surah_number": surah.number,
+            "revealedIn": surah.revealedIn,
+            "totalVerses": surah.totalVerses,
+            "name": surah.name,
+            "euid": surah.euid
+        }
+
+        driver = Neo4jConn.createNeo4jConnection()
+        session = driver.session(database="neo4j")
+
+        try:
+            result = session.run(query, parameters)
+            # records = result.records()
+            summary = result.consume()
+            keys = result.keys()
+            return {
+                "status": 201,
+                "message": "Surah created Successfully"
+            }
+        finally:
+            session.close()
+            Neo4jConn.closeConnection(driver)
 
 
 def createDataJSON(query, time, records):

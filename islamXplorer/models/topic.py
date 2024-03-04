@@ -10,14 +10,14 @@ class Topic:
         self.concepts = concepts
 
     def __str__(self):
-        return "id: " + self.id
+        return "verseID: " + self.id
 
     def __repr__(self):
         return self.__str__()
 
     def to_dict(self):
         topic_dict = {
-            "id": self.id,
+            "verseID": self.id,
             "flag": self.flag
         }
 

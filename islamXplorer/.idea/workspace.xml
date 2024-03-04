@@ -6,6 +6,21 @@
   <component name="ChangeListManager">
     <list default="true" id="4c9427cc-2fc4-443d-bbe1-cbcfd473cea1" name="Changes" comment="Add Ontologies path in API">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/hadith_con.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/hadith_con.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/ontology_con.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/ontology_con.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/surah_con.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/surah_con.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/topic_con.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/topic_con.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/verse_con.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/verse_con.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/dua.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/dua.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/hadith.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/hadith.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/surah.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/surah.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/topic.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/topic.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/verse.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/verse.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/QuranHomePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/QuranHomePage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/SurahHomePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/pages/SurahHomePage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../islamxplorer_flutter/lib/values/colors.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../islamxplorer_flutter/lib/values/colors.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
