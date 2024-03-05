@@ -11,7 +11,7 @@ from models.topic import Topic
 from models.verse import Verse
 from models.hadith import Hadith
 from models.dua import Dua
-from utils.authUtils import authenticate, generate_jwt_token, role_required
+from utils.authUtils import authenticate, generateJWTToken, role_required, getUserRecord
 from utils.utils import getUniqueSurahs, getUniqueVerses, getUniqueHadiths, groupVerses, setSurahAndVerseJson, \
     setSurahJson, createDataJSON, createResultsJSON
 
@@ -562,19 +562,19 @@ def addOntology():
 
 
 @app.route('/admin')
-@role_required('admin')
+@role_required('A')
 def admin_route():
     return jsonify({'message': 'Welcome Admin!'})
 
 
 @app.route('/scholar', methods=['GET'])
-@role_required('scholar')
+@role_required('S')
 def scholar_route():
     return jsonify({'message': 'Welcome Scholar!'})
 
 
 @app.route('/user')
-@role_required('user')
+@role_required('U')
 def user_route():
     return jsonify({'message': 'Welcome User!'})
 
@@ -583,13 +583,13 @@ def user_route():
 @app.route('/login', methods=['POST'])
 def login():
     data = request.json
-    print(data)
-    username = data.get('username')
+    email = data.get('email')
     password = data.get('password')
 
-    user = authenticate(username, password)
+    user = authenticate(email, password)
     if user:
-        token = generate_jwt_token(user)
+        user = getUserRecord(user["localId"])
+        token = generateJWTToken(user)
         return jsonify({'token': token})
     else:
         return jsonify({'error': 'Invalid username or password'}), 401

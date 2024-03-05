@@ -1,26 +1,50 @@
+import json
 import os
 from datetime import datetime, timedelta
 from functools import wraps
 
 import jwt
-from flask import app, request, jsonify
+from flask import request, jsonify
+from pyrebase import pyrebase
 
-users = {
-    'admin': {'username': 'admin', 'password': 'admin', 'role': 'admin'},
-    'scholar': {'username': 'scholar', 'password': 'scholar', 'role': 'scholar'},
-    'user1': {'username': 'user1', 'password': 'user1', 'role': 'user'},
-    'user2': {'username': 'user2', 'password': 'user2', 'role': 'user'}
-}
+import firebase_admin
+from firebase_admin import credentials, firestore, auth
+
+cred = credentials.Certificate("ServiceAccountKey.json")
+firebase_admin.initialize_app(cred)
+
+with open("firebaseConfig.json", "r") as json_file:
+    data = json.load(json_file)
+    firebaseConfig = data
+
+firebase = pyrebase.initialize_app(firebaseConfig)
+firebaseAuth = firebase.auth()
 
 
 def authenticate(email, password):
-    pass
+    try:
+        user = firebaseAuth.sign_in_with_email_and_password(email, password)
+        return user
+    except firebase_admin.auth.UserNotFoundError as e:
+        return None
+    except firebase_admin.auth.EmailNotFoundError as e:
+        return None
 
 
-def generate_jwt_token(user):
+def getUserRecord(userID):
+    try:
+        db = firestore.client()
+        userRef = db.collection('Users').document(userID)
+        userData = userRef.get().to_dict()
+        return userData
+    except firebase_admin.auth.UserNotFoundError as e:
+        return None
+
+
+def generateJWTToken(user):
     payload = {
-        'username': user['username'],
-        'role': user['role'],
+        'email': user['email'],
+        'role': user['type'],
         'exp': datetime.utcnow() + timedelta(minutes=2)
     }
     token = jwt.encode(payload, os.getenv("AUTH_SECRET_KEY"), algorithm='HS256')
@@ -43,21 +67,17 @@ def role_required(role):
             except jwt.ExpiredSignatureError:
                 return jsonify({'error': 'Token has expired'}), 401
             except jwt.InvalidTokenError:
-                # print("payload: " +str(payload))
                 return jsonify({'error': 'Invalid token'}), 401
 
-            user_role = payload.get('role')
+            userRole = payload.get('role')
 
-            if user_role == 'admin':
-                # Allow access for admin to all routes
+            if userRole == 'A':
                 return func(*args, **kwargs)
-            elif user_role == 'scholar':
-                # Allow access for scholar to user and scholar routes
-                if role in ['user', 'scholar']:
+            elif userRole == 'S':
+                if role in ['U', 'S']:
                     return func(*args, **kwargs)
-            elif user_role == 'user':
-                # Allow access for user to user routes only
-                if role == 'user':
+            elif userRole == 'U':
+                if role == 'U':
                     return func(*args, **kwargs)
 
             return jsonify({'error': 'Unauthorized access'}), 403
