@@ -12,7 +12,7 @@ on:
       - develop
 
 jobs:
-  build:
+  buildFlutter:
     name: Build (APK and AAB)
     runs-on: ubuntu-latest
 
@@ -60,9 +60,9 @@ jobs:
         with:
           name: appbundle
           path: islamxplorer_flutter/build/app/outputs/bundle/release/app-release.aab
-  release:
+  releaseFlutter:
     name: Release (PlayStore)
-    needs: [build]
+    needs: [buildFlutter]
     runs-on: ubuntu-latest
 
     steps:

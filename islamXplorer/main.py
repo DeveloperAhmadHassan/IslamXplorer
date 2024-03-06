@@ -538,13 +538,6 @@ def addHadithRelation(record, dataObj):
 
 @app.route('/ontologies', methods=["POST"])
 def addOntology():
-    dummyJson = {
-        "dataType": "verse OR hadith",
-        "dataID": "verseID OR hadithID",
-        "mainTheme": "TypeID",
-        "concept": "ConceptID",
-        "userID": "111"
-    }
     if request.method == "POST":
         params = request.json
         print(params)
@@ -631,12 +624,12 @@ def extractNeo4jResults(records, summary):
     return createDataJSON(summary.query, summary.result_available_after, verses, hadiths)
 
 
-if __name__ == '__main__':
-    # ont = Ontology.from_relationship(relationshipName="MENTIONED_IN", startNode=Topic(identifier="ZK"),
-    #                                  endNode=Verse(verseID="2:83", englishText="English Text",
-    #                                                arabicText="Arabic Text"), uid=111)
-    # print(ont.startNode.verseID)
-    # print(ont.relationshipName)
-    # print(ont.endNode.verseID)
+@app.route("/dummy-path", methods=["GET"])
+def dummyPath():
+    print(request.args.get("value"))
+    # print(request.json)
+    return jsonify({"message": "dummy-path"}), 200
 
+
+if __name__ == '__main__':
     app.run(debug=True, port=48275, host="192.168.56.1")

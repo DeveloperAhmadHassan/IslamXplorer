@@ -22,8 +22,8 @@ class TopicCon:
         types = []
         for record in records:
             typeItem = Topic(
-                record['TypeName'],
-                record['TypeIdentifier'],
+                name=record['TypeName'],
+                identifier=record['TypeIdentifier'],
             )
             types.append(typeItem)
         return createDataJSON(summary.query, summary.result_available_after, types)
@@ -32,11 +32,11 @@ class TopicCon:
     def getAllConceptsByType(id: str):
         query = """
                     MATCH (t:Type)-[:OF]-(c:Concept)
-                    WHERE t.identifier = $verseID 
+                    WHERE t.identifier = $topicID 
                     RETURN t.name as TypeName, t.verseID as TypeIdentifier, c.name as ConceptName, c.identifier as ConceptIdentifier
                     ORDER BY c.name
                 """
-        parameters = {"verseID": str(id)}
+        parameters = {"topicID": str(id)}
         driver = Neo4jConn.createNeo4jConnection()
         records, summary, keys = driver.execute_query(
             query,

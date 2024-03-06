@@ -13,10 +13,8 @@ users = {
 }
 
 
-def authenticate(username, password):
-    if username in users and users[username]['password'] == password:
-        return users[username]
-    return None
+def authenticate(email, password):
+    pass
 
 
 def generate_jwt_token(user):
