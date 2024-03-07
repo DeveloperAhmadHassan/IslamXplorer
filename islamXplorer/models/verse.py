@@ -1,10 +1,11 @@
 class Verse:
-    def __init__(self, verseID, englishText, arabicText, surah=None, surahNumber=None):
+    def __init__(self, verseID, englishText, arabicText, surah=None, surahNumber=None, uid=None):
         self.id = verseID
         self.englishText = englishText
         self.arabicText = arabicText
         self.surah = surah
         self.surahNumber = surahNumber
+        self.uid = uid
 
     @property
     def __str__(self):

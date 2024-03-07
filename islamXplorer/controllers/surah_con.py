@@ -201,7 +201,6 @@ class SurahCon:
 
         try:
             result = session.run(query, parameters)
-            # records = result.records()
             summary = result.consume()
             keys = result.keys()
             return {

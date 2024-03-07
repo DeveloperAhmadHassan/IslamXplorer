@@ -1,11 +1,10 @@
 from dotenv import load_dotenv
-import os
 import json
 
-from flask import Flask, redirect, url_for, request, Response, jsonify
+from flask import Flask, request, Response, jsonify
 
 from controllers.ontology_con import OntologyCon
-from models.ontology import Ontology, DataType, NodeType
+from models.ontology import Ontology, DataType
 from models.surah import Surah
 from models.topic import Topic
 from models.verse import Verse
@@ -13,9 +12,8 @@ from models.hadith import Hadith
 from models.dua import Dua
 from utils.authUtils import authenticate, generateJWTToken, role_required, getUserRecord
 from utils.utils import getUniqueSurahs, getUniqueVerses, getUniqueHadiths, groupVerses, setSurahAndVerseJson, \
-    setSurahJson, createDataJSON, createResultsJSON
+    createDataJSON, createResultsJSON
 
-from conn.mongodb_conn import MongoDBConn
 from conn.neo4j_conn import Neo4jConn
 from controllers.dua_con import DuaCon
 from controllers.hadith_con import HadithCon
@@ -25,15 +23,9 @@ from controllers.topic_con import TopicCon
 
 from flask_cors import CORS
 
-from functools import wraps
-import jwt
-from datetime import datetime, timedelta
-
 app = Flask(__name__)
 CORS(app)
 load_dotenv()
-
-# app.config['SECRET_KEY'] = 'your_secret_key_here'
 
 methodNotAllowedJson = json.dumps(
     {
@@ -66,8 +58,6 @@ surahParameters = {
 
 @app.route('/')
 def root():
-    # jsonData = MongoDBConn.getAllDuas()
-    # return Response(jsonData, mimetype="text/json", ), 200
     return 'Hello World'
 
 
@@ -132,7 +122,6 @@ def updateDua():
 def addDua():
     if request.method == "POST":
         params = request.json
-        print(params)
         errors = []
 
         for param, [required, expected_type] in duaParameters.items():
@@ -154,7 +143,6 @@ def addDua():
             ), 400
         else:
             dua = Dua(**params)
-            print(dua.types)
             jsonData = DuaCon.addDua(dua)
 
             if 'error' in jsonData:
@@ -220,7 +208,6 @@ def getSurahs():
 def addSurah():
     if request.method == "POST":
         params = request.json
-        print(params)
         errors = []
 
         for param, [required, expected_type] in surahParameters.items():
@@ -352,7 +339,7 @@ def addVerse():
         params = request.json
         verse = Verse(**params)
         VerseCon.addVerse(verse)
-    return 'Done!!!!'
+    return jsonify({"message": "New Verse Node Created!"}), 201
 
 
 @app.route('/verses', methods=["PUT"])

@@ -1,3 +1,4 @@
+from flask import jsonify
 from neo4j import GraphDatabase
 import os
 import json
@@ -73,18 +74,28 @@ class VerseCon:
 
     @staticmethod
     def addVerse(verse: Verse):
+        if not VerseCon.checkVerseExists(verse=verse):
+            return jsonify({"message": "Verse already exits"})
+
         query = """
-            CREATE (:Verse:EXTERNAL {
+            CREATE (v:Verse:EXTERNAL {
                 verseID: $verseID,
                 arabicText: $arabicText,
-                englishText: $englishText
+                englishText: $englishText,
+                externalUserID: $euid
             })
+            WITH v
+            MATCH (s:Surah {surah_number: $surahNumber})
+            CREATE (v)-[r:VERSE_OF {externalUserID: $euid}]->(s)
+            RETURN v,s,r
         """
 
         parameters = {
             "verseID": verse.id,
             "arabicText": verse.arabicText,
             "englishText": verse.englishText,
+            "euid": verse.uid,
+            "surahNumber": int(verse.surahNumber)
         }
 
         driver = Neo4jConn.createNeo4jConnection()
@@ -101,7 +112,7 @@ class VerseCon:
             Neo4jConn.closeConnection(driver)
 
     @staticmethod
-    def updateVerseByID(verse: Verse, id:str):
+    def updateVerseByID(verse: Verse, id: str):
         query = """
                     MATCH (v:Verse {verseID: $verseID})
                     SET v.verseID = $newVerseID,
@@ -173,6 +184,31 @@ class VerseCon:
             print(f"Error deleting Hadith by ID: {e}")
 
         finally:
+            Neo4jConn.closeConnection(driver)
+
+    @staticmethod
+    def checkVerseExists(verse: Verse):
+        query = """
+                    MATCH (v:Verse {
+                        verseID: $verseID
+                    })
+                    RETURN v
+                """
+
+        parameters = {
+            "verseID": verse.id,
+        }
+
+        driver = Neo4jConn.createNeo4jConnection()
+        session = driver.session(database="neo4j")
+        try:
+            records, summary, keys = driver.execute_query(query, parameters)
+            print(records)
+            if len(records) is not 0:
+                return False
+            return True
+        finally:
+            session.close()
             Neo4jConn.closeConnection(driver)
 
 

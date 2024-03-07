@@ -49,10 +49,6 @@ class OntologyCon:
             # records = result.records()
             summary = result.consume()
             keys = result.keys()
-            print(summary.query)
-            print(summary.result_available_after)
-            print(summary.parameters)
-            print(result)
             return summary, keys
         finally:
             session.close()
