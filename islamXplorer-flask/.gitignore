@@ -1,0 +1,23 @@
+# Byte-compiled Python files
+*.pyc
+
+# Python cache directories
+__pycache__
+
+# Virtual environment directories (if you're using virtual environments)
+venv/
+dummies/
+.env
+requirements.txt
+
+# IDE specific files
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Dependency management files
+pip-wheel-metadata/
+
+islamXplorer/
