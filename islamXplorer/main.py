@@ -614,7 +614,6 @@ def extractNeo4jResults(records, summary):
 @app.route("/dummy-path", methods=["GET"])
 def dummyPath():
     print(request.args.get("value"))
-    # print(request.json)
     return jsonify({"message": "dummy-path"}), 200
 
 
