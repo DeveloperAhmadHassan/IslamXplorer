@@ -47,7 +47,7 @@ class Verse implements SearchResultItem{
   factory Verse.fromJson(Map<String, dynamic> json) {
     // print(json);
     return Verse(
-      id: json['id'] as String,
+      id: json['verseID'] as String,
       englishText: json['englishText'] as String,
       arabicText: json['arabicText'] as String,
       surah: json['source'] as String,

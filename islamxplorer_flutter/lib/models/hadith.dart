@@ -6,7 +6,7 @@ class Hadith implements SearchResultItem{
   String englishText;
   String? narratedBy;
   String source;
-  int hadithNo;
+  int hadithNo = 0;
   bool isBookmarked = false;
   bool isReported = false;
 
@@ -34,7 +34,7 @@ class Hadith implements SearchResultItem{
     required this.englishText,
     required this.source,
     this.narratedBy,
-    required this.hadithNo
+    this.hadithNo = 0
   }) {
     sID = id;
     sTitle = source;
@@ -46,12 +46,11 @@ class Hadith implements SearchResultItem{
 
   factory Hadith.fromJson(Map<String, dynamic> json) {
     return Hadith(
-      id: json['id'] as String,
+      id: json['hadithID'] as String,
       englishText: json['englishText'] as String,
       arabicText: json['arabicText'] as String,
       source: json['source'] as String,
-      narratedBy: json['narratedBy'] ?? "",
-      hadithNo: json['hadithNo']
+      narratedBy: json['narratedBy'] ?? ""
     );
   }
 

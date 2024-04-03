@@ -61,7 +61,7 @@ class _QuranHomePageState extends State<QuranHomePage> with SingleTickerProvider
               child: Container(
                 height: 160,
                 decoration: BoxDecoration(
-                  gradient: Theme.of(context).brightness == Brightness.light ? AppColor.secondaryLinearGradientSwatch2 : AppColor.secondaryLinearGradientSwatch1,
+                  gradient: Theme.of(context).brightness == Brightness.light ? AppColor.secondaryLinearGradientSwatch1 : AppColor.secondaryLinearGradientSwatch1,
                   borderRadius: BorderRadius.circular(35)
                 ),
                 child: Stack(
@@ -108,7 +108,7 @@ class _QuranHomePageState extends State<QuranHomePage> with SingleTickerProvider
                                 Text("Ayah No: 1",
                                     style: TextStyle(
                                       fontWeight: FontWeight.w900,
-                                      color: Colors.grey
+                                      color: Colors.blueGrey
                                     ))
                               ],
                             ),
@@ -131,8 +131,8 @@ class _QuranHomePageState extends State<QuranHomePage> with SingleTickerProvider
                   indicatorWeight: 0.9,
                   automaticIndicatorColorAdjustment: true,
                   indicatorSize: TabBarIndicatorSize.label,
-                  indicatorColor: Theme.of(context).brightness == Brightness.light ? Colors.purple : Colors.blue,
-                  labelColor: Theme.of(context).brightness == Brightness.light ? Colors.purple : Colors.blue,
+                  indicatorColor: Theme.of(context).brightness == Brightness.light ? Colors.blue : Colors.blue,
+                  labelColor: Theme.of(context).brightness == Brightness.light ? Colors.blue : Colors.blue,
                   unselectedLabelColor: Colors.grey,
                   tabs: const [
                     Tab(
@@ -203,7 +203,7 @@ class _QuranHomePageState extends State<QuranHomePage> with SingleTickerProvider
                                       quran.getVerseEndSymbol(index + 1),
                                       style: TextStyle(
                                         fontSize: 28,
-                                        color: Theme.of(context).brightness == Brightness.light ? Colors.purple : Colors.blue,
+                                        color: Theme.of(context).brightness == Brightness.light ? Colors.blue : Colors.blue,
                                       ),
                                     ),
                                     const SizedBox(width: 20),
@@ -228,7 +228,7 @@ class _QuranHomePageState extends State<QuranHomePage> with SingleTickerProvider
                                       quran.getSurahNameArabic(index + 1),
                                       style: TextStyle(
                                         fontSize: 20,
-                                        color: Theme.of(context).brightness == Brightness.light ? Colors.purple : Colors.blue,
+                                        color: Theme.of(context).brightness == Brightness.light ? Colors.blue : Colors.blue,
                                       ),
                                     ),
                                   ],
@@ -269,7 +269,7 @@ class _QuranHomePageState extends State<QuranHomePage> with SingleTickerProvider
                                       quran.getVerseEndSymbol(index + 1),
                                       style: TextStyle(
                                         fontSize: 28,
-                                        color: Theme.of(context).brightness == Brightness.light ? Colors.purple : Colors.blue,
+                                        color: Theme.of(context).brightness == Brightness.light ? Colors.blue : Colors.blue,
                                       ),
                                     ),
                                     const SizedBox(width: 20),
@@ -294,7 +294,7 @@ class _QuranHomePageState extends State<QuranHomePage> with SingleTickerProvider
                                       quran.getSurahNameArabic(index + 1),
                                       style: TextStyle(
                                         fontSize: 20,
-                                        color: Theme.of(context).brightness == Brightness.light ? Colors.purple : Colors.blue,
+                                        color: Theme.of(context).brightness == Brightness.light ? Colors.blue : Colors.blue,
                                       ),
                                     ),
                                   ],

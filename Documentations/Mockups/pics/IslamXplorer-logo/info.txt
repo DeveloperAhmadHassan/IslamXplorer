@@ -1,0 +1,14 @@
+
+Hope you enjoy your new logo, here are the people that
+made your beautiful logo happen :)
+font name: Kingthings_Petrock_light
+font link: http://www.kingthingsfonts.co.uk/fonts/fonts.htm
+font author: Kingthings
+font author site: http://www.kingthingsfonts.co.uk/
+
+
+icon designer: IconLion
+icon designer link: /iconlion
+        
+{"icon-gradient-0":"#30223A","font":"#250A05","icon-gradient-1":"#F13800","bg":"#F1DEDA","slogan":"#391e19"}
+      

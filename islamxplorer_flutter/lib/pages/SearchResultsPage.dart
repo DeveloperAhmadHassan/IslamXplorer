@@ -38,6 +38,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
     setState(() {
       searchResults = results;
     });
+    print("Here");
   }
 
   @override
@@ -104,15 +105,18 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                   child: ListTile(
                     title: Text("${result.sTitle}", style: TextStyle(
                       fontSize: 20,
-                      fontWeight: FontWeight.w600
+                      fontWeight: FontWeight.w600,
+                      color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black
                     )),
                     subtitle: Text("${result.sSubtitle}", overflow: TextOverflow.ellipsis, style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black
                     )),
                     leading: Text("${result.sID}", style: TextStyle(
                         fontSize: 14,
-                        fontWeight: FontWeight.w600
+                        fontWeight: FontWeight.w600,
+                        color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black
                     )),
                     trailing: Icon(LineAwesomeIcons.vertical_ellipsis),
                     onTap: () {
