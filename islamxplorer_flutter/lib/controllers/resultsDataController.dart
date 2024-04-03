@@ -7,7 +7,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class ResultsDataController{
   Future<List<SearchResultItem>> fetchAllResults() async {
-    var url = "${dotenv.env['API_URL']}/results";
+    var url = "http://192.168.56.1:48275/results";
 
     final response = await http.get(Uri.parse(url));
 

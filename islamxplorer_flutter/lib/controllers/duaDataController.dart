@@ -101,7 +101,7 @@ class DuaDataController{
   }
 
   Future<Dua> getDuaByID(String id) async {
-    var url = "${dotenv.env['API_URL']}/duas?id=$id";
+    var url = "http://192.168.56.1:48275/duas?id=$id";
 
     try {
       final response = await http.get(Uri.parse(url));
