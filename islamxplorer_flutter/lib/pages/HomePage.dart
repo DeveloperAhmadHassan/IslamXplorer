@@ -1,7 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:islamxplorer_flutter/controllers/authController.dart';
+import 'package:islamxplorer_flutter/controllers/userDataController.dart';
 import 'package:islamxplorer_flutter/extensions/color.dart';
+import 'package:islamxplorer_flutter/models/user.dart';
 import 'package:islamxplorer_flutter/pages/SearchingPage.dart';
 import 'package:islamxplorer_flutter/qiblah/QiblaPage.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
@@ -16,7 +19,7 @@ class HomePage extends StatefulWidget{
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin, WidgetsBindingObserver {
   late AnimationController _firstController;
   late AnimationController _secondController;
   late Animation<double> _firstWidthAnimation;
@@ -24,9 +27,48 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late Animation<double> _secondWidthAnimation;
   late Animation<double> _secondHeightAnimation;
 
+  AppUser? appUser;
+
+  AppLifecycleState? _notification;
+
+  bool _isAnonymous = true; // Default value until appUser is fetched
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (_isAnonymous) {
+      switch (state) {
+        case AppLifecycleState.resumed:
+          print("app in resumed");
+          break;
+        case AppLifecycleState.inactive:
+          AuthController authController = AuthController();
+          authController.signOut(context);
+          print("app in inactive");
+          break;
+        case AppLifecycleState.paused:
+          AuthController authController = AuthController();
+          authController.signOut(context);
+          print("app in paused");
+          break;
+        case AppLifecycleState.detached:
+          print("app in detached");
+          break;
+        case AppLifecycleState.hidden:
+          AuthController authController = AuthController();
+          authController.signOut(context);
+          print("app in hidden");
+          break;
+      }
+    }
+  }
+
+
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
+
+    getUserData();
 
     _firstController = AnimationController(
       duration: Duration(milliseconds: 1000),
@@ -52,144 +94,175 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _firstController.dispose();
     _secondController.dispose();
     super.dispose();
   }
 
-
-  @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     String? name;
     var user = FirebaseAuth.instance.currentUser;
     name = user!.email;
 
-    void onTap(){
+    void onTap() {
       Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchingPage()));
     }
 
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-         systemOverlayStyle: SystemUiOverlayStyle(
-              statusBarColor: Colors.transparent,
-              systemNavigationBarIconBrightness: Brightness.light,
-              systemNavigationBarColor: Colors.black.withOpacity(0.0002)
-          ),
+        systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent,
+            systemNavigationBarIconBrightness: Brightness.light,
+            systemNavigationBarColor: Colors.black.withOpacity(0.0002)
+        ),
         backgroundColor: Colors.transparent,
       ),
-      body: Stack(
-        children: [
-          Positioned(
-            top: -150,
-            right: -250,
-            child: AnimatedBuilder(
-              animation: _firstController,
-              builder: (context, child) {
-                return Container(
-                  width: _firstWidthAnimation.value,
-                  height: _firstHeightAnimation.value,
-                  padding: const EdgeInsets.all(0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(400),
-                      color: Theme.of(context).colorScheme.primaryContainer
-                  ),
-                );
-              },
-            ),
-          ),
-          Positioned(
-            top: 100,
-            right: -300,
-            child: AnimatedBuilder(
-              animation: _secondController,
-              builder: (context, child){
-               return Container(
-                 width: _secondWidthAnimation.value,
-                 height: _secondHeightAnimation.value,
-                 padding: const EdgeInsets.all(0),
-                 decoration: BoxDecoration(
-                     borderRadius: BorderRadius.circular(400),
-                     color: Theme.of(context).colorScheme.primaryContainer
-                 ),
-               );
-              }
-            ),
-          ),
-          Positioned(
-            top: 500,
-            left: -230,
-            child: AnimatedBuilder(
-              animation: _firstController,
-              builder: (context, child){
-                return Container(
-                  width: _firstWidthAnimation.value,
-                  height: _firstHeightAnimation.value,
-                  padding: const EdgeInsets.all(0),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(400),
-                      color: Theme.of(context).colorScheme.primaryContainer
-                  ),
-                );
-              }
-            ),
-          ),
-          Positioned(
-            bottom: -240,
-            left: -100,
-            child: AnimatedBuilder(
-              animation: _secondController,
-              builder: (context, child){
-                return Container(
-                  width: _secondWidthAnimation.value,
-                  height: _secondHeightAnimation.value,
-                  padding: const EdgeInsets.all(0),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(400),
-                      color: Theme.of(context).colorScheme.primaryContainer
-                  ),
-                );
-              }
-
-            ),
-          ),
-          Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
+      body: FutureBuilder(
+        future: getUserData(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else {
+            bool isAnonymous = snapshot.data?.isAnonymous ?? true;
+            if (snapshot.hasData) {
+              _isAnonymous = (snapshot.data as AppUser).isAnonymous;
+            }
+            return Stack(
               children: [
-                const PrimaryLogo(),
-                DummySearchBar(),
-                Padding(
-                  padding: const EdgeInsets.all(25.0),
-                  child: SingleChildScrollView(
-                    scrollDirection:Axis.horizontal,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        FeatureItem(),
-                        const SizedBox(width: 20,),
-                        FeatureItem(),
-                        const SizedBox(width: 20,),
-                        FeatureItem(),
-                        const SizedBox(width: 20,),
-                        FeatureItem(),
-                        const SizedBox(width: 20,),
-                        FeatureItem(),
-                        const SizedBox(width: 20,),
-                        FeatureItem(),
-                        const SizedBox(width: 20,),
-                      ],
-                    ),
+                Positioned(
+                  top: -150,
+                  right: -250,
+                  child: AnimatedBuilder(
+                    animation: _firstController,
+                    builder: (context, child) {
+                      return Container(
+                        width: _firstWidthAnimation.value,
+                        height: _firstHeightAnimation.value,
+                        padding: const EdgeInsets.all(0),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(400),
+                            color: Theme.of(context).colorScheme.primaryContainer
+                        ),
+                      );
+                    },
                   ),
-                )
-                // CustomText("$name",24),
+                ),
+                Positioned(
+                  top: 100,
+                  right: -300,
+                  child: AnimatedBuilder(
+                      animation: _secondController,
+                      builder: (context, child){
+                        return Container(
+                          width: _secondWidthAnimation.value,
+                          height: _secondHeightAnimation.value,
+                          padding: const EdgeInsets.all(0),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(400),
+                              color: Theme.of(context).colorScheme.primaryContainer
+                          ),
+                        );
+                      }
+                  ),
+                ),
+                Positioned(
+                  top: 500,
+                  left: -230,
+                  child: AnimatedBuilder(
+                      animation: _firstController,
+                      builder: (context, child){
+                        return Container(
+                          width: _firstWidthAnimation.value,
+                          height: _firstHeightAnimation.value,
+                          padding: const EdgeInsets.all(0),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(400),
+                              color: Theme.of(context).colorScheme.primaryContainer
+                          ),
+                        );
+                      }
+                  ),
+                ),
+                Positioned(
+                  bottom: -240,
+                  left: -100,
+                  child: AnimatedBuilder(
+                      animation: _secondController,
+                      builder: (context, child){
+                        return Container(
+                          width: _secondWidthAnimation.value,
+                          height: _secondHeightAnimation.value,
+                          padding: const EdgeInsets.all(0),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(400),
+                              color: Theme.of(context).colorScheme.primaryContainer
+                          ),
+                        );
+                      }
+
+                  ),
+                ),
+                Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const PrimaryLogo(),
+                      DummySearchBar(),
+                      if (!isAnonymous) // Using isAnonymous boolean
+                        const FeatureItemList(),
+                      // CustomText("$name",24),
+                    ],
+                  ),
+                ),
               ],
-            ),
-          ),
-        ],
-      )
+            );
+          }
+        },
+      ),
+    );
+  }
+
+  Future<AppUser> getUserData() async {
+    UserDataController userDataController = UserDataController();
+    return await userDataController.getUserData();
+  }
+
+
+}
+
+class FeatureItemList extends StatelessWidget {
+  const FeatureItemList({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(25.0),
+      child: SingleChildScrollView(
+        scrollDirection:Axis.horizontal,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            FeatureItem(),
+            const SizedBox(width: 20,),
+            FeatureItem(),
+            const SizedBox(width: 20,),
+            FeatureItem(),
+            const SizedBox(width: 20,),
+            FeatureItem(),
+            const SizedBox(width: 20,),
+            FeatureItem(),
+            const SizedBox(width: 20,),
+            FeatureItem(),
+            const SizedBox(width: 20,),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:islamxplorer_flutter/controllers/authController.dart';
 import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/pages/authPages/SignInPage.dart';
 import 'package:islamxplorer_flutter/pages/UpdateProfilePage.dart';
@@ -19,6 +20,7 @@ class ProfilePage extends StatelessWidget{
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     var user = FirebaseAuth.instance.currentUser;
+    AuthController authController = AuthController();
 
     String? photoUrl = user?.photoURL;
     String? email = user?.email;
@@ -91,7 +93,7 @@ class ProfilePage extends StatelessWidget{
               CustomText(userName, 25, alignment: Alignment.center,bold: true,),
               CustomText(userEmail, 20, alignment: Alignment.center,),
               const SizedBox(height: 20,),
-              CustomButton("Edit Profile", () => Get.to(UpdateProfilePage())),
+              CustomButton("Edit Profile", () => Get.to(const UpdateProfilePage())),
               const SizedBox(height: 10,),
               const Divider(),
               const SizedBox(height: 10,),
@@ -102,24 +104,13 @@ class ProfilePage extends StatelessWidget{
               const Divider(),
               const SizedBox(height: 20,),
               ProfileMenuWidget(icon:LineAwesomeIcons.file, text: "Documentation", onTap: (){}, textColor: Colors.blue,),
-              ProfileMenuWidget(icon:LineAwesomeIcons.alternate_sign_out, text: "Logout", onTap: ()=>signOut(context), textColor: Colors.red,endIcon: false,),
+              ProfileMenuWidget(icon:LineAwesomeIcons.alternate_sign_out, text: "Logout", onTap: () => authController.signOut(context), textColor: Colors.red,endIcon: false,),
               const SizedBox(height: 100,)
             ],
           ),
         ),
       )
     );
-  }
-  Future<void> signOut(BuildContext context) async {
-    try {
-      await FirebaseAuth.instance.signOut();
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => SignInPage()),
-      );
-    } catch (e) {
-      print('Error signing out: $e');
-    }
   }
 }
 

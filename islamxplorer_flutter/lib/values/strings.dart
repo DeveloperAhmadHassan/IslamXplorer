@@ -28,6 +28,9 @@ class AppString {
 
   static const String signInProviderLabel= "Or Continue With";
 
+  static const String guestHintLabel= "Continue as a ";
+  static const String guestLabel= "Guest";
+
   /// --OnBoarding String Constants
   static const String onBoardingTitle1= "Knowledge Graph";
   static const String onBoardingSubTitle1= "Explore the intricacies of Islam wth our dynamic knowledge graph unravelling the themes of Quran and Ahadith";

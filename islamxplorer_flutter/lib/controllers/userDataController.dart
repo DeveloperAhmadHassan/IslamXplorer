@@ -31,6 +31,12 @@ class UserDataController{
   Future<AppUser> getUserData() async {
     var user = FirebaseAuth.instance.currentUser;
     String? userId = user?.uid;
+
+    if(user!.isAnonymous){
+      AppUser appUser = AppUser(uid: user.uid, isAnonymous: user.isAnonymous);
+      return appUser;
+    }
+
     AppUser appUser = AppUser();
     try {
       FirebaseFirestore firestore = FirebaseFirestore.instance;

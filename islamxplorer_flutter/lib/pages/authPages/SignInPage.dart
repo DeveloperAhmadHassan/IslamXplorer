@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:islamxplorer_flutter/controllers/authController.dart';
-import 'package:islamxplorer_flutter/extensions/color.dart';
-import 'package:islamxplorer_flutter/main.dart';
 import 'package:islamxplorer_flutter/pages/authPages/ForgetPasswordPage.dart';
 import 'package:islamxplorer_flutter/pages/authPages/SignUpPage.dart';
-import 'package:islamxplorer_flutter/values/colors.dart';
+import 'package:islamxplorer_flutter/pages/homePages/adminPage.dart';
+import 'package:islamxplorer_flutter/pages/homePages/userPage.dart';
 import 'package:islamxplorer_flutter/values/strings.dart';
 import 'package:islamxplorer_flutter/widgets/checkBoxWidget/rememberMeCheckBox.dart';
 import 'package:islamxplorer_flutter/widgets/utils/custom_button.dart';
@@ -15,7 +14,11 @@ import 'package:islamxplorer_flutter/widgets/utils/custom_textfield.dart';
 import 'package:islamxplorer_flutter/widgets/logoWidgets/primary_logo.dart';
 import 'package:islamxplorer_flutter/widgets/authWidgets/sign_in_providers.dart';
 
+import '../../models/user.dart';
+
 class SignInPage extends StatefulWidget{
+  const SignInPage({super.key});
+
   @override
   State<SignInPage> createState() => _SignInPageState();
 }
@@ -37,18 +40,26 @@ class _SignInPageState extends State<SignInPage> with TickerProviderStateMixin{
 
   late String _email, _password;
   void openSignUp(){
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SignUpPage()));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SignUpPage()));
+  }
+  void anonymousSignIn() async{
+    AuthController authController = AuthController();
+    AppUser appUser = await authController.signInAnon();
+
+    if(appUser != null){
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => UserPage(appUser: appUser,)));
+    }
   }
 
   @override
   void initState() {
     super.initState();
     _firstController = AnimationController(
-      duration: Duration(milliseconds: 1000),
+      duration: const Duration(milliseconds: 1000),
       vsync: this,
     );
     _secondController = AnimationController(
-      duration: Duration(milliseconds: 1000),
+      duration: const Duration(milliseconds: 1000),
       vsync: this,
     );
 
@@ -275,7 +286,7 @@ class _SignInPageState extends State<SignInPage> with TickerProviderStateMixin{
                         }
                       }),
                       SignInProviders(),
-                      Container(height: 20,),
+                      const SizedBox(height: 20,),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -291,7 +302,25 @@ class _SignInPageState extends State<SignInPage> with TickerProviderStateMixin{
                           ),
                         ],
                       ),
-                      SizedBox(height: 40,),
+                      const SizedBox(height: 10,),
+                      CustomText("OR", 24, alignment: Alignment.center, bold: true,),
+                      const SizedBox(height: 10,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CustomText(AppString.guestHintLabel, 18, bold: true),
+                          Container(width: 10,),
+                          CustomText(
+                            AppString.guestLabel,
+                            18,
+                            bold: true,
+                            underline: true,
+                            color: Colors.blue,
+                            onTap: anonymousSignIn,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 40,),
                     ],
                   ),
                 ),

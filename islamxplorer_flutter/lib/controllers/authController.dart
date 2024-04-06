@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:islamxplorer_flutter/controllers/userDataController.dart';
 import 'package:islamxplorer_flutter/models/user.dart';
 import 'package:http/http.dart' as http;
+import 'package:islamxplorer_flutter/pages/authPages/SignInPage.dart';
 import 'package:islamxplorer_flutter/pages/authPages/SignUpPage.dart';
 import 'package:islamxplorer_flutter/pages/onboardingPages/onboarding.dart';
 import 'package:islamxplorer_flutter/pages/onboardingPages/widgets/OnBoardingPage.dart';
@@ -56,6 +58,21 @@ class AuthController{
     } catch (e) {
       FullScreenLoader.stopLoading();
       throw ("Unexpected Error: $e");
+    }
+  }
+
+  Future signInAnon() async {
+    try {
+      final userCredential = await FirebaseAuth.instance.signInAnonymously();
+      return AppUser(uid: userCredential.user?.uid, isAnonymous: userCredential.user!.isAnonymous);
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case "operation-not-allowed":
+          print("Anonymous auth hasn't been enabled for this project.");
+          break;
+        default:
+          print("Unknown error.");
+      }
     }
   }
 
@@ -113,6 +130,15 @@ class AuthController{
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
     } on FirebaseAuthException catch (e){
       print(e);
+    }
+  }
+
+  Future<void> signOut(BuildContext context) async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      Get.offAll(() => const SignInPage());
+    } catch (e) {
+      print('Error signing out: $e');
     }
   }
 

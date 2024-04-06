@@ -9,6 +9,8 @@ class AppUser{
   String? userName;
   String? profilePicUrl;
   String? type;
+  bool isAnonymous = false;
+
   AppUser({
     this.uid,
     this.email,
@@ -17,7 +19,8 @@ class AppUser{
     this.birthdate,
     this.userName,
     this.profilePicUrl,
-    this.type
+    this.type,
+    this.isAnonymous = false
   });
 }
 

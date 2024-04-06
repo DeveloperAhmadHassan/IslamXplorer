@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:islamxplorer_flutter/main.dart';
+import 'package:islamxplorer_flutter/pages/homePages/userPage.dart';
 import 'package:islamxplorer_flutter/widgets/utils/custom_text.dart';
 import 'package:islamxplorer_flutter/widgets/authWidgets/sign_in_provider_button.dart';
 
