@@ -8,6 +8,7 @@ class CustomText extends StatelessWidget{
   bool underline;
   Color? color;
   Alignment alignment;
+  String? fontFamily;
 
   final VoidCallback? onTap;
 
@@ -19,6 +20,7 @@ class CustomText extends StatelessWidget{
         this.underline=false,
         this.color,
         this.alignment = Alignment.topLeft,
+        this.fontFamily = "IBMPlexMonoBold",
         this.onTap,
         super.key
       }
@@ -34,10 +36,11 @@ class CustomText extends StatelessWidget{
         ),
         alignment: alignment,
         child: Text("$text",
+          textAlign: TextAlign.center,
           style: TextStyle(
             color: color,
             fontSize: fontSize,
-            fontFamily: "IBMPlexMono",
+            fontFamily: fontFamily,
             fontWeight: bold ? FontWeight.bold : FontWeight.normal,
             decoration: underline ? TextDecoration.underline : TextDecoration.none
           ),

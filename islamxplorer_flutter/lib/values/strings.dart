@@ -2,12 +2,12 @@ import 'package:flutter/widgets.dart';
 class AppString {
   AppString._();
 
-  /// urls
+  /// --URLs
   static const String verseBGUrl = "https://raw.githubusercontent.com/DeveloperAhmadHassan/images/main/bg_verse.jpg";
   static const String hadithBGUrl = "https://raw.githubusercontent.com/DeveloperAhmadHassan/images/main/bg_hadith.jpg";
   static const String duaBGUrl = "https://raw.githubusercontent.com/DeveloperAhmadHassan/images/main/bg_dua.jpg";
 
-  /// Auth String Constants
+  /// --Auth String Constants
   static const String usernameOrEmailLabel= "Username or Email";
   static const String emailHint= "john@gmail.com";
   static const String passwordLabel= "Password";
@@ -27,4 +27,8 @@ class AppString {
   static const String signUpLabel= "Don't have an account?";
 
   static const String signInProviderLabel= "Or Continue With";
+
+  /// --OnBoarding String Constants
+  static const String onBoardingTitle1= "Knowledge Graph";
+  static const String onBoardingSubTitle1= "Explore the intricacies of Islam wth our dynamic knowledge graph unravelling the themes of Quran and Ahadith";
 }

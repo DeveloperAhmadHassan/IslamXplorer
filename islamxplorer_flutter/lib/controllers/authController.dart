@@ -1,10 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:islamxplorer_flutter/controllers/userDataController.dart';
 import 'package:islamxplorer_flutter/models/user.dart';
 import 'package:http/http.dart' as http;
+import 'package:islamxplorer_flutter/pages/authPages/SignUpPage.dart';
+import 'package:islamxplorer_flutter/pages/onboardingPages/onboarding.dart';
+import 'package:islamxplorer_flutter/pages/onboardingPages/widgets/OnBoardingPage.dart';
 import 'package:islamxplorer_flutter/widgets/fullscreen_loader.dart';
 
 class AuthController{
@@ -116,6 +120,12 @@ class AuthController{
     email = localStorage.read("REMEMBER_ME_EMAIL_OR_CONTACT") ?? "";
     password = localStorage.read("REMEMBER_ME_PASSWORD") ?? "";
     return (email, password);
+  }
+
+  bool screenRedirect() {
+    localStorage.writeIfNull("isFirstTime", true);
+    print("Auth Controller ${localStorage.read("isFirstTime")}");
+    return localStorage.read("isFirstTime");
   }
 
 }

@@ -4,6 +4,8 @@ import 'package:flutter/physics.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:islamxplorer_flutter/controllers/authController.dart';
 import 'package:islamxplorer_flutter/controllers/userDataController.dart';
 import 'package:islamxplorer_flutter/extensions/color.dart';
 import 'package:islamxplorer_flutter/models/user.dart';
@@ -12,6 +14,8 @@ import 'package:islamxplorer_flutter/pages/DuaPage.dart';
 import 'package:islamxplorer_flutter/pages/HomePage.dart';
 import 'package:islamxplorer_flutter/pages/ProfilePage.dart';
 import 'package:islamxplorer_flutter/pages/authPages/SignInPage.dart';
+import 'package:islamxplorer_flutter/pages/authPages/SignUpPage.dart';
+import 'package:islamxplorer_flutter/pages/onboardingPages/onboarding.dart';
 import 'package:islamxplorer_flutter/utils/dataLoaders.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
 import 'package:islamxplorer_flutter/values/themes/appTheme.dart';
@@ -30,6 +34,7 @@ import 'firebase_options.dart';
 Future main() async {
   await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
+  await GetStorage.init();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -42,6 +47,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     UserDataController userDataController = UserDataController();
+    AuthController authController = AuthController();
     print("${dotenv.env['API_URL']}");
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
@@ -79,9 +85,6 @@ class MyApp extends StatelessWidget {
                     body: SizedBox(
                       height: MediaQuery.of(context).size.height,
                       width: MediaQuery.of(context).size.width,
-                      // decoration: BoxDecoration(
-                      //     color: HexColor.fromHexStr(AppColor.primaryThemeSwatch2)
-                      // ),
                       child: SpinKitCircle(
                         itemBuilder: (BuildContext context, int index) {
                           return DecoratedBox(
@@ -107,15 +110,20 @@ class MyApp extends StatelessWidget {
               },
             );
           } else {
-            // User is not signed in, navigate to SignInPage
-            return SignInPage(); // Replace with the actual SignInPage widget
+            // page();
+            // final storage = GetStorage();
+            // print("MAIN::::${storage.read("isFirstTime")}");
+            return authController.screenRedirect() ? const OnBoardingScreen() : SignInPage();
           }
         },
       ),
-
-      // home: AddUpdateDuaPageDummy(),
-
     );
+  }
+
+  void page() async {
+    AuthController authController = AuthController();
+    bool val = await authController.screenRedirect();
+    print("Main $val");
   }
 }
 

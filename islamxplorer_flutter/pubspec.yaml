@@ -68,6 +68,7 @@ dependencies:
   flutter_dotenv: ^5.1.0
   fl_chart: ^0.65.0
   audioplayers: ^5.2.1
+  smooth_page_indicator: ^1.1.0
 
 
 #flutter_launcher_icons:
@@ -144,6 +145,12 @@ flutter:
     - family: IBMPlexMono
       fonts:
         - asset: assets/fonts/IBMPlexMono-Medium.ttf
+    - family: UbuntuRegular
+      fonts:
+        - asset: assets/fonts/Ubuntu-Regular.ttf
+    - family: IBMPlexMonoBold
+      fonts:
+        - asset: assets/fonts/IBMPlexMono-SemiBold.ttf
     - family: AlQuran
       fonts:
         - asset: assets/fonts/Al-Quran-Normal.ttf
