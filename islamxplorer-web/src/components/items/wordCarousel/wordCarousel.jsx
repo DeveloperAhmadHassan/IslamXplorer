@@ -17,10 +17,10 @@ export const WordCarousel = () =>{
                 <span class="quote"><h2>Ahadith</h2></span>
                 </li>
                 <li class="anim4">
-                <span class="quote"><h2>Something1</h2></span>
+                <span class="quote"><h2>Islam</h2></span>
                 </li>
                 <li class="anim5">
-                <span class="quote"><h2>Something2</h2></span>
+                <span class="quote"><h2>Quran</h2></span>
                 </li>
             </ul>
             </span>

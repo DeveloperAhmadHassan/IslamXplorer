@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "IslamXplorer",
+  "name": "Easily Searchable Quran O Hadith suing Knowledge Graphs",
   "icons": [
     {
       "src": "favicon.ico",

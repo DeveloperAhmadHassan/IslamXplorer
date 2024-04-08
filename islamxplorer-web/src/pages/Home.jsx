@@ -33,8 +33,11 @@ import { Loader } from '../components/items/loader/Loader';
 import { NoItems } from '../components/items/noItems/NoItems';
 import { WordCarousel } from '../components/items/wordCarousel/wordCarousel';
 
-
-
+import service1 from "../../src/assets/images/services-images/Oriental Design 3.1.png";
+import service2 from "../../src/assets/images/services-images/Oriental Design 3.2.png";
+import service3 from "../../src/assets/images/services-images/Oriental Design 3.3.png";
+import service4 from "../../src/assets/images/services-images/Oriental Design 3.4.png";
+import service5 from "../../src/assets/images/services-images/Oriental Design 3.5.png";
 
 
 export const Home = () => {
@@ -43,7 +46,6 @@ export const Home = () => {
   return (
     <>
       <section class='opener'>
-        
         <h1 class="opener" aria-label="Easily Searchable Quran O Hadith">
           <span class="headline-top">Explore <WordCarousel /></span>
           <span class="headline-bottom">With Knowledge Graphs.</span>
@@ -57,8 +59,8 @@ export const Home = () => {
               <CardMedia
                 component="img"
                 height="140"
-                image="https://source.unsplash.com/random/140x140?sig=1"
-                alt="green iguana"
+                image={service1}
+                alt="knowledge graph"
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
@@ -76,8 +78,8 @@ export const Home = () => {
               <CardMedia
                 component="img"
                 height="140"
-                image="https://source.unsplash.com/random/140x140?sig=2"
-                alt="green iguana"
+                image={service2}
+                alt="search"
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
@@ -95,8 +97,8 @@ export const Home = () => {
               <CardMedia
                 component="img"
                 height="140"
-                image="https://source.unsplash.com/random/140x140?sig=3"
-                alt="green iguana"
+                image={service3}
+                alt="islamic routines"
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
@@ -116,8 +118,8 @@ export const Home = () => {
               <CardMedia
                 component="img"
                 height="140"
-                image="https://source.unsplash.com/random/140x140?sig=3"
-                alt="green iguana"
+                image={service4}
+                alt="learn quran"
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
@@ -135,8 +137,8 @@ export const Home = () => {
               <CardMedia
                 component="img"
                 height="140"
-                image="https://source.unsplash.com/random/140x140?sig=3"
-                alt="green iguana"
+                image={service5}
+                alt="contribute"
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
