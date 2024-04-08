@@ -1,0 +1,480 @@
+$Magnolia: hsl(217, 100%, 97%);
+$White: hsl(0, 0%, 100%);
+$Cool-gray: hsl(231, 11%, 63%);
+$Light-gray: hsl(229, 24%, 87%);
+$Alabaster: hsl(231, 100%, 99%);
+
+$Marine-blue: hsl(213, 96%, 18%);
+$Purplish-blue: hsl(243, 100%, 62%);
+$Pastel-blue: hsl(228, 100%, 84%);
+$Light-blue: hsl(206, 94%, 87%);
+$Strawberry-red: hsl(354, 84%, 57%);
+
+$desktop-bg: url("../../../../public/assets/images/bg-sidebar-desktop.svg");
+$mobile-bg: url('../../../../public/assets/images/bg-sidebar-mobile.svg');
+
+$blue-100: #daecff;
+$blue-200: #b6daff;
+$blue-300: #66b2ff;
+$blue-400: #3399ff;
+$blue-500: #007fff;
+$blue-600: #0072e5;
+$blue-700: #0059B2;
+$blue-800: #004c99;
+
+$grey-50: #F3F6F9;
+$grey-100: #E5EAF2;
+$grey-200: #DAE2ED;
+$grey-300: #C7D0DD;
+$grey-400: #B0B8C4;
+$grey-500: #9DA8B7;
+$grey-600: #6B7A90;
+$grey-700: #434D5B;
+$grey-800: #303740;
+$grey-900: #1C2025;
+
+@font-face {
+    font-family: ubuntu-bold;
+    src: url('../../../../public/assets/fonts/Ubuntu-Bold.ttf');
+}
+@font-face {
+    font-family: ubuntu-medium;
+    src: url('../../../../public/assets/fonts/Ubuntu-Medium.ttf');
+}
+@font-face {
+    font-family: ubuntu-regular;
+    src: url('../../../../public/assets/fonts/Ubuntu-Regular.ttf');
+}
+
+body{
+    #root{
+        #addContentForm{
+            width:-webkit-fill-available;
+            height:fit-content;
+            background: $White;
+            box-shadow: 2px 2px 50px 20px rgba(0, 0, 0, 0.1);
+            border-radius:8px;
+            padding:10px;
+            display:flex;
+            place-self: center;
+
+            input{
+                border: none;
+            }
+            
+            .sidebar{
+                width: 30%;
+                height: 100%;
+                background-image: $desktop-bg;
+                background-size:cover;
+                border-radius:8px;
+                padding:30px;
+                display:flex;
+                flex-direction:column;
+                gap:20px;
+                font-family:ubuntu-medium;
+                color:white;
+                
+
+                .step{
+                    display:flex;
+                    align-items:center;
+                    cursor:pointer;
+
+                    .index{
+                        width:30px;
+                        height:30px;
+                        border:1px solid $White;
+                        font-size:14px;
+                        border-radius:50%;
+                        display:flex;
+                        justify-content: center;
+                        align-items:center;
+                        margin-right:15px;
+                    }
+                    .index.active{
+                        background: $Light-blue;
+                        color: $Marine-blue;
+                        border: 1px solid $Light-blue;
+                    }
+
+                    .text{
+                        text-transform:uppercase;
+
+                        span{
+                            font-size:10px;
+                            color:$Cool-gray;
+                            font-family:ubuntu-regular;
+                        }
+                        p{
+                            font-size:13px;
+                        }
+                    }
+                }
+
+            }
+            .content{
+                height:100%;
+                width:100%;
+                padding:25px 10px;
+
+                h2{
+                    font-family:ubuntu-bold;
+                    margin-bottom:7px;
+                    color:$Marine-blue;
+                }
+                p{
+                    font-family:ubuntu-medium;
+                    color:$Cool-gray;
+                    font-size:13px;
+                    // margin-bottom:30px;
+                }
+                .text-field{
+                    width: 100%;
+                }
+                .error-text{
+                    color: red;
+                }
+                .buttons{
+                    margin-top:55px;
+                    display:flex;
+                    justify-content:space-between;
+
+                    input:first-child{
+                        background: transparent;
+                        border:none;
+                        outline:none;
+                        color:$Cool-gray;
+                        font-family:ubuntu-bold;
+                        cursor:pointer;
+                        transition: 0.2s all;
+                    }
+                    input:first-child:hover{
+                        color: $Marine-blue;
+                    }
+                    input:last-child{
+                        width:90px;
+                        height:40px;
+                        background: $Marine-blue;
+                        border-radius:5px;
+                        color:$White;
+                        border:none;
+                        font-family:ubuntu-medium;
+                        cursor:pointer;
+                        transition: 0.5s all;
+                      
+                    }
+                    input:last-child:hover{
+                        background-color: $Purplish-blue;
+                    }
+                }
+            }
+            .data{
+                text-align: unset;
+                form{
+                    display:flex;
+                    flex-direction:column;
+                    gap:15px;
+                    margin-top: 10px;
+                    .options{
+                        display:flex;
+                        justify-content:space-evenly;
+                        width:100%;
+                        height:130px;
+
+                        .option{
+                            width:30%;
+                            height:100%;
+
+                            label{
+                                width:100%;
+                                height:100%;
+                                border-radius:5px;
+                                border:1.5px solid $Light-gray;
+                                padding:12px 8px 8px;
+                                cursor:pointer;
+                                display:flex;
+                                flex-direction:column;
+                                justify-content:space-between;
+                                align-items:flex-start;
+                                transition: .1s all;
+
+                                .imgBox{
+                                    img{
+                                        width:30px;
+                                        height:30px;
+                                    }
+                                }
+
+                                .info{
+                                    h5{
+                                        color:$Marine-blue;
+                                        font-family:ubuntu-regular;
+                                        margin-bottom:5px;
+                                    }
+                                    p{
+                                        margin:0;
+                                    }
+                                    span{
+                                        color:$Marine-blue;
+                                        font-family: ubuntu-medium;
+                                        font-size:10px;
+                                        display:none;
+                                    }
+                                }
+                            }
+                            input:checked + label{
+                                background: hsla(63.66, 78.83%, 88.84%, 0.447);
+                                border: 2px solid yellow;
+                            }
+                            label:hover{
+                                border:2px solid $Purplish-blue;
+                            }
+                        }
+                    }
+                    .label-border{
+                        width:100%;
+                        height:fit-content;
+                        border:1px solid $Light-gray;
+                        border-radius:8px;
+                        padding:11px 20px;
+                        display:flex;
+                        flex-flow: column;
+                        place-items: start;
+                        align-items:baseline;
+                        justify-content: space-around;
+                        cursor:pointer;
+                        input{
+                            margin-right: 15px;
+                        }
+                        select{
+                            background-color: yellow;
+                            padding: 5px 70px 5px 5px;
+                            color: black;
+                            font-weight: 600;
+                            border: none;
+                        }
+                        .info{
+                            height:80%;
+                            display:flex;
+                            flex-direction:column;
+                            align-items:flex-start;
+                            justify-content:flex-start;
+                            h5{
+                                font-size:12px;
+                                margin:0;
+                                font-family:ubuntu-regular;
+                                color: $Marine-blue;
+                                margin-bottom:4px;
+                            }
+                            p{
+                                font-size:10px;
+                                color:$Cool-gray;
+                                font-family:ubuntu-medium;
+                                margin:0;
+                            }
+                        }
+                        .selected-text{
+                            color:$Purplish-blue;
+                            font-family: ubuntu-bold;
+                            font-size:10px;
+                            margin-bottom: 10px;
+                            margin-top: 10px;
+                            font-weight: 600;
+                        }
+                    }
+                    .something{
+                        background-color: green;
+                    }
+                    .dropdown-label{
+                        z-index: 10;
+                    }
+                    label {
+                        div.dropdown{
+                            width: -webkit-fill-available;
+                        }
+                        div#loading{
+                            width: -webkit-fill-available;
+                            text-align: center;
+                        }
+                        div#loading p{
+                            margin-bottom: 0;
+                        }
+                    }
+                    .checked{
+                        background: hsl(63.66deg 78.83% 88.84% / 44.7%);
+                        border: 2px solid yellow;
+                    }
+                    .error{
+                        background: hsla(7, 100%, 70%, 0.447);
+                        border: 2px solid red;
+
+                        &::after {
+                            content: "Please fill the required field";
+                            display: block;
+                            color: red; 
+                            font-size: 12px; 
+                            margin-top: 5px; 
+                        }
+                    }
+                    .no-border{
+                        border: none !important;
+                    }
+                    input{
+                        border: unset;
+                    }
+                    label select[disabled]{
+                        background: black;
+                        cursor: not-allowed;
+                    }
+                    .label-text{
+                        margin-bottom: 10px;
+                        color: black;
+                        font-weight: 600;
+                    }
+                    .buttons{
+                        margin-top: 30px;
+                    }
+                    .StyledInputRoot {
+                        font-family: 'IBM Plex Sans', sans-serif;
+                        font-weight: 400;
+                        color: $grey-500;
+                        display: flex;
+                        flex-flow: row nowrap;
+                        justify-content: center;
+                        align-items: center;     
+                    }
+                    
+                    .StyledInput {
+                        font-size: 0.875rem;
+                        font-family: inherit;
+                        font-weight: 400;
+                        line-height: 1.375;
+                        color: $grey-900;
+                        background-color: $grey-50;
+                        border: 1px solid $grey-200;
+                        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+                        border-radius: 8px;
+                        margin: 0 8px;
+                        padding: 10px 12px;
+                        outline: 0;
+                        min-width: 0;
+                        width: 4rem;
+                        text-align: center;
+                    
+                        &:hover {
+                          border-color: $blue-400;
+                        }
+                    
+                        &:focus {
+                          border-color: $blue-400;
+                          box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+                        }
+                    
+                        &:focus-visible {
+                          outline: 0;
+                        }
+                    }
+                    
+                    .StyledButton {
+                        font-family: 'IBM Plex Sans', sans-serif;
+                        font-size: 0.875rem;
+                        box-sizing: border-box;
+                        line-height: 1.5;
+                        border: 1px solid;
+                        border-radius: 999px;
+                        border-color: $grey-200;
+                        background-color: $grey-50;
+                        color: $grey-900;
+                        width: 32px;
+                        height: 32px;
+                        display: flex;
+                        flex-flow: row nowrap;
+                        justify-content: center;
+                        align-items: center;
+                        transition: all 120ms cubic-bezier(0.4, 0, 0.2, 1);
+                    
+                        &:hover {
+                            cursor: pointer;
+                            background-color: $blue-500;
+                            border-color: $blue-400;
+                            color: $grey-50;
+                        }
+                    
+                        &:focus-visible {
+                            outline: 0;
+                        }
+                    
+                        &.increment {
+                            order: 1;
+                        }
+                    }
+
+                    .MuiTextField-root > label {
+                        @extend .label-text
+                        
+                    }
+                    
+                    .MuiTextField-root > .MuiFormLabel-root.Mui-focused {
+                        color: blue;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width:760px){
+    body{
+        #root{
+            #addContentForm{
+                width:100%;
+                padding:0;
+                border-radius:0;
+                display:flex;
+                flex-direction:column;
+                align-items:center;
+                background: $Magnolia;
+                box-shadow: unset;
+
+                .content{
+                    width:90%;
+                    height:fit-content;
+                    border-radius:12px;
+                    margin-top: 7%;
+                    background: $White;
+                    padding:30px 20px;
+                    box-shadow: 2px 2px 20px 10px rgba(0, 0, 0, 0.09);
+                    
+                    h2{
+                        font-size:30px;
+                    }
+                    p{
+                        font-size:15px;
+                        margin-bottom:15px;
+                    }
+
+                    .buttons{
+                        margin-top:30px;
+                        
+                    
+                        
+                    }
+                    
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 1024px){
+    body{
+        #root{
+            #addContentForm{
+                .content{
+                    width: 750px;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,78 @@
+$Magnolia: hsl(217, 100%, 97%);
+$White: hsl(0, 0%, 100%);
+$Cool-gray: hsl(231, 11%, 63%);
+$Light-gray: hsl(229, 24%, 87%);
+$Alabaster: hsl(231, 100%, 99%);
+
+$Marine-blue: hsl(213, 96%, 18%);
+$Purplish-blue: hsl(243, 100%, 62%);
+$Pastel-blue: hsl(228, 100%, 84%);
+$Light-blue: hsl(206, 94%, 87%);
+$Strawberry-red: hsl(354, 84%, 57%);
+
+$desktop-bg: url("../../../public/assets/images/bg-sidebar-desktop.svg");
+$mobile-bg: url('../../../public/assets/images/bg-sidebar-mobile.svg');
+
+@font-face {
+    font-family: ubuntu-bold;
+    src: url('../../../public/assets/fonts/Ubuntu-Bold.ttf');
+}
+@font-face {
+    font-family: ubuntu-medium;
+    src: url('../../../public/assets/fonts/Ubuntu-Medium.ttf');
+}
+@font-face {
+    font-family: ubuntu-regular;
+    src: url('../../../public/assets/fonts/Ubuntu-Regular.ttf');
+}
+
+body{
+    background-color: #FEEEAB;
+    #root{
+        background-color: #FEEEAB;
+        main{
+            background-color:#FEEEAB;
+            height: 100%;
+            display: grid !important;
+            place-items: center;
+
+            .content{
+                max-width: 480px;
+                padding: 25px;
+                margin: auto;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                background: #FDD995;
+                box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.2);
+                margin-top: 25px;
+                margin-bottom: 25px;
+            }
+            .heading{
+                text-align: center;
+            }
+            .error{
+                background: hsla(7, 100%, 70%, 0.447);
+                border: 2px solid red;
+            }
+            .no-border{
+                border: none !important;
+            }
+            #no-box-shadow{
+                box-shadow: unset;
+            }
+        }
+    }
+}
+
+@media screen and (min-width:760px){
+    body{
+        #root{
+            #admin-items{
+                grid-template-columns: 50% 50%;
+                column-gap: 15px;
+                row-gap: 15px;
+            }
+        }
+    }
+}

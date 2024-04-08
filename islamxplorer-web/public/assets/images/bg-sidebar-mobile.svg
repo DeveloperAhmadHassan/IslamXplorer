@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="375"
+   height="172"
+   viewBox="0 0 375 172"
+   version="1.1"
+   id="svg26"
+   sodipodi:docname="bg-sidebar-mobile.svg"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview28"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     showgrid="false"
+     inkscape:zoom="1.7466667"
+     inkscape:cx="228.14885"
+     inkscape:cy="79.293893"
+     inkscape:window-width="1920"
+     inkscape:window-height="991"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g20" />
+  <defs
+     id="defs3">
+    <path
+       id="a"
+       d="M0 0h375v172H0z" />
+  </defs>
+  <g
+     fill="none"
+     fill-rule="evenodd"
+     id="g24">
+    <mask
+       id="b"
+       fill="#fff">
+      <use
+         xlink:href="#a"
+         id="use5" />
+    </mask>
+    <use
+       xlink:href="#a"
+       fill="#483EFF"
+       id="use8"
+       style="fill:#ffdf6c;fill-opacity:1" />
+    <g
+       mask="url(#b)"
+       id="g22">
+      <g
+         transform="translate(-151.029 -133.957)"
+         id="g20">
+        <path
+           fill="#6259FF"
+           d="M79.546 349.634c54.547 128.646 292.524 204.132 354.626 99.852 62.102-104.28-95.035-123.204-150.583-230.963-55.547-107.759-98.711-175.015-178.973-150.466C24.354 92.607 25 220.987 79.546 349.634Z"
+           id="path10"
+           style="fill:#ff9e59;fill-opacity:1" />
+        <ellipse
+           cx="129.864"
+           cy="258.711"
+           fill="#FFAF7E"
+           rx="96.329"
+           ry="96.373"
+           id="ellipse12"
+           style="fill:#bef4ff;fill-opacity:1" />
+        <path
+           fill="#F9818E"
+           d="M464.88 433.146c87.31-40.69 133.585-206.525 60.253-246.82-73.333-40.293-82.587 68.465-155.485 109.343-72.898 40.877-118.192 72.245-99.348 126.973 18.845 54.728 107.27 51.194 194.58 10.504Z"
+           id="path14"
+           style="fill:#f9b581;fill-opacity:1" />
+        <g
+           stroke="#FFF"
+           stroke-linecap="round"
+           stroke-linejoin="bevel"
+           stroke-width="5"
+           id="g18">
+          <path
+             d="m367.336 243.125 15.263-15.549M430.872 251.016l-17.995-15.112M399.36 271.751l-9.94 21.293"
+             id="path16" />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

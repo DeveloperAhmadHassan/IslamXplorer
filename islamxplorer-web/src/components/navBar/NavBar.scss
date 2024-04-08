@@ -1,0 +1,158 @@
+@font-face {
+    font-family: ubuntu-regular;
+    src: url('../../../public/assets/fonts/Ubuntu-Regular.ttf');
+} 
+
+.active{
+    background-color: #B8D8E3;
+}
+
+#header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FCC47F;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+#header .title {
+    font-weight: bold;
+    font-size: 1.3em;
+    text-decoration: none;
+    color: #1a1f3b;
+    font-family: ubuntu-regular;
+}
+
+#header ul {
+    display: flex;
+    list-style: none;
+    text-align: center;
+}
+
+#header ul li {
+   display: inline-block;
+}
+
+#header ul li a {
+    position:relative;
+    z-index: 1;
+    display: block;
+    text-decoration: none;
+    color: #535878;
+    text-decoration: none;
+    font-size: 1.2em;
+    text-transform: capitalize;
+    margin: 0 10px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+#header ul li a,
+#header ul li a:after,
+#header ul li a:before {
+  transition: all .5s;
+}
+
+#header ul li a:hover {
+    color: #555;
+}
+
+#header ul li a:not(.active):hover {
+    background-color: #BDD1C5;
+    border-radius: 0%;
+    color: white;
+}
+#header ul li a:not(.active):after {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    width: 100%;
+    height: 1px;
+    content: '.';
+    color: transparent;
+    background: #535878;
+    visibility: none;
+    opacity: 0;
+    z-index: -1;
+}
+
+#header ul li a:hover:after {
+    opacity: 1;
+    visibility: visible;
+    height: 100%;
+  }
+
+#header .menu {
+    display: none;
+    position: absolute;
+    top: 0.75rem;
+    right: 0.5rem;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 2.25rem;
+    height: 2rem;
+}
+
+#header .menu span {
+    height: 0.4rem;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 0.2rem;
+}
+#navbar{
+    margin: 0;
+    padding: 0;
+}
+
+
+@media (max-width: 480px) {
+    #header .menu {
+        margin: 10px;
+        display: flex;
+    }
+
+    #header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    #header ul {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        margin-bottom: 0.25rem;
+    }
+
+    #header ul.open {
+        display: flex;
+    }
+
+    #header ul li {
+        width: 100%;
+        text-align: center;
+    }
+
+    #header ul li a {
+        margin: 0.2rem 0.5rem;
+    }
+}
+
+@media (min-width: 900px){
+    #navbar{
+        padding-right: 10px;
+        padding-left: 10px;
+
+       .MuiAvatar-root{
+        margin-right: 10px;
+       }
+    }
+
+
+}

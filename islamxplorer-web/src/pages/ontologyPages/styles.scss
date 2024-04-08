@@ -1,0 +1,113 @@
+$Magnolia: hsl(217, 100%, 97%);
+
+body{
+  #root{
+    .App {
+      #start-border{
+        border-top: 10px solid rgba(0, 0, 0, 1);
+      }
+      .category{
+        background-color: darkkhaki;
+        font-size: 4em;
+        text-align: center;
+        writing-mode: vertical-rl;
+        text-orientation: upright;
+        letter-spacing: 0em;
+        font-variant-caps: all-petite-caps;
+      }
+      .concept{
+        background-color: lemonchiffon;
+        text-align: center;
+        font-size: 3em;
+      }
+      .relation-cell{
+        background-color: antiquewhite;
+
+        .relation-text{
+          font-size: 1.2em;
+          text-align: center;
+          font-weight: 600;
+          text-decoration: underline dashed;
+          text-underline-offset: 10px;
+        }
+
+        #hover-text{
+          text-decoration: none;
+          padding: 12px;
+          border-radius: 12px;
+          text-align: center;
+          display: none;
+          position: absolute;
+          margin-top: -50px;
+          background-color: aliceblue;
+          font-weight: 600;
+          margin-left: 27px;
+          margin-top: -75px;
+          box-shadow: 2px 7px 9px rgba(0, 0, 0, 0.2);
+        }
+        .relation-text:hover + #hover-text {
+          display: block;
+        }
+        .relation-text:hover{
+          cursor: pointer;
+          color: blue;
+        }
+      }
+      
+      .data-cell{
+        background-color: floralwhite;
+        .data-text{
+          font-size: 1em;
+          text-align: center;
+          font-weight: 600;
+        }
+        #hover-text{
+          text-decoration: none;
+          padding: 12px;
+          border-radius: 12px;
+          text-align: center;
+          display: none;
+          position: absolute;
+          margin-top: -50px;
+          background-color: aliceblue;
+          font-weight: 600;
+          margin-left: -70%;
+          margin-top: -68px;
+          box-shadow: 2px 7px 9px rgba(0, 0, 0, 0.2);
+        }
+        .data-text:hover + #hover-text {
+          display: block;
+        }
+        .data-text:hover{
+          cursor: pointer;
+          color: blue;
+        }
+      }
+      .wavy-underline{
+        text-decoration: underline wavy blue;
+        text-underline-offset: 10px;
+      }
+      #border{
+        border-radius: 12px;
+        border: black 2px solid;
+      }
+      .ontology-table{
+        height: auto;
+        width: 95%;
+        place-content: center;
+        align-self: center;
+        margin-top: 2%;
+        box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.6);
+        // border: black 2px solid;
+        border-radius: 20px;
+      }
+      .table-head{
+        font-size: 1.5em;
+        font-weight: 600;
+        color: grey;
+        text-decoration: underline dotted black;
+        text-align: center;
+      }
+    }
+  } 
+}

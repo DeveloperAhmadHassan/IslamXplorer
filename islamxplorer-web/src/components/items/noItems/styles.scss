@@ -1,0 +1,45 @@
+$Cool-gray: hsl(231, 11%, 63%);
+
+@font-face {
+    font-family: ubuntu-regular;
+    src: url('../../../../public/assets/fonts/Ubuntu-Regular.ttf');
+}
+
+body{
+    #root{
+        div#no-items{
+            text-align: center;
+            margin-top: 60px;
+            margin-bottom: 60px;
+            display: flex;
+            flex-flow: column;
+            align-self: center;
+            align-items: center;
+        }
+        div#no-items {
+            p{
+                margin: 10px;
+                text-align: center;
+                font-size: 1.8em;
+                font-family: ubuntu-regular;
+                color: $Cool-gray;
+                -webkit-user-select: none; /* Safari */
+                -ms-user-select: none; /* IE 10 and IE 11 */
+                user-select: none; /* Standard syntax */
+            }
+        }
+    }
+}
+
+@media(min-width: 1024px){
+    body{
+        #root{
+            div#no-items{
+                p{
+                    font-size: 2.5em;
+                }
+            }
+        }
+    }
+
+}

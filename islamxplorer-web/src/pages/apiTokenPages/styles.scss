@@ -1,0 +1,146 @@
+$Magnolia: hsl(217, 100%, 97%);
+
+body{
+  #root{
+    .App {
+      main{
+        display: block;
+        position: relative;
+        // min-height: 100vh;
+        min-height: calc(100vh - 211px - 58px);
+
+        #table-con{
+            width: 98%;
+            margin: 15px
+          }
+    
+          .btn-con{
+            height: 40px;
+            width: 40px;
+            place-items: center;
+            display: flex;
+            padding: 0;
+            margin: 0;
+            place-content: center;
+            border-radius: 100px;
+          }
+    
+          .delete{
+            background-color: rgb(252, 188, 188);
+          }
+    
+          .refresh{
+            padding: 7px;
+            background-color: rgb(214, 215, 255);
+          }
+    
+          .btn-con:hover{
+            background-color: lightgrey;
+          }
+    
+          .btn-con:active{
+            background-color: darkgray;
+          }
+    
+          .token-container {
+            display: flex;
+            background-color: hsl(217, 100%, 97%);
+            text-align: start;
+            padding: 8px;
+            justify-content: space-between;
+    
+            .copy-icon{
+              align-self: flex-end;
+              padding: 10px;
+              width: 45px !important;
+            }
+    
+            .token{
+              width: 200px;
+              margin: 0;
+              padding: 0;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              align-self: center;
+            }
+          }
+    
+          .actions-container{
+            display: flex;
+            justify-content: space-around;
+          }
+    
+          .buttons-container{
+            display: flex;
+            justify-content: space-between;
+            flex-flow: column;
+            width: 100%;
+            row-gap: 20px;
+          }
+    
+          .buttons-container div:first-child{
+            display: flex;
+            flex-flow: column-reverse;
+            column-gap: 10px;
+            row-gap: 10px;
+          }    
+    
+          .buttons-container div:last-child{
+            display: flex;
+            column-gap: 12px;
+            align-self: center;
+          }
+    
+          .buttons-container div:last-child p{
+           margin-top: 15px;
+          }
+    
+          #add-token-btn{
+            width: max-content;
+            align-self: center;
+            padding: 10px 16px;
+          }
+    
+          #token-search-bar{
+            width: 100%;
+          }
+      }
+    }
+  } 
+}
+
+@media (min-width:768px){
+  body{
+    #root{ 
+      .App{ 
+        main{
+            .buttons-container{
+                div:first-child {
+                  flex-flow: row;
+                  align-self: center;
+      
+                  #token-search-bar{
+                    width: unset;
+                  }
+                }
+            }
+        }
+      }
+    } 
+  }
+}
+
+@media (min-width:1024px){
+  body{
+    #root{ 
+      .App{ 
+        main{
+            .buttons-container{
+                flex-flow: row;
+            }
+        }
+      }
+    } 
+  }
+}
