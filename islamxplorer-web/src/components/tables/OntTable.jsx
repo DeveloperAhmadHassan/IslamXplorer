@@ -61,53 +61,52 @@ export const OntTable = () => {
   }));
 
   return (
-    <>
-      {renderRows() <= 0 ? <NoItems /> : 
-      <TableContainer component={Paper} id='border'>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell className='table-head'>Categories</TableCell>
-              <TableCell className='table-head'>Actions</TableCell>
-              <TableCell className='table-head'>Concepts</TableCell>
-              <TableCell className='table-head'>Data</TableCell>
+    <> {isLoadingOnt ? <Loader /> : renderRows() <= 0 ? <NoItems /> : 
+    <TableContainer component={Paper} id='border'>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell className='table-head'>Categories</TableCell>
+            <TableCell className='table-head'>Actions</TableCell>
+            <TableCell className='table-head'>Concepts</TableCell>
+            <TableCell className='table-head'>Data</TableCell>
+          </TableRow>
+        </TableHead>
+        {
+        <TableBody>
+          {renderRows().map((row, index) => (
+            <TableRow key={index}>
+              {row.categoryRowSpan && <TableCell id={row.startBorder} className='category' rowSpan={row.categoryRowSpan}>{row.category}</TableCell>}
+              {row.actionRowSpan && <TableCell id={row.startBorder} className='concept' rowSpan={row.actionRowSpan}>{row.action}</TableCell>}
+              <TableCell id={row.startBorder} className='relation-cell'>
+                <div>
+                  <p className='relation-text'>{row.relation}</p>
+                  <div id='hover-text'><p>Some Text</p></div>
+                </div>
+              </TableCell>
+              <TableCell id={row.startBorder} className='data-cell'>
+                <div>
+                  {/* <Tooltip title={row.dataHoverText}></Tooltip> */}
+                  <ThemeProvider theme={theme}>
+                    <HtmlTooltip
+                      title={
+                        <React.Fragment>
+                          <Typography variant='subtitle2' gutterBottom>{row.dataHoverText}</Typography>
+                        </React.Fragment>
+                      }
+                    >
+                      <p className='data-text wavy-underline'>{row.data}</p>
+                    </HtmlTooltip>
+                  </ThemeProvider>
+                  {/* <div id='hover-text'><p>{row.dataHoverText}</p></div> */}
+                </div>
+              </TableCell>
             </TableRow>
-          </TableHead>
-          {isLoadingOnt ? 
-          <Loader /> : 
-          <TableBody>
-            {renderRows().map((row, index) => (
-              <TableRow key={index}>
-                {row.categoryRowSpan && <TableCell id={row.startBorder} className='category' rowSpan={row.categoryRowSpan}>{row.category}</TableCell>}
-                {row.actionRowSpan && <TableCell id={row.startBorder} className='concept' rowSpan={row.actionRowSpan}>{row.action}</TableCell>}
-                <TableCell id={row.startBorder} className='relation-cell'>
-                  <div>
-                    <p className='relation-text'>{row.relation}</p>
-                    <div id='hover-text'><p>Some Text</p></div>
-                  </div>
-                </TableCell>
-                <TableCell id={row.startBorder} className='data-cell'>
-                  <div>
-                    {/* <Tooltip title={row.dataHoverText}></Tooltip> */}
-                    <ThemeProvider theme={theme}>
-                      <HtmlTooltip
-                        title={
-                          <React.Fragment>
-                            <Typography variant='subtitle2' gutterBottom>{row.dataHoverText}</Typography>
-                          </React.Fragment>
-                        }
-                      >
-                        <p className='data-text wavy-underline'>{row.data}</p>
-                      </HtmlTooltip>
-                    </ThemeProvider>
-                    {/* <div id='hover-text'><p>{row.dataHoverText}</p></div> */}
-                  </div>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>}
-        </Table>
-    </TableContainer>}
+          ))}
+        </TableBody>}
+      </Table>
+  </TableContainer>}
+      {}
     </>
   );
 };

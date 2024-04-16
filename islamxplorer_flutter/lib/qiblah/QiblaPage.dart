@@ -10,7 +10,7 @@ class QiblahPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
+          // backgroundColor: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
           title: const Text('Qiblah Direction'),
           elevation: 7,
         ),

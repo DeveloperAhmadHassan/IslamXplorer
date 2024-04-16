@@ -12,6 +12,8 @@ import 'package:islamxplorer_flutter/widgets/searchBarWidgets/dummy_search_bar.d
 import 'package:islamxplorer_flutter/widgets/logoWidgets/primary_logo.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
+import '../values/assets.dart';
+
 class HomePage extends StatefulWidget{
   const HomePage({super.key});
 
@@ -31,7 +33,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin, Widg
 
   AppLifecycleState? _notification;
 
-  bool _isAnonymous = true; // Default value until appUser is fetched
+  bool _isAnonymous = true;
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
@@ -248,17 +250,17 @@ class FeatureItemList extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            FeatureItem(),
+            FeatureItem(iconAsset: AppAsset.iconQuran,),
             const SizedBox(width: 20,),
-            FeatureItem(),
+            FeatureItem(iconAsset: AppAsset.iconKaaba,),
             const SizedBox(width: 20,),
-            FeatureItem(),
+            FeatureItem(iconAsset: AppAsset.iconLocation,),
             const SizedBox(width: 20,),
-            FeatureItem(),
+            FeatureItem(iconAsset: AppAsset.iconMosque,),
             const SizedBox(width: 20,),
-            FeatureItem(),
+            FeatureItem(iconAsset: AppAsset.iconPray,),
             const SizedBox(width: 20,),
-            FeatureItem(),
+            FeatureItem(iconAsset: AppAsset.iconTasbih,),
             const SizedBox(width: 20,),
           ],
         ),
@@ -270,10 +272,12 @@ class FeatureItemList extends StatelessWidget {
 class FeatureItem extends StatelessWidget{
   Icon icon;
   Color color;
+  String iconAsset;
   FeatureItem({
     super.key,
     this.icon = const Icon(LineAwesomeIcons.compass, size: 40),
-    this.color = Colors.white60
+    this.color = Colors.white60,
+    this.iconAsset = AppAsset.iconKaaba
   });
 
   @override
@@ -282,11 +286,12 @@ class FeatureItem extends StatelessWidget{
       child: Container(
         width: 70,
         height:70,
+        padding: const EdgeInsets.all(12.0),
         decoration: BoxDecoration(
             color: color,
             borderRadius: const BorderRadius.all(Radius.circular(10)),
         ),
-        child: icon,
+        child: Image.asset(iconAsset),
       ),
       onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>const QiblahPage())),
     );

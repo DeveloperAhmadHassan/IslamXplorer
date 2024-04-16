@@ -38,6 +38,7 @@ import service2 from "../../src/assets/images/services-images/Oriental Design 3.
 import service3 from "../../src/assets/images/services-images/Oriental Design 3.3.png";
 import service4 from "../../src/assets/images/services-images/Oriental Design 3.4.png";
 import service5 from "../../src/assets/images/services-images/Oriental Design 3.5.png";
+import ItemCarousel from './ItemCarousel';
 
 
 export const Home = () => {
@@ -45,15 +46,15 @@ export const Home = () => {
 
   return (
     <>
-      <section class='opener'>
-        <h1 class="opener" aria-label="Easily Searchable Quran O Hadith">
-          <span class="headline-top">Explore <WordCarousel /></span>
-          <span class="headline-bottom">With Knowledge Graphs.</span>
+      <section className={'opener'}>
+        <header>
+        <h1 className={"opener"} aria-label="Easily Searchable Quran O Hadith">
+          <span className={"headline-top"}>Explore <WordCarousel /></span>
+          <span className={"headline-bottom"}>With Knowledge Graphs.</span>
         </h1>
-      </section>
-
-      <section class='services'>
-        <div class='top-row'>
+        </header>
+        <section className={'services'}>
+        <div className={'top-row'}>
           <Card sx={{ maxWidth: 345 }}>
             <CardActionArea>
               <CardMedia
@@ -152,7 +153,40 @@ export const Home = () => {
             </CardActionArea>
           </Card>
         </div>
+        </section>
       </section>
+
+
+      <section className={'item-showcase'}>
+        <ItemCarousel />
+      </section>
+
+      <section className={'testimonials'}>
+        <div className='testimonial'>
+          <p className='testimonial'>“With product inclusion, it’s really looking end to end at the design and development process and saying: Who else needs to be in the room? Who else do we need to have perspective from? And I think co-creating is really integral to building a product that actually suits the world.”</p>
+          <div>
+          <img src="http://placehold.it/100x100" alt="Dummy Image" />
+            <div>
+              <p>Some Name of a Person</p>
+              <p>Some long designation of that Person</p>
+            </div>
+          </div>
+        </div>
+        <div className='testimonial'>
+          <p className='testimonial'>“With product inclusion, it’s really looking end to end at the design and development process and saying: Who else needs to be in the room? Who else do we need to have perspective from? And I think co-creating is really integral to building a product that actually suits the world.”</p>
+          <div>
+          <img src="http://placehold.it/100x100" alt="Dummy Image" />
+            <div>
+              <p>Some Name of a Person</p>
+              <p>Some long designation of that Person</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* <section>
+        <Example />
+      </section> */}
     </>
   );
 }

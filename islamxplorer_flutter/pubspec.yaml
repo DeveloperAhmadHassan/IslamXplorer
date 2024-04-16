@@ -115,6 +115,7 @@ flutter:
   assets:
     - assets/
     - assets/logos/
+    - assets/icons/
     - assets/res/
     - .env
   #   - images/a_dot_burr.jpeg

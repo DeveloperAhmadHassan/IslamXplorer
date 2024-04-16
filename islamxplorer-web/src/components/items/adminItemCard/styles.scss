@@ -29,9 +29,9 @@ $mobile-bg: url('../../../../public/assets/images/bg-sidebar-mobile.svg');
 body{
     #root{
         #admin-items{
-            margin: 10px;
+            margin: 15px;
             height: fit-content;
-            width: 100%;
+            width: 90%;
             background: hsl(0, 0%, 100%);
             box-shadow: 2px 2px 50px 20px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
@@ -41,42 +41,49 @@ body{
             flex-flow: column;
             place-items: flex-start;
 
-            .admin-item-card{
-                display: flex;
-                background: linear-gradient(45deg, #fbd07c, #f7f779); /* Gradient */
-                height: 255px;
+            .service-link{
                 width: 100%;
-                border-radius: 15px;
-                box-shadow: 2px 7px 9px rgba(0, 0, 0, 0.2);
-                transition: all 0.3s ease;
-                overflow: hidden;
-                flex-direction: row-reverse;
-                &:hover{
-                    transform: scale(1.1);
-                }
-
-                img{
-                    transform: translate(-30px, 6px);
-                    height: 140%;
-                    width: auto;
-                }
-                .title-cont {
+                text-decoration: none !important;
+                .admin-item-card{
                     display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    position: relative;
-                    width: -webkit-fill-available;
-                    margin-right: 12%;
-                    z-index: 2;
-                    align-self: center;
-                    text-align: center;
-                }
-        
-                .title {
-                    font-size: 3em;
-                    text-align: center;
-                    width: 140%;
-                    z-index: 1;
+                    background: linear-gradient(45deg, #fbd07c, #f7f779); 
+                    // height: 255px;
+                    width: 100%;
+                    border-radius: 15px;
+                    box-shadow: 2px 7px 9px rgba(0, 0, 0, 0.2);
+                    transition: all 0.3s ease;
+                    overflow: hidden;
+                    flex-direction: row-reverse;
+                    padding: 20px;
+                    &:hover{
+                        transform: scale(1.1);
+                    }
+    
+                    .card-img{
+                        display: none;
+                        transform: translate(-30px, 6px);
+                        height: 140%;
+                        width: auto;
+                    }
+                    .title-cont {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        position: relative;
+                        width: -webkit-fill-available;
+                        // margin-right: 12%;
+                        z-index: 2;
+                        align-self: center;
+                        text-align: center;
+                    }
+            
+                    .title {
+                        font-size: 1.3em;
+                        text-align: center;
+                        width: 100%;
+                        z-index: 1;
+                        font-family: ubuntu-regular;
+                    }
                 }
             }
         }
@@ -86,36 +93,43 @@ body{
 @media (min-width:760px){
     body{
         #root{
-            div#loading{
-                width: 260%;
-                text-align: center;
-                margin-top: 60px;
-                margin-bottom: 60px;
-            }
-            div#loading p{
-                margin: 10px;
-                text-align: center;
-                font-size: 2.5em;
-            }
+            // div#loading{
+            //     width: 260%;
+            //     text-align: center;
+            //     margin-top: 60px;
+            //     margin-bottom: 60px;
+            // }
+            // div#loading p{
+            //     margin: 10px;
+            //     text-align: center;
+            //     font-size: 2.5em;
+            // }
             #admin-items{
                 display: grid;
                 grid-template-columns: 50% 50%;
                 flex-wrap: wrap;
                 column-gap: 15px;
                 row-gap: 15px;
-                .admin-item-card{
-                    .title-cont{
-                        width: 45%;
-                    }
-                    .title{
-                        position: absolute;
-                        font-size: 2.2em;
-                        z-index: 1;
-                        // width: -webkit-fill-available;
-                        margin: auto auto;
-                        text-align: center;
-                        margin-top: 20%;
-                        margin-right: 13%;
+                .service-link{
+                    .admin-item-card{
+                        height: 100px;
+                        .title-cont{
+                            width: 100%;
+                            height: 100px;
+                        }
+                        .title{
+                            position: absolute;
+                            font-size: 1.7em;
+                            z-index: 1;
+                            margin: auto auto;
+                            text-align: center;
+                        }
+                        .card-img{
+                            display: block;
+                            transform: translate(-30px, -10px);
+                            height: 120px;
+                            width: 120px;
+                        }
                     }
                 }
             }
@@ -131,6 +145,45 @@ body{
                 column-gap: 15px;
                 row-gap: 15px;
                 padding-top: 4%;
+                padding-right: 40px;
+
+                .service-link{
+                    .admin-item-card{
+                        height: 150px;
+
+                        .title {
+                            font-size: 2.0em;
+                        }
+
+                        .card-img{
+                            height: 180px;
+                            width: 180px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width:1320px){
+    body{
+        #root{
+            #admin-items{
+                .service-link{
+                    .admin-item-card{
+                        height: 200px;
+
+                        .title {
+                            font-size: 2.5em;
+                        }
+
+                        .card-img{
+                            height: 220px;
+                            width: 220px;
+                        }
+                    }
+                }
             }
         }
     }

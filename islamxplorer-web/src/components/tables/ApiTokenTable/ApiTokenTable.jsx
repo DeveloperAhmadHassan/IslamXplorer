@@ -24,150 +24,19 @@ import { Alert, Container, Snackbar } from '@mui/material';
 import EnhancedTableToolbar from './EnhancedTableToolbar';
 import { Button } from '@mui/base';
 import { EButtons } from './EButtons';
-import { useAuth } from '../../hooks/useAuth';
+import { useAuth } from '../../../hooks/useAuth';
 
-import app, { db } from '../../firebase';
+import app, { db } from '../../../firebase';
 import { getFirestore, collection, query, where, getDocs, addDoc, doc, updateDoc, arrayUnion, writeBatch, deleteDoc } from "firebase/firestore";
-import useTokens from '../../hooks/useTokens';
-import { Loader } from '../../components/items/loader/Loader';
-import { NoItems } from '../../components/items/noItems/NoItems';
+import useTokens from '../../../hooks/useTokens';
+import { Loader } from '../../../components/items/loader/Loader';
+import { NoItems } from '../../../components/items/noItems/NoItems';
 
-import './styles.scss';
-import { ApiTokenTable } from '../../components/tables/ApiTokenTable/ApiTokenTable';
-
-// const db = getFirestore(app);
-
-function createData(id, name, token, created, expiry) {
-  return {
-    id,
-    name,
-    token,
-    created,
-    expiry
-  };
-}
+import { createData, descendingComparator, getComparator, stableSort } from './utils';
+import EnhancedTableHead from './EnhancedTableHead';
 
 
-
-function descendingComparator(a, b, orderBy) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-}
-
-function getComparator(order, orderBy) {
-  return order === 'desc'
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
-}
-
-
-function stableSort(array, comparator) {
-  const stabilizedThis = array.map((el, index) => [el, index]);
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) {
-      return order;
-    }
-    return a[1] - b[1];
-  });
-  return stabilizedThis.map((el) => el[0]);
-}
-
-const headCells = [
-  {
-    id: 'name',
-    numeric: false,
-    disablePadding: true,
-    label: 'Name',
-  },
-  {
-    id: 'token',
-    numeric: true,
-    disablePadding: false,
-    label: 'Token',
-  },
-  {
-    id: 'created',
-    numeric: true,
-    disablePadding: false,
-    label: 'Created On',
-  },
-  {
-    id: 'expiry',
-    numeric: true,
-    disablePadding: false,
-    label: 'Expires In',
-  },
-  {
-    id: 'actions',
-    numeric: true,
-    disablePadding: false,
-    label: 'Actions',
-  },
-];
-
-function EnhancedTableHead(props) {
-  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } =
-    props;
-  const createSortHandler = (property) => (event) => {
-    onRequestSort(event, property);
-  };
-
-  return (
-    <TableHead>
-      <TableRow>
-        <TableCell padding="checkbox">
-          <Checkbox
-            color="primary"
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{
-              'aria-label': 'select all tokens',
-            }}
-          />
-        </TableCell>
-        {headCells.map((headCell) => (
-          <TableCell
-            key={headCell.id}
-            align={headCell.numeric ? 'center' : 'left'}
-            padding={headCell.disablePadding ? 'none' : 'normal'}
-            sortDirection={orderBy === headCell.id ? order : false}
-          >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
-              onClick={createSortHandler(headCell.id)}
-            >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </Box>
-              ) : null}
-            </TableSortLabel>
-          </TableCell>
-        ))}
-      </TableRow>
-    </TableHead>
-  );
-}
-
-EnhancedTableHead.propTypes = {
-  numSelected: PropTypes.number.isRequired,
-  onRequestSort: PropTypes.func.isRequired,
-  onSelectAllClick: PropTypes.func.isRequired,
-  order: PropTypes.oneOf(['asc', 'desc']).isRequired,
-  orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired,
-};
-
-export const ApiTokens = () => {
+export const ApiTokenTable = () => {
   const [rows, setRows, loading] = useTokens(); 
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('name');
@@ -243,26 +112,21 @@ export const ApiTokens = () => {
 
   function formatDate(dateString) {
     try {
-      // Create a Date object from the provided string
       const date = new Date(dateString);
-  
-      // Define arrays for day names and month names
       const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
       const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+      const day = dayNames[date.getDay()]; 
+      const dateNumber = date.getDate(); 
+      const month = monthNames[date.getMonth()]; 
+      const year = date.getFullYear(); 
   
-      // Extract day, date, month, and year components from the Date object
-      const day = dayNames[date.getDay()]; // Get the day name (e.g., "Monday")
-      const dateNumber = date.getDate(); // Get the day of the month (e.g., 27)
-      const month = monthNames[date.getMonth()]; // Get the month name (e.g., "March")
-      const year = date.getFullYear(); // Get the full year (e.g., 2024)
-  
-      // Concatenate the components into the desired format: "Day, Date Month Year"
       const formattedDate = `${day}, ${dateNumber} ${month} ${year}`;
   
       return formattedDate;
     } catch (error) {
       console.error('Error formatting date string:', error);
-      return null; // Return null or handle the error as appropriate
+      return null; 
     }
   }
 
@@ -389,7 +253,100 @@ export const ApiTokens = () => {
 
   return (
     <>
-      <ApiTokenTable />
-    </>
+      {loading ? <Loader /> :
+      rows.length <= 0 ? <><EButtons addToken={addToken} results={rows.length}/><NoItems /></>:
+      <>
+      <EButtons addToken={addToken} results={rows.length}/>
+      <Box id='table-con'>
+          <Paper sx={{ width: '100%', mb: 2 }}>
+          <EnhancedTableToolbar numSelected={selected.length} />
+          <TableContainer>
+            <Table
+              sx={{ minWidth: 750 }}
+              aria-labelledby="tableTitle"
+              size='medium'
+            >
+              <EnhancedTableHead
+                numSelected={selected.length}
+                order={order}
+                orderBy={orderBy}
+                onSelectAllClick={handleSelectAllClick}
+                onRequestSort={handleRequestSort}
+                rowCount={rows.length}
+              />
+              <TableBody>
+                {visibleRows.map((row, index) => {
+                  const isItemSelected = isSelected(row.id);
+                  const labelId = `enhanced-table-checkbox-${index}`;
+
+                  return (
+                    <TableRow
+                      onClick={(event) => handleClick(event, row.id)}
+                      role="checkbox"
+                      aria-checked={isItemSelected}
+                      tabIndex={-1}
+                      key={row.id}
+                      selected={isItemSelected}
+                      sx={{ cursor: 'pointer' }}
+                    >
+                      <TableCell padding="checkbox">
+                        <Checkbox
+                          color="primary"
+                          checked={isItemSelected}
+                          inputProps={{
+                            'aria-labelledby': labelId,
+                          }}
+                        />
+                      </TableCell>
+                      <TableCell
+                        component="th"
+                        id={labelId}
+                        scope="row"
+                        padding="none"
+                      >
+                        {row.name}
+                      </TableCell>
+                      <TableCell align="center"><Container maxWidth="sm" className='token-container'><Container className='token'>{row.token}</Container> <Tooltip title="Copy to Clipboard" arrow><ContentCopyIcon onClick={()=>copyToClipboard(row.token)} className='btn-con copy-icon'/></Tooltip></Container></TableCell>
+                      <TableCell align="center">{formatDate(row.created)}</TableCell>
+                      <TableCell align="center">{formatDate(row.expiry)}</TableCell>
+                      <TableCell align="center"><Container maxWidth="sm" className='actions-container'><Tooltip title="Delete Token" arrow><div className='btn-con delete'><DeleteIcon color='error' onClick={(event) => deleteToken(event, row.id)}/></div></Tooltip><Tooltip title="Refresh Token" arrow><div><RefreshIcon className='btn-con refresh' color='primary' onClick={(event) => refreshToken(event)} /></div></Tooltip></Container></TableCell>
+                    </TableRow>
+                  );
+                })}
+                {emptyRows > 0 && (
+                  <TableRow
+                    style={{
+                      height: (dense ? 33 : 53) * emptyRows,
+                    }}
+                  >
+                    <TableCell colSpan={6} />
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={rows.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </Paper>
+      </Box>
+      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+        <Alert
+          onClose={handleClose}
+          severity={snackbarData.severity}
+          variant="filled"
+          sx={{ width: '100%' }}
+        >
+          {snackbarData.message}
+        </Alert>
+      </Snackbar>
+      </>
+      }</>
   );
 }

@@ -10,9 +10,9 @@ class PrimaryLogo extends StatelessWidget{
       children: [
         SizedBox(
           width: 200,
-          child:Image.asset(AppAsset.primaryLogo),
+          child: Theme.of(context).brightness == Brightness.light ? Image.asset(AppAsset.primaryLogoDark) : Image.asset(AppAsset.primaryLogoLight),
         ),
-        const SizedBox(height: 15),
+        const SizedBox(height: 35),
       ],
     );
   }

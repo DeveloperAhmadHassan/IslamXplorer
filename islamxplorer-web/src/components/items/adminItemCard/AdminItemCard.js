@@ -6,7 +6,7 @@ function AdminItemCard(props){
     return (
         <div className='admin-item-card'>
             <div className='title-cont'><h1 className='title'>{props.title}</h1></div>
-            <img src={props.imagePath} />
+            <img className={'card-img'} src={props.imagePath} />
         </div>
     )
 }

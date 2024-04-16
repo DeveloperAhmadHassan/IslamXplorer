@@ -35,7 +35,7 @@ class _QiblahCompassState extends State<QiblahCompass> {
     return Container(
       alignment: Alignment.center,
       padding: const EdgeInsets.all(8.0),
-      color: HexColor.fromHexStr(AppColor.primaryThemeSwatch2),
+      color: HexColor.fromHexStr(AppColor.secondaryThemeSwatch3),
       child: StreamBuilder(
         stream: stream,
         builder: (context, AsyncSnapshot<LocationStatus> snapshot) {
