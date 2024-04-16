@@ -6,9 +6,10 @@ import {
   responsiveFontSizes,
   ThemeProvider,
 } from '@mui/material/styles';
-import useOnt from '../../hooks/useOnt';
-import { Loader } from '../items/loader/Loader';
-import { NoItems } from '../items/noItems/NoItems';
+import useOnt from '../../../hooks/useOnt';
+import { Loader } from '../../items/loader/Loader';
+import { NoItems } from '../../items/noItems/NoItems';
+import { EButtons } from './EButtons';
 
 
 export const OntTable = () => {
@@ -62,6 +63,8 @@ export const OntTable = () => {
 
   return (
     <> {isLoadingOnt ? <Loader /> : renderRows() <= 0 ? <NoItems /> : 
+    <>
+    <EButtons results={data.length}/>
     <TableContainer component={Paper} id='border'>
       <Table>
         <TableHead>
@@ -105,8 +108,8 @@ export const OntTable = () => {
           ))}
         </TableBody>}
       </Table>
-  </TableContainer>}
-      {}
+  </TableContainer>
+    </>}
     </>
   );
 };

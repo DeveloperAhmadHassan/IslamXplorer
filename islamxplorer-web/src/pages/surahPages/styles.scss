@@ -3,32 +3,18 @@ $Magnolia: hsl(217, 100%, 97%);
 body{
   #root{
     .App {
-      #start-border{
-        border-top: 10px solid rgba(0, 0, 0, 1);
+      .start-border{
+        border-top: 3px solid rgba(0, 0, 0, 1);
       }
-      .category{
+      .id-cell{
         background-color: darkkhaki;
-        font-size: 4em;
         text-align: center;
-        writing-mode: vertical-rl;
-        text-orientation: upright;
-        letter-spacing: 0em;
-        font-variant-caps: all-petite-caps;
-      }
-      .concept{
-        background-color: lemonchiffon;
-        text-align: center;
-        font-size: 3em;
-      }
-      .relation-cell{
-        background-color: antiquewhite;
+        width: 300px;
 
-        .relation-text{
+        .id-text{
           font-size: 1.2em;
           text-align: center;
           font-weight: 600;
-          text-decoration: underline dashed;
-          text-underline-offset: 10px;
         }
 
         #hover-text{
@@ -45,12 +31,22 @@ body{
           margin-top: -75px;
           box-shadow: 2px 7px 9px rgba(0, 0, 0, 0.2);
         }
-        .relation-text:hover + #hover-text {
+        .source-text:hover + #hover-text {
           display: block;
         }
-        .relation-text:hover{
+        .source-text:hover{
           cursor: pointer;
           color: blue;
+        }
+
+      }
+      .verse-cell{
+        background-color: antiquewhite;
+
+        .verse-text{
+          font-size: 1.2em;
+          text-align: center;
+          font-weight: 600;
         }
       }
       
@@ -84,8 +80,8 @@ body{
         }
       }
       .wavy-underline{
-        text-decoration: underline wavy blue;
-        text-underline-offset: 10px;
+        text-decoration: underline dashed grey;
+        text-underline-offset: 2px;
       }
       #border{
         border-radius: 12px;
@@ -97,9 +93,8 @@ body{
         place-content: center;
         align-self: center;
         margin-top: 2%;
-        // box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.6);
-        // border: black 2px solid;
         border-radius: 20px;
+        padding: 12px;
 
         &:not(:has(#no-items, #loading)) {
           box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.6);

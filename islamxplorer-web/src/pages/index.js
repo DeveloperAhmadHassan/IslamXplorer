@@ -1,4 +1,11 @@
 export * from "./ontologyPages/Ontologies";
+
+export * from "./versePages/Verses";
+
+export * from "./hadithPages/Hadiths";
+
+export * from "./surahPages/Surahs";
+
 export * from "./Contact";
 export * from "./Home";
 export * from "./Services";

@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.scss";
 import { Navbar } from "./components/navBar/NavBar";
-import { Contact, Home, Services, AddVerse, Secret, Ontologies, Dummy, AddSurah, AddOntology, ApiTokens } from "./pages";
+import { Contact, Home, Services, AddVerse, Secret, Ontologies, Dummy, AddSurah, AddOntology, ApiTokens, Verses, Hadiths, Surahs } from "./pages";
 import Login from "./pages/authPages/Login";
 import Signup from "./pages/authPages/Signup";
 import { useContext, useState } from "react";
@@ -39,6 +39,11 @@ function App() {
             <Route path="/signup" element={<Signup />} />
 
             <Route path="/services" element={<ProtectedLayout />}>
+              <Route path="verses" element={<Verses />} />
+              <Route path="hadiths" element={<Hadiths />} />
+              <Route path="surahs" element={<Surahs />} />
+              <Route path="ontologies" element={<Ontologies />} />
+
               <Route index element={<Services setAuth={setAuth}/>} />
               <Route path="contact" element={<Contact setAuth={setAuth}/>} />
               <Route path="add-verse" element={<AddVerse setAuth={setAuth}/>} />

@@ -7,15 +7,15 @@ export const Services = () => {
   let arr =[
     {
       "id":1,
-      "name": "Add Verse",
+      "name": "Verses",
       "imagePath":addDuaImg,
-      "pagePath":"/add-verse"
+      "pagePath":"/verses"
     },
     {
       "id":2,
       "name": "Add Hadith",
       "imagePath":addDuaImg,
-      "pagePath":"/add-hadith"
+      "pagePath":"/hadiths"
     },
     {
       "id":3,
@@ -25,15 +25,15 @@ export const Services = () => {
     },
     {
       "id":4,
-      "name": "Add Surah",
+      "name": "Surahs",
       "imagePath":addDuaImg,
-      "pagePath":"/add-surah"
+      "pagePath":"/surahs"
     },
     {
       "id":4,
-      "name": "Add Ontology",
+      "name": "Ontologies",
       "imagePath":addDuaImg,
-      "pagePath":"/add-ontology"
+      "pagePath":"/ontologies"
     }
   ]
   return (
