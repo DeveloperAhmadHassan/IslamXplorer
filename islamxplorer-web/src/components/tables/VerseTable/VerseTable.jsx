@@ -1,5 +1,5 @@
 import React, { } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CircularProgress, Tooltip, toolbarClasses, Typography } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CircularProgress, Tooltip, toolbarClasses, Typography, Container } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import {
   createTheme,
@@ -10,6 +10,9 @@ import { Loader } from '../../items/loader/Loader';
 import { NoItems } from '../../items/noItems/NoItems';
 import useAllVerses from '../../../hooks/UseAllVerses';
 import { EButtons } from './EButtons';
+
+import DeleteIcon from '@mui/icons-material/Delete';
+import UpdateIcon from '@mui/icons-material/Update';
 
 // import './styles.scss';
 
@@ -53,10 +56,10 @@ export const VerseTable = () => {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell className='table-head'>Surah</TableCell>
-            <TableCell className='table-head'>Verse Number</TableCell>
-            <TableCell className='table-head'>Text</TableCell>
-            {/* <TableCell className='table-head'>Data</TableCell> */}
+            <TableCell className={'table-head'}>Surah</TableCell>
+            <TableCell className={'table-head'}>Verse Number</TableCell>
+            <TableCell className={'table-head'}>Text</TableCell>
+            <TableCell className={'table-head'}>Actions</TableCell>
           </TableRow>
         </TableHead>
         {
@@ -89,6 +92,20 @@ export const VerseTable = () => {
                   </ThemeProvider>
                   {/* <div id='hover-text'><p>{row.dataHoverText}</p></div> */}
                 </div>
+              </TableCell>
+              <TableCell align="center" id={row.startBorder}>
+                <Container maxWidth="sm" className='actions-container'>
+                  <Tooltip title="Delete Verse" arrow>
+                    <div className='btn-con delete'>
+                      <DeleteIcon color='error' />
+                    </div>
+                  </Tooltip>
+                  <Tooltip title="Update Verse" arrow>
+                    <div>
+                      <UpdateIcon className='btn-con refresh' color='primary' />
+                    </div>
+                  </Tooltip>
+                </Container>
               </TableCell>
             </TableRow>
           ))}

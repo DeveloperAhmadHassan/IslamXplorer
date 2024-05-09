@@ -1,0 +1,195 @@
+$Magnolia: hsl(217, 100%, 97%);
+$mobile-bg: url('../../../src/assets/backgrounds/profile-background.jpg');
+
+@font-face {
+  font-family: al-quran;
+  src: url('../../../src/assets/fonts/Al-Quran-Normal.ttf');
+}
+
+@font-face {
+  font-family: ubuntu-medium;
+  src: url('../../../src/assets/fonts/Ubuntu-Bold.ttf');
+}
+
+body{
+  #root{
+    .App {
+      main:has(#search-div){
+        display: flex !important;
+        flex-flow: row;
+        justify-content: center;
+        row-gap: 20px;
+
+        #search-div{
+          display: flex;
+          width: 100%;
+          align-self: center;
+          flex-flow: column;
+          align-items: center;
+        }
+      }
+      main:has(#search-results-div){
+        display: flex !important;
+        flex-flow: row;
+        justify-content: center;
+        row-gap: 20px;
+
+        #search-results-div{
+          display: flex;
+          width: 100%;
+          justify-content: center;
+          flex-flow: column;
+
+          .search-bar{
+            width: 100%;
+          }
+
+          #bg-container{
+            max-width: unset;
+            height: 300px;
+            margin-top: 0;
+            background-color: aliceblue;
+            background: $mobile-bg no-repeat;
+            background-size: cover;
+  
+            #search-paper{
+              max-width: 70%;
+              margin-left: auto;
+              margin-right: auto;
+              margin-top: 30px;
+              transform: translate(0, 175%);
+              padding: 30px;
+              background-color: transparent !important;
+            }
+          }
+        }
+        #search-results-box{
+          width: 80%;
+          padding: 20px;
+          justify-content: center;
+          align-self: center;
+        }
+        .item{
+          height: 100%;
+          align-items: center;
+
+          .item-content{
+            display: grid;
+            grid-template-columns: 20% 80%;
+            align-items: center;
+            height: 100%;
+          }
+
+          div.data{
+            display: flex;
+            flex-flow: column;
+            row-gap: 10px;
+          }
+        }
+
+        #search-div{
+          display: flex;
+          width: 100%;
+          align-self: center;
+          flex-flow: column;
+          align-items: center;
+        }
+
+        .search-bar{
+          .btn{
+            margin: 5px;
+            padding: 7px;
+            padding-right: 10px;
+          }
+        }
+      }
+      main:has(#search-item-container){
+        display: flex !important;
+        flex-flow: column;
+        justify-content: center;
+        row-gap: 20px;
+
+        .spacer{
+          margin-top: 20px;
+          margin-bottom: 20px;
+        }
+
+        #search-item-container{
+          max-width: unset;
+          height: 200px;
+          margin-top: 0;
+          background-color: aliceblue;
+          background: $mobile-bg no-repeat;
+          background-size: cover;
+          top: 0;
+  
+          #search-item-paper{
+            max-width: 70%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 30px;
+            transform: translate(0, 135%);
+            padding: 30px;
+            background-color: white;
+            border-radius: 100px;
+            background-color: #FDD995;
+
+            #source-name{
+              justify-self: center;
+              text-align: center;
+              background-color: unset;
+            }
+          }
+        }
+
+        #search-item-content{
+
+          .paper{
+            padding: 15px;
+            border-radius: 30px;
+            background-color: #FCC47F;
+          }
+
+          .arabic-text{
+            padding: 20px;
+            direction: rtl;
+            font-size: 3em;
+            font-family: al-quran;
+            background-color: unset;
+          }
+          .english-text{
+            padding: 20px;
+            font-size: 2.0em;
+            font-family: ubuntu-medium;
+            background-color: unset;
+          }
+        }
+
+        #related-content{
+          .item{
+            height: 100%;
+            align-items: center;
+            border-radius: 35px;
+            .card{
+              border-radius: 35px;
+            }
+  
+            .item-content{
+              display: grid;
+              grid-template-columns: 20% 80%;
+              align-items: center;
+              height: 100%;
+              font-size: 1.5em;
+            }
+  
+            div.data{
+              display: flex;
+              flex-flow: column;
+              row-gap: 10px;
+            }
+          }
+        }
+      }
+    }
+  } 
+}

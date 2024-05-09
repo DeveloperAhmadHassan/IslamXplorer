@@ -50,6 +50,12 @@ body{
           font-weight: 600;
         }
       }
+
+      .actions-container{
+        display: flex;
+        justify-content: space-around;
+        column-gap: 12px;
+      }
       
       .data-cell{
         background-color: floralwhite;
@@ -115,6 +121,7 @@ body{
         color: grey;
         text-decoration: underline dotted black;
         text-align: center;
+        border-bottom: 3px solid black;
       }
     }
   } 

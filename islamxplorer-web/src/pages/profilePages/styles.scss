@@ -1,0 +1,57 @@
+$Magnolia: hsl(217, 100%, 97%);
+$mobile-bg: url('../../../src/assets/backgrounds/profile-background.jpg');
+
+body{
+  #root{
+    .App {
+      main{
+        justify-content: unset !important;
+
+        .avatar{
+          width: 100px;
+          height: 100px;
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .scholar-card-list{
+          display: flex;
+          column-gap: 20px;
+          margin: 25px;
+          justify-content: center;
+        }
+
+        #profile-container{
+          max-width: unset;
+          height: 400px;
+          margin-top: 0;
+          background-color: aliceblue;
+          background: $mobile-bg no-repeat;
+          background-size: cover;
+
+          #profile-paper{
+            max-width: 70%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 30px;
+            transform: translate(0, 175%);
+            padding: 30px;
+            background-color: white;
+          }
+        }
+      }
+    }
+  } 
+}
+
+@media (min-width: 1200px) {
+  body{
+    #root{
+      .App{
+        #profile-container{
+          max-width: unset;
+        }
+      }
+    }
+  }
+}

@@ -3,6 +3,10 @@ $Magnolia: hsl(217, 100%, 97%);
 body{
   #root{
     .App {
+      main:has(#ont_table){
+        display: grid !important;
+        justify-content: center !important;
+      }
       #start-border{
         border-top: 10px solid rgba(0, 0, 0, 1);
       }

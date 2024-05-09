@@ -1,15 +1,15 @@
 $Magnolia: hsl(217, 100%, 97%);
 @font-face {
   font-family: ubuntu-bold;
-  src: url('../public/assets/fonts/Ubuntu-Bold.ttf');
+  src: url('../../../public/assets/fonts/Ubuntu-Bold.ttf');
 }
 @font-face {
   font-family: ubuntu-medium;
-  src: url('../public/assets/fonts/Ubuntu-Medium.ttf');
+  src: url('../../../public/assets/fonts/Ubuntu-Medium.ttf');
 }
 @font-face {
   font-family: ubuntu-regular;
-  src: url('../public/assets/fonts/Ubuntu-Regular.ttf');
+  src: url('../../../public/assets/fonts/Ubuntu-Regular.ttf');
 }
 
 *{
@@ -41,10 +41,14 @@ body{
       display: flex;
       flex-direction: column;
 
-      main{
+      main:has(#home_div){
         display: block;
         position: relative;
         min-height: calc(100vh - 211px - 58px);
+
+        .serviceImg{
+          height: 120px;
+        }
 
         .search-bar{
           border-radius: 100px;

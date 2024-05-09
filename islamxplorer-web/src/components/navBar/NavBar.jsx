@@ -17,10 +17,10 @@ import Logo from "./Logo";
 import "./NavBar.scss";
 import { useAuth } from '../../hooks/useAuth';
 
-const pages = ['Products', 'Pricing', 'Blog', 'Tokens'];
-const links = ['/services','/about','/contact','/tokens']
+const pages = ['Contribute', 'Search' ,'Quran', 'Documentation', 'Tokens'];
+const links = ['/services','/search','/about','/contact','/tokens']
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-const setLinks = ['','','','']
+const setLinks = ['/profile','/','/','/']
 
 export const Navbar = () => {
   const { user, logout } = useAuth();
@@ -148,7 +148,6 @@ export const Navbar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              {console.log(user)}
                 <Avatar alt={user ? user.email.toUpperCase() : "Random User"} src={user ? user.photoUrl : "/k.jpg"} />
               </IconButton>
             </Tooltip>
@@ -170,7 +169,7 @@ export const Navbar = () => {
             >
               {settings.map((setting, index) => (
                 <MenuItem key={setting} onClick={() => handleCloseUserMenu(index)}>
-                  <Typography textAlign="center">{setting}</Typography>
+                  <Typography textAlign="center" component="a" href={setLinks[index]}>{setting}</Typography>
                 </MenuItem>
               ))}
             </Menu>

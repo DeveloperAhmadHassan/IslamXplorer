@@ -185,9 +185,9 @@ export const ApiTokenTable = () => {
   };
 
   const addToken = async(e)=>{
-    var a = window.confirm("Confirm")
+    // var a = window.confirm("Confirm")
     e.preventDefault()
-    if(a){
+    if(true){
         try {
             const response = await fetch("http://192.168.56.1:48275/login", {
               method: "POST",
@@ -215,11 +215,30 @@ export const ApiTokenTable = () => {
 
               addTokenToFireStore(user.uid, newRow);
 
+              setSnackbarData({
+                severity:'success',
+                message:'Successfully Created New Token'
+              });
+
+              setOpen(true);
+
             } else{
               console.log("Couldn't get a token!");
+              setSnackbarData({
+                severity:'error',
+                message:'Error Creating Token!'
+              });
+
+              setOpen(true);
             }
         } catch (error) {
             console.error("Error:", error);
+            setSnackbarData({
+              severity:'error',
+              message:'Error Creating Token!'
+            });
+
+            setOpen(true);
         }
     }
   };
@@ -254,7 +273,20 @@ export const ApiTokenTable = () => {
   return (
     <>
       {loading ? <Loader /> :
-      rows.length <= 0 ? <><EButtons addToken={addToken} results={rows.length}/><NoItems /></>:
+      rows.length <= 0 ? <>
+      <EButtons addToken={addToken} results={rows.length}/>
+      <NoItems />      
+        <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
+          <Alert
+            onClose={handleClose}
+            severity={snackbarData.severity}
+            variant="filled"
+            sx={{ width: '100%' }}
+          >
+            {snackbarData.message}
+          </Alert>
+        </Snackbar>
+      </>:
       <>
       <EButtons addToken={addToken} results={rows.length}/>
       <Box id='table-con'>
@@ -336,7 +368,7 @@ export const ApiTokenTable = () => {
           />
         </Paper>
       </Box>
-      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
         <Alert
           onClose={handleClose}
           severity={snackbarData.severity}
