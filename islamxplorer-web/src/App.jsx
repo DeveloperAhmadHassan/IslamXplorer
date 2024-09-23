@@ -40,6 +40,7 @@ function App() {
 
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup setAuth={setAuth}/>} />
+            
 
             <Route path="/services" element={<ProtectedLayout types={['A' , 'S']}/>}>
               <Route index element={<Services setAuth={setAuth}/>} />
