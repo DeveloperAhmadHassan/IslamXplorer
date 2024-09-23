@@ -24,4 +24,4 @@ yarn-error.log*
 
 .vercel
 
-/src/firebase.js
+src/firebase.js
