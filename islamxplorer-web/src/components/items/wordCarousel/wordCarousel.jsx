@@ -4,10 +4,7 @@ import './styles.css';
 export const WordCarousel = () =>{
     return(<>
         <span id="content-slider">
-        <span class="slider" style="
-    left: 28%;
-    position: relative;
-">
+        <span class="slider slider_content">
             <span class="mask">
             <ul>
                 <li class="anim1">
