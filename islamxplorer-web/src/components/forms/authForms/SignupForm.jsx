@@ -12,6 +12,9 @@ import {
 import { LoadingButton } from "@mui/lab";
 import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth, db } from "../../../firebase";
+import { doc, setDoc } from "firebase/firestore";
 
 let easing = [0.6, -0.05, 0.01, 0.99];
 const animate = {
@@ -52,13 +55,23 @@ const SignupForm = ({ setAuth }) => {
       password: "",
     },
     validationSchema: SignupSchema,
-    onSubmit: () => {
-      setTimeout(() => {
+    onSubmit: async (values, { setSubmitting, setErrors }) => {
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password);
+        const userId = userCredential.user.uid;
+        await setDoc(doc(db, "Users", userId), {
+          email: values.email,
+          type: "U",
+        });
         setAuth(true);
         navigate("/", { replace: true });
-      }, 2000);
-    },
+      } catch (error) {
+        setErrors({ email: error.message });
+        setSubmitting(false);
+      }
+    }
   });
+
 
   const { errors, touched, handleSubmit, isSubmitting, getFieldProps } = formik;
 
