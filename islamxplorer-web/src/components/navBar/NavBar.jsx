@@ -17,13 +17,18 @@ import Logo from "./Logo";
 import "./NavBar.scss";
 import { useAuth } from '../../hooks/useAuth';
 
-const pages = ['Contribute', 'Search' ,'Quran', 'Documentation', 'Tokens'];
-const links = ['/services','/search','/about','/contact','/tokens']
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-const setLinks = ['/profile','/','/','/']
+let pages = ['Contribute', 'Search' ,'Quran', 'Documentation', 'Tokens'];
+let links = ['/services','/search','/about','/contact','/tokens']
+let settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+let setLinks = ['/profile','/','/','/']
 
 export const Navbar = () => {
   const { user, logout } = useAuth();
+
+  if (user && user.type === 'U') {
+    pages = pages.filter((page) => page !== 'Contribute');
+    links = links.filter((link) => link !== '/services');
+  }
 
   const handleLogout = () => {
     logout();

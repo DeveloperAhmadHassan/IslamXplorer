@@ -13,7 +13,9 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 
 class SearchResultsPage extends StatefulWidget {
-  const SearchResultsPage({super.key});
+  final String q;
+
+  const SearchResultsPage({Key? key, required this.q}) : super(key: key);
 
   @override
   State<SearchResultsPage> createState() => _SearchResultsPageState();
@@ -21,6 +23,7 @@ class SearchResultsPage extends StatefulWidget {
 
 class _SearchResultsPageState extends State<SearchResultsPage> {
   int filterSelectedIndex = 0;
+  late String query;
   final filterItems = ["All", "Verses", "Hadiths"];
 
   List<SearchResultItem> searchResults = [];
@@ -28,13 +31,14 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
   @override
   void initState() {
     super.initState();
-    fetchResults();
+    query = widget.q;
+    fetchResults(query);
   }
 
-  Future<void> fetchResults() async {
+  Future<void> fetchResults(String query) async {
     ResultsDataController resultsDataController = ResultsDataController();
 
-    final results = await resultsDataController.fetchAllResults();
+    final results = await resultsDataController.fetchAllResults(query);
     setState(() {
       searchResults = results;
     });
@@ -67,6 +71,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
         child: Column(
           children: [
             DummySearchBar(),
+            Text(query),
             SizedBox(height: 20),
             Container(
               alignment: Alignment.topLeft,

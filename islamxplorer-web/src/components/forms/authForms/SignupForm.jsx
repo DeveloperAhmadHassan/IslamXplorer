@@ -154,6 +154,7 @@ const SignupForm = ({ setAuth }) => {
               type="submit"
               variant="contained"
               loading={isSubmitting}
+              className={'secondary-btn'}
             >
               Sign up
             </LoadingButton>

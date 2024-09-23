@@ -7,7 +7,6 @@ class RedirectionController {
       case 10:
         await navigate(MaterialPageRoute(builder: (context) => EmailVerificationPage(email: params![0].toString())));
         break;
-    // Add more cases as needed
 
       default:
         await navigate(MaterialPageRoute(builder: (context) => Container())); // Default case

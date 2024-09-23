@@ -40,7 +40,9 @@ const LoginForm = ({ setAuth }) => {
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
+
   const [showPassword, setShowPassword] = useState(false);
+  const [loginError, setLoginError] = useState(false);
   const { login } = useAuth(); 
 
   const LoginSchema = Yup.object().shape({
@@ -84,6 +86,7 @@ const LoginForm = ({ setAuth }) => {
         }
       } catch (error) {
         console.error("Authentication failed:", error);
+        setLoginError(true);
       }
     },
   });
@@ -111,6 +114,7 @@ const LoginForm = ({ setAuth }) => {
             initial={{ opacity: 0, y: 40 }}
             animate={animate}
           >
+            {loginError && <p className={'text-error'}>Invalid Email or Password</p>}
             <TextField
               fullWidth
               autoComplete="username"
@@ -188,6 +192,7 @@ const LoginForm = ({ setAuth }) => {
               type="submit"
               variant="contained"
               loading={isSubmitting}
+              className={'secondary-btn'}
             >
               {isSubmitting ? "loading..." : "Login"}
             </LoadingButton>

@@ -1,16 +1,9 @@
-import { useAuth } from "../hooks/useAuth";
+import React, { useState } from 'react';
+import SpeechToText from '../components/webSpeechAPI/speechToText';
 
 export const Secret = () => {
-  const { logout } = useAuth();
-
-  const handleLogout = () => {
-    logout();
-  };
 
   return (
-    <div>
-      <h1>This is a Secret page</h1>
-      <button onClick={handleLogout}>Logout</button>
-    </div>
+    <SpeechToText />
   );
 };

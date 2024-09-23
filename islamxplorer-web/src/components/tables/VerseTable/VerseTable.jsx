@@ -1,5 +1,5 @@
 import React, { } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CircularProgress, Tooltip, toolbarClasses, Typography, Container } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CircularProgress, Tooltip, toolbarClasses, Typography, Container, IconButton } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import {
   createTheme,
@@ -13,12 +13,14 @@ import { EButtons } from './EButtons';
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import UpdateIcon from '@mui/icons-material/Update';
+import { useNavigate } from 'react-router-dom';
 
 // import './styles.scss';
 
 
 export const VerseTable = () => {
   const {data, isLoadingVerses} = useAllVerses('http://192.168.56.1:48275/verses');
+  const navigate = useNavigate();
 
   let theme = createTheme();
   theme = responsiveFontSizes(theme);
@@ -47,6 +49,11 @@ export const VerseTable = () => {
       border: '6px solid #eeeeee',
     },
   }));
+
+  const updateVerse = (e, id) =>{
+    e.preventDefault();
+    navigate(`/services/update-verse/${id}`);
+  }
 
   return (
     <> {isLoadingVerses ? <Loader /> : renderRows() <= 0 ? <NoItems /> : 
@@ -96,14 +103,14 @@ export const VerseTable = () => {
               <TableCell align="center" id={row.startBorder}>
                 <Container maxWidth="sm" className='actions-container'>
                   <Tooltip title="Delete Verse" arrow>
-                    <div className='btn-con delete'>
+                    <IconButton className='btn-con delete'>
                       <DeleteIcon color='error' />
-                    </div>
+                    </IconButton>
                   </Tooltip>
                   <Tooltip title="Update Verse" arrow>
-                    <div>
+                    <IconButton onClick={(event)=>updateVerse(event, row.verseID)}>
                       <UpdateIcon className='btn-con refresh' color='primary' />
-                    </div>
+                    </IconButton>
                   </Tooltip>
                 </Container>
               </TableCell>

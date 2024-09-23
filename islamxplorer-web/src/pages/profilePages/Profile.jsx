@@ -57,7 +57,7 @@ export const Profile = () => {
         <Grid container justifyContent="center" alignItems="center" spacing={2}>
           <Grid item>
             <a href='/profile/apply'>
-              <Button type="submit" variant="contained" color="primary" sx={{ width: 100 }}>
+              <Button className={'main-btn'} type="submit" variant="contained" color="primary" sx={{ width: 100 }}>
                 Apply
               </Button>
             </a>

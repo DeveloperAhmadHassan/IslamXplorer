@@ -22,10 +22,10 @@ function AvatarComponent(props) {
     <Grid item xs={12}>
       <label htmlFor="avatar-input">
       <Avatar
-  alt=""
-  src={selectedImage}
-  className={'avatar'}
-/>
+        alt=""
+        src={selectedImage}
+        className={'avatar profile-cont'}
+      />
       </label>
       <input
         id="avatar-input"

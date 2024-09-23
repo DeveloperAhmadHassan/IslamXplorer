@@ -34,7 +34,9 @@ class _SearchingPageState extends State<SearchingPage> {
       body: Column(
         children: [
           SizedBox(height: 50,),
-          CustomSearchBar(focus: focus,onTap: (){Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SearchResultsPage()));},),
+          CustomSearchBar(
+            focus: focus,
+            onTap: (String q){Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SearchResultsPage(q: q,)));}),
           Expanded(
             child: Container(
               margin: EdgeInsets.all(10),

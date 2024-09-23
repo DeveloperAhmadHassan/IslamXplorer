@@ -35,6 +35,8 @@ import { NoItems } from '../../../components/items/noItems/NoItems';
 import { createData, descendingComparator, getComparator, stableSort } from './utils';
 import EnhancedTableHead from './EnhancedTableHead';
 
+import { SnackbarProvider, useSnackbar } from 'notistack';
+
 
 export const ApiTokenTable = () => {
   const [rows, setRows, loading] = useTokens(); 
@@ -44,6 +46,8 @@ export const ApiTokenTable = () => {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  const { enqueueSnackbar } = useSnackbar();
 
   const { user } = useAuth();
 
@@ -220,7 +224,8 @@ export const ApiTokenTable = () => {
                 message:'Successfully Created New Token'
               });
 
-              setOpen(true);
+              let variant = 'success';
+              enqueueSnackbar('Successfully Created New Token', {variant});
 
             } else{
               console.log("Couldn't get a token!");
@@ -229,7 +234,8 @@ export const ApiTokenTable = () => {
                 message:'Error Creating Token!'
               });
 
-              setOpen(true);
+              let variant = 'warning';
+              enqueueSnackbar('Error Creating New Token', {variant});
             }
         } catch (error) {
             console.error("Error:", error);
@@ -238,7 +244,8 @@ export const ApiTokenTable = () => {
               message:'Error Creating Token!'
             });
 
-            setOpen(true);
+            let variant = 'warning';
+            enqueueSnackbar('Error Creating New Token', {variant});
         }
     }
   };
@@ -257,7 +264,8 @@ export const ApiTokenTable = () => {
         message:'Successfully Deleted Token'
       });
 
-      setOpen(true);
+      let variant = 'error';
+      enqueueSnackbar('Successfully Deleted a Token!', {variant});
 
     } catch (error) {
       console.error('Error deleting token:', error);
@@ -320,6 +328,7 @@ export const ApiTokenTable = () => {
                       key={row.id}
                       selected={isItemSelected}
                       sx={{ cursor: 'pointer' }}
+                      className={new Date(row.expiry) < new Date() ? "expired-row" : ""}
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
@@ -338,7 +347,17 @@ export const ApiTokenTable = () => {
                       >
                         {row.name}
                       </TableCell>
-                      <TableCell align="center"><Container maxWidth="sm" className='token-container'><Container className='token'>{row.token}</Container> <Tooltip title="Copy to Clipboard" arrow><ContentCopyIcon onClick={()=>copyToClipboard(row.token)} className='btn-con copy-icon'/></Tooltip></Container></TableCell>
+                      <TableCell align="center">
+                        <Container maxWidth="sm" className='token-container'>
+                          <Container className='token'>
+                            {new Date(row.expiry) < new Date() ? <div className={'expired-cont'}>Expired</div> : <></>}
+                            {row.token}
+                          </Container> 
+                          <Tooltip title="Copy to Clipboard" arrow>
+                            <ContentCopyIcon onClick={()=>copyToClipboard(row.token)} className='btn-con copy-icon'/>
+                          </Tooltip>
+                        </Container>
+                      </TableCell>
                       <TableCell align="center">{formatDate(row.created)}</TableCell>
                       <TableCell align="center">{formatDate(row.expiry)}</TableCell>
                       <TableCell align="center"><Container maxWidth="sm" className='actions-container'><Tooltip title="Delete Token" arrow><div className='btn-con delete'><DeleteIcon color='error' onClick={(event) => deleteToken(event, row.id)}/></div></Tooltip><Tooltip title="Refresh Token" arrow><div><RefreshIcon className='btn-con refresh' color='primary' onClick={(event) => refreshToken(event)} /></div></Tooltip></Container></TableCell>

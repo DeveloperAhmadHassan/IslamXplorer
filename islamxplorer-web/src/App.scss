@@ -34,6 +34,93 @@ body{
     justify-content:center;
     align-items:center;
 
+    .main-btn{
+      background-color: #f8853e;
+      color: black;
+      font-size: 1.0em;
+      font-weight: 600;
+      border-radius: 100px
+    }
+
+    .secondary-btn{
+      background-color: white !important;
+      color: black;
+      font-size: 1.0em;
+      font-weight: 600;
+      border-radius: 100px
+    }
+    .text-error{
+      color: red;
+      font-weight: 700;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      font-family: 'ubuntu-regular';
+    }
+    .result-meta{
+      margin-top: 40px;
+      font-family: 'ubuntu-regular';
+      font-weight: 600;
+      text-align: center;
+    }
+    .cipher-text{
+      width: fit-content;
+      height: fit-content;
+      display: inline;
+      text-decoration: underline dotted;
+      color: #535878;
+    }
+    .cipher-text:hover{
+      color: #F8853E;
+      cursor: pointer;
+    }
+    .extra{
+      margin: 10px;
+      text-align: center;
+      background-color: aliceblue;
+      padding: 15px 40px;
+      height: fit-content;
+      width: fit-content;
+      place-self: center;
+      border-radius: 100px;
+    }
+    .profile-cont{
+      cursor: pointer;
+    }
+    .profile-cont:hover{
+      border: 5px solid white;
+    }
+    .audio-player{
+      width: 90%;
+      grid-column: 1/3;
+      place-self: center;
+    }
+    .audio-btn{
+      padding: 12px;
+      height: fit-content;
+      width: fit-content;
+      background: grey;
+      border-radius: 100px;
+    }
+    .audio-btn:hover{
+      border: 3px solid white;
+      cursor: pointer;
+    }
+    .audio-btn:hover .icon {
+      color: white;
+    }
+    .side-btns{
+      display: flex;
+      flex-flow: column !important;
+      row-gap: 10px;
+    }
+
+    .arabic-text-cont{
+      display: grid;
+      grid-template-columns: 3% 97%;
+      column-gap: 20px;
+    }
+
     .App {
       background-color: #FDD995;
       height: 100%;
@@ -45,6 +132,14 @@ body{
         display: block;
         position: relative;
         min-height: calc(100vh - 211px - 58px);
+
+        .main-btn{
+          background-color: #f8853e;
+          color: black;
+          font-size: 1.0em;
+          font-weight: 600;
+          border-radius: 100px
+        }
 
         .search-bar{
           border-radius: 100px;

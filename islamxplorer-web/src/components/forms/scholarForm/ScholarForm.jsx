@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextField, Button, Container, Grid, Typography, Avatar } from '@mui/material';
+import { TextField, Button, Container, Grid, Typography, Avatar, Tooltip } from '@mui/material';
 // import './styles.scss';
 
 import { useTheme } from '@mui/material/styles';
@@ -190,9 +190,11 @@ export const ScholarForm = () => {
       <FormControl onSubmit={handleSubmit}>
         
         <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <AvatarComponent user={user} setImage={setImage}/>
-          </Grid>
+          <Tooltip title='Change Photo' arrow>
+            <Grid item xs={12}>
+                <AvatarComponent user={user} setImage={setImage}/>
+            </Grid>
+          </Tooltip>
           <Grid item xs={12}>
             <TextField
               fullWidth
@@ -303,7 +305,7 @@ export const ScholarForm = () => {
             />
           </Grid>
           <Grid item xs={12}>
-            <Button type="submit" variant="contained" color="primary" fullWidth onClick={(event)=>handleSubmit(event)}>
+            <Button className={'secondary-btn'} type="submit" variant="contained" color="primary" fullWidth onClick={(event)=>handleSubmit(event)}>
               Submit
             </Button>
           </Grid>

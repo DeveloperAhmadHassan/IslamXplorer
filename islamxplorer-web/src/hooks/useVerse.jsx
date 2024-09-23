@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const useHadithOrVerse = (type, id) => {
+const useVerse = (id) => {
   const [item, setItem] = useState([]);
   const [isLoadingItem, setIsLoadingItem] = useState(true);
   const [error, setError] = useState(false);
@@ -9,16 +9,7 @@ const useHadithOrVerse = (type, id) => {
     setIsLoadingItem(true);
     setError(false);
 
-    let apiUrl = null;
-    if (type === 'verse') {
-      apiUrl = `http://192.168.56.1:48275/verses?verseID=${id}`;
-    } else if (type === 'hadith') {
-      apiUrl = `http://192.168.56.1:48275/hadiths?hadithID=${id}`;
-    } else {
-      setError(true);
-      setIsLoadingItem(false);
-      return;
-    }
+    let apiUrl = `http://192.168.56.1:48275/verses?verseID=${id}`;
 
     fetch(apiUrl)
       .then(response => {
@@ -36,13 +27,12 @@ const useHadithOrVerse = (type, id) => {
         // })
         console.log(itemData);
         setItem({
-          id: type === 'verse' ? itemData.verseID.toString() : itemData.hadithID.toString(),
-          type: itemData.type.toString(),
+          id: itemData.verseID.toString(),
           englishText: itemData.englishText.toString(),
           arabicText: itemData.arabicText.toString(),
           source: itemData.source.toString(),
-          audioLink: type === 'verse' ? itemData.audioLink.toString() : "",
-          simpleText: type === 'verse' ? itemData.arabicTextSimple.toString() : ""
+          verseNumber: itemData.verseNumber.toString(),
+          audioLink: itemData.audioLink.toString()
         });
         setIsLoadingItem(false);
       })
@@ -51,9 +41,9 @@ const useHadithOrVerse = (type, id) => {
         setError(true);
         setIsLoadingItem(false);
       });
-  }, [id, type]);
+  }, [id]);
 
-  return { item, isLoadingItem, error };
+  return [ item, isLoadingItem, error ];
 };
 
-export default useHadithOrVerse;
+export default useVerse;

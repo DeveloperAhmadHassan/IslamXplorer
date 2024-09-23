@@ -4,12 +4,20 @@ import 'package:islamxplorer_flutter/values/assets.dart';
 import 'package:islamxplorer_flutter/values/colors.dart';
 import 'package:islamxplorer_flutter/widgets/logoWidgets/default_logo.dart';
 
-class CustomSearchBar extends StatelessWidget {
+class CustomSearchBar extends StatefulWidget {
   final bool focus;
-  final FocusNode focusNode = FocusNode();
-  final VoidCallback onTap;
+  final Function(String) onTap;
 
-  CustomSearchBar({this.focus = false, required this.onTap});
+  const CustomSearchBar({Key? key, this.focus = false, required this.onTap})
+      : super(key: key);
+
+  @override
+  State<CustomSearchBar> createState() => _CustomSearchBarState();
+}
+
+class _CustomSearchBarState extends State<CustomSearchBar> {
+  final FocusNode focusNode = FocusNode();
+  final TextEditingController _textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -17,13 +25,14 @@ class CustomSearchBar extends StatelessWidget {
     return InkWell(
       onTap: () {
         FocusScope.of(context).unfocus();
-        onTap();
+        widget.onTap(_textEditingController.text);
       },
       child: SizedBox(
         width: MediaQuery.of(context).size.width - 15,
         height: 60,
         child: TextField(
-          focusNode: focus ? focusNode : null,
+          focusNode: widget.focus ? focusNode : null,
+          controller: _textEditingController,
           decoration: InputDecoration(
             hintText: "Search",
             filled: true,
@@ -43,7 +52,7 @@ class CustomSearchBar extends StatelessWidget {
             suffixIcon: IconButton(
               icon: Icon(Icons.search),
               onPressed: () {
-                onTap();
+                widget.onTap(_textEditingController.text);
               },
             ),
             prefixIcon: Container(

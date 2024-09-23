@@ -13,16 +13,16 @@ const Footer = () => {
         <Logo />
         <div className='links'>
             <Typography variant="body2" className='bold_text'>
-                <a href='#'>First Link</a>
+                <a href='/'>Home</a>
             </Typography>
             <Typography variant="body2" className='bold_text'>
-                <a href='#'>First Link</a>
+                <a href='/search'>Search</a>
             </Typography>
             <Typography variant="body2" className='bold_text'>
-                <a href='#'>First Link</a>
+                <a href='/tokens'>Tokens</a>
             </Typography>
             <Typography variant="body2" className='bold_text'>
-                <a href='#'>First Link</a>
+                <a href='/faqs'>FAQs</a>
             </Typography>
         </div>
 

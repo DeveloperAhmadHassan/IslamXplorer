@@ -234,7 +234,7 @@ export const Home = () => {
         <div>
           <div>
             <h1>Avaliable on Google Play</h1>
-            <p>Lorem Ipsum Is the dummy text</p>
+            <p className={'slogan'}>Download Our App Now to enjoy a bunch of Features on the go</p>
           </div>
           <div className={'spacer'}></div>
           <a target='_blank' href='https://play.google.com/store/apps/details?id=com.islamxplorer.islamxplorer_flutter&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>

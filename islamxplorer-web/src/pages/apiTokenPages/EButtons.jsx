@@ -12,7 +12,7 @@ export const EButtons = (props) =>{
     return (
         <Stack direction="row" spacing={2} padding={"12px"} className='buttons-container'>
           <div>
-            <Button id="add-btn" variant="contained" color="primary" startIcon={<AddIcon />} onClick={props.addToken}>
+            <Button class='main-btn' id="add-btn" variant="contained" color="primary" startIcon={<AddIcon />} onClick={props.addToken}>
                 Create API Token
             </Button>
             <CustomizedInputBase />

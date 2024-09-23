@@ -78,7 +78,7 @@ class VerseDataController{
   }
 
   Future<bool> updateVerse(Verse verse, String oldID) async {
-    var url = "${dotenv.env['API_URL']}/verses?id=$oldID";
+    var url = "${dotenv.env['API_URL']}/verses this html";
 
     try {
       final response = await http.put(

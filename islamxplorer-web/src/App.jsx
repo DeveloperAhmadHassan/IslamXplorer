@@ -7,23 +7,21 @@ import Signup from "./pages/authPages/Signup";
 import { useContext, useState } from "react";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { UserProvider, useUser } from "./contexts/userContext";
-import { AuthProvider } from "./hooks/useAuth";
-import { ProtectedRoute } from "./ProtectedRoute";
+import { AuthProvider, useAuth } from "./hooks/useAuth";
 import { HomeLayout } from "./HomeLayout";
 import { ProtectedLayout } from "./ProtectedLayout";
 import Footer from "./components/footer/Footer";
 import { Profile } from "./pages/profilePages/Profile";
+import { SnackbarProvider, useSnackbar } from 'notistack';
 
 
 function App() {
   const [auth, setAuth] = useState(false);
   const location = useLocation();
-  // const { user } = useUser();
-
-  // console.log("User in App component:", user); 
 
   return (
-    <AuthProvider>
+    <SnackbarProvider>
+      <AuthProvider>
       <div className="App">
       {location.pathname !== '/login' && location.pathname !== '/signup' && <Navbar />}
         <main>
@@ -43,15 +41,15 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
 
-            <Route path="/services" element={<ProtectedLayout />}>
+            <Route path="/services" element={<ProtectedLayout types={['A' , 'S']}/>}>
+              <Route index element={<Services setAuth={setAuth}/>} />
               <Route path="verses" element={<Verses />} />
               <Route path="hadiths" element={<Hadiths />} />
               <Route path="surahs" element={<Surahs />} />
               <Route path="ontologies" element={<Ontologies />} />
-
-              <Route index element={<Services setAuth={setAuth}/>} />
               <Route path="contact" element={<Contact setAuth={setAuth}/>} />
               <Route path="add-verse" element={<AddVerse setAuth={setAuth}/>} />
+              <Route path="update-verse/:id" element={<AddVerse update={true}/>} />
               <Route path="add-surah" element={<AddSurah setAuth={setAuth}/>} />
               <Route path="add-ontology" element={<AddOntology setAuth={setAuth}/>} />
             </Route>
@@ -70,6 +68,7 @@ function App() {
         {location.pathname !== '/login' && location.pathname !== '/signup' && <Footer />}
       </div>
     </AuthProvider>
+    </SnackbarProvider>
   );
 }
 

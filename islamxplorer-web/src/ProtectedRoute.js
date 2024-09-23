@@ -1,11 +1,10 @@
-import { Navigate } from "react-router-dom";
-import { useAuth } from "./hooks/useAuth";
+import { Route, Navigate } from 'react-router-dom';
 
-export const ProtectedRoute = ({ children }) => {
-  const { user } = useAuth();
-  if (!user) {
-    // user is not authenticated
+// Define your ProtectedRoute component
+export const ProtectedRoute = ({ element, isAdmin, ...rest }) => {
+  if (!isAdmin) {
     return <Navigate to="/login" />;
   }
-  return children;
+
+  return <Route {...rest} element={element} />;
 };

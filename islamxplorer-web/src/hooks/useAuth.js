@@ -19,6 +19,7 @@ export const AuthProvider = ({ children }) => {
         if (userDocRef.exists()) {
           const userData = userDocRef.data();
           data.photoUrl = userData.profileImage;
+          data.type = userData.type;
           setUser(data);
           navigate("/");
         } else {

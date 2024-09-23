@@ -6,7 +6,6 @@ body{
       main{
         display: block;
         position: relative;
-        // min-height: 100vh;
         min-height: calc(100vh - 211px - 58px);
 
         #table-con{
@@ -32,6 +31,21 @@ body{
           .refresh{
             padding: 7px;
             background-color: rgb(214, 215, 255);
+          }
+          .expired-cont{
+            text-align: left;
+            width: fit-content;
+            border: 4px solid red;
+            border-radius: 10px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-left: 30px;
+            padding-right: 30px;
+            margin-bottom: 10px;
+            background-color: #ff535375;
+          }
+          .expired-row{
+            background-color: #ff535375;
           }
     
           .btn-con:hover{
@@ -138,7 +152,10 @@ body{
       .App{ 
         main{
             .buttons-container{
-                flex-flow: row;
+              flex-flow: row;
+            }
+            #token-search-bar{
+              width: 600px !important;
             }
         }
       }

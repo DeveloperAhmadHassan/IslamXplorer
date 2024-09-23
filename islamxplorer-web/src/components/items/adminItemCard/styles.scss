@@ -57,6 +57,8 @@ body{
                     padding: 20px;
                     &:hover{
                         transform: scale(1.1);
+                        position: relative;
+                        z-index: 999999;
                     }
     
                     .card-img{

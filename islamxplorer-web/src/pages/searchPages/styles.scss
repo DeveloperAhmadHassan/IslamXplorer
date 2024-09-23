@@ -1,4 +1,4 @@
-$Magnolia: hsl(217, 100%, 97%);
+$ripple-color: hsl(255,255,255);
 $mobile-bg: url('../../../src/assets/backgrounds/profile-background.jpg');
 
 @font-face {
@@ -14,6 +14,65 @@ $mobile-bg: url('../../../src/assets/backgrounds/profile-background.jpg');
 body{
   #root{
     .App {
+      .mic-icon{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: auto;
+        background-color: #fff;
+        width: 100px;
+        height: 100px;
+        border-radius: 500%;
+      }
+      .ripple {
+        animation: ripple 2s linear infinite;
+      }
+      .mic-text{
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        font-family: ubuntu-medium;
+      }
+      .item{
+        height: 100%;
+        align-items: center;
+        border-radius: 20px;
+        &:hover{
+          border: 2px solid black;
+        }
+
+        .card{
+          border-radius: 20px;
+        }
+
+        .item-content{
+          display: grid;
+          grid-template-columns: 20% 80%;
+          align-items: center;
+          height: 100%;
+
+          .res-text{
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            align-self: center;
+            height: 30px;
+            /* width: calc(100% - 268px); */
+            width: 900px;
+            margin-right: 30px;
+          }
+        }
+
+        div.data{
+          display: flex;
+          flex-flow: column;
+          row-gap: 10px;
+        }
+      }
+      .link{
+        color: blue;
+        cursor: pointer;
+      }
       main:has(#search-div){
         display: flex !important;
         flex-flow: row;
@@ -68,23 +127,7 @@ body{
           padding: 20px;
           justify-content: center;
           align-self: center;
-        }
-        .item{
-          height: 100%;
-          align-items: center;
-
-          .item-content{
-            display: grid;
-            grid-template-columns: 20% 80%;
-            align-items: center;
-            height: 100%;
-          }
-
-          div.data{
-            display: flex;
-            flex-flow: column;
-            row-gap: 10px;
-          }
+          margin-top: unset !important;
         }
 
         #search-div{
@@ -153,19 +196,29 @@ body{
           .arabic-text{
             padding: 20px;
             direction: rtl;
-            font-size: 3em;
+            font-size: 2.3em;
             font-family: al-quran;
             background-color: unset;
+            justify-self: center;
+            align-self: center;
           }
           .english-text{
             padding: 20px;
-            font-size: 2.0em;
+            font-size: 1.3em;
             font-family: ubuntu-medium;
             background-color: unset;
+            justify-content: center;
+            justify-self: center;
+            align-self: center;
+            display: flex;
           }
         }
 
         #related-content{
+          display: flex;
+          flex-flow: column;
+          row-gap: 12px;
+
           .item{
             height: 100%;
             align-items: center;
@@ -192,4 +245,19 @@ body{
       }
     }
   } 
+}
+
+@keyframes ripple {
+  0% {
+    box-shadow: 0 0 0 0rem rgba($ripple-color, 0.2),
+                0 0 0 1rem rgba($ripple-color, 0.2),
+                0 0 0 2rem rgba($ripple-color, 0.2),
+                0 0 0 5rem rgba($ripple-color, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 0 1rem rgba($ripple-color, 0.2),
+                0 0 0 2rem rgba($ripple-color, 0.2),
+                0 0 0 5rem rgba($ripple-color, 0.2),
+                0 0 0 8rem rgba($ripple-color, 0);
+  }
 }

@@ -65,6 +65,10 @@ img {
   overflow: hidden; /* For the animations ScrollReveal */
 }
 
+h3{
+  text-align: center;
+}
+
 /*=============== HEADER & NAV ===============*/
 .header {
   position: fixed;
